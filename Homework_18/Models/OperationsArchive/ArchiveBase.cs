@@ -11,6 +11,5 @@ namespace Homework_18.Models.OperationsArchive
         public int Id { get; set; }
         public double Amount { get; set; }
         public string Operation { get; set; }
-
     }
 }

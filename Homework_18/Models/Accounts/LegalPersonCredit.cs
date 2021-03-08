@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework_18.Models.Accounts
 {
-    class LegalPersonCredit
+    public class LegalPersonCredit : AccountBase
     {
     }
 }
