@@ -9,6 +9,13 @@ namespace Model.Clients
     /// </summary>
     public class PhysicalPersonClient
     {
+        public PhysicalPersonClient(string firstName, string lastName, string middleName, DateTime birthDay)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            MiddleName = middleName;
+            BirthDay = birthDay;
+        }
         /// <summary>
         /// Идентификатор.
         /// </summary>
