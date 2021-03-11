@@ -10,7 +10,7 @@ namespace Model
     /// </summary>
     public class BankContext : DbContext
     {
-        public BankContext(DbContextOptions<BankContext> options) : base(options)
+        public BankContext()
         {
 
         }
