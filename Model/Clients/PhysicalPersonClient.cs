@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Model.Accounts;
+using System;
 using System.Collections.Generic;
-using Model.Accounts;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Clients
 {
@@ -40,6 +41,7 @@ namespace Model.Clients
         /// <summary>
         /// День рождения.
         /// </summary>
+        [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
 
         /// <summary>

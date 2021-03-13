@@ -3,7 +3,7 @@
     /// <summary>
     /// Возможные операции со счетами.
     /// </summary>
-    public enum Operations
+    public enum Operations : byte
     {
         AddMoney,
         OpenDeposit,
