@@ -1,4 +1,5 @@
-﻿using Model.Clients;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Model.Clients;
 
 namespace Model.Accounts
 {
@@ -20,6 +21,7 @@ namespace Model.Accounts
         /// <summary>
         /// Возможная ставка.
         /// </summary>
+        [Column(TypeName = "decimal(9, 3)")]
         public decimal Rate { get; set; } = 0;
 
         /// <summary>

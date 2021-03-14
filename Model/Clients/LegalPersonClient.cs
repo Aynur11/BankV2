@@ -8,6 +8,11 @@ namespace Model.Clients
     /// </summary>
     public class LegalPersonClient
     {
+        public LegalPersonClient(string companyName, ClientType type)
+        {
+            CompanyName = companyName;
+            Type = type;
+        }
         /// <summary>
         /// Идентификатор.
         /// </summary>
@@ -17,6 +22,11 @@ namespace Model.Clients
         /// Название компании.
         /// </summary>
         public string CompanyName { get; set; }
+
+        /// <summary>
+        /// Привилегии для клиента.
+        /// </summary>
+        public ClientType Type { get; set; }
 
         /// <summary>
         /// Список счетов клиента.

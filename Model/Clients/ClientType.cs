@@ -3,7 +3,7 @@
     /// <summary>
     /// Возможные привилегии для клиентов.
     /// </summary>
-    enum ClientType
+    public enum ClientType
     {
         Usual,
         Vip

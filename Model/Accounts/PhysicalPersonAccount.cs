@@ -1,4 +1,5 @@
-﻿using Model.Clients;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Model.Clients;
 
 namespace Model.Accounts
 {
@@ -7,10 +8,23 @@ namespace Model.Accounts
     /// </summary>
     public class PhysicalPersonAccount
     {
+        public PhysicalPersonAccount(int clientId, decimal amount, PhysicalPersonClient client, decimal rate = 0)
+        {
+            ClientId = clientId;
+            Amount = amount;
+            Client = client;
+            Rate = rate;
+        }
+
         /// <summary>
         /// Идентификатор счета.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Внешний ключ.
+        /// </summary>
+        public int ClientId { get; set; }
 
         /// <summary>
         /// Сумма денег на счету.
@@ -20,12 +34,8 @@ namespace Model.Accounts
         /// <summary>
         /// Возможная ставка.
         /// </summary>
+        [Column(TypeName = "decimal(9, 3)")]
         public decimal Rate { get; set; } = 0;
-
-        /// <summary>
-        /// Внешний ключ.
-        /// </summary>
-        public int ClientId { get; set; }
 
         /// <summary>
         /// Навигационное свойство.

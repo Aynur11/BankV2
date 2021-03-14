@@ -10,12 +10,13 @@ namespace Model.Clients
     /// </summary>
     public class PhysicalPersonClient
     {
-        public PhysicalPersonClient(string firstName, string lastName, string middleName, DateTime birthDay)
+        public PhysicalPersonClient(string firstName, string lastName, string middleName, DateTime birthday, ClientType type)
         {
             FirstName = firstName;
             LastName = lastName;
             MiddleName = middleName;
-            BirthDay = birthDay;
+            Birthday = birthday;
+            Type = type;
         }
         /// <summary>
         /// Идентификатор.
@@ -42,7 +43,12 @@ namespace Model.Clients
         /// День рождения.
         /// </summary>
         [Column(TypeName = "date")]
-        public DateTime BirthDay { get; set; }
+        public DateTime Birthday { get; set; }
+
+        /// <summary>
+        /// Привилегии для клиента.
+        /// </summary>
+        public ClientType Type { get; set; }
 
         /// <summary>
         /// Список счетов клиента.
