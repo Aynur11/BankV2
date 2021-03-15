@@ -8,6 +8,20 @@ namespace Model.Accounts
     /// </summary>
     public class LegalPersonAccount
     {
+        public LegalPersonAccount(int clientId, decimal amount, decimal rate = 0)
+        {
+            ClientId = clientId;
+            Amount = amount;
+            Rate = rate;
+        }
+
+        public LegalPersonAccount(int clientId, decimal amount, LegalPersonClient client, decimal rate = 0)
+        {
+            ClientId = clientId;
+            Amount = amount;
+            Client = client;
+            Rate = rate;
+        }
         /// <summary>
         /// Идентификатор счета.
         /// </summary>

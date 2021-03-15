@@ -2,23 +2,45 @@
 using Model.Clients;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Model.Accounts;
 
 namespace Controller
 {
     public class Tables
     {
-        private readonly BankContext bankContext;
-        public Tables()
+        public List<PhysicalPersonClient> GetPhysicalPersonClients()
         {
-            bankContext = new BankContext();
+            using (BankContext context = new BankContext())
+            {
+                return context.PhysicalPersonClients.ToList();
+            }
         }
 
-        public List<PhysicalPersonClient> PhysicalPersonClients => bankContext.PhysicalPersonClients.ToList();
-        public List<LegalPersonClient> LegalPersonClients => bankContext.LegalPersonClients.ToList();
-
-        public void AddPlAccount()
+        public List<LegalPersonClient> GetLegalPersonClients()
         {
-            //bankContext.PhysicalPersonAccounts.Add(new PhysicalPersonAccount());
+            using (BankContext context = new BankContext())
+            {
+                return context.LegalPersonClients.ToList();
+            }
+        }
+
+        public void AddPhysicalPersonAccount(decimal amount, int clientId, decimal rate = 0)
+        {
+            using (BankContext context = new BankContext())
+            {
+                context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, amount, rate));
+                context.SaveChanges();
+            }
+        }
+
+        public void AddLegalPersonAccount(decimal amount, int clientId, decimal rate = 0)
+        {
+            using (BankContext context = new BankContext())
+            {
+                context.LegalPersonAccounts.Add(new LegalPersonAccount(clientId, amount, rate));
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -8,6 +8,13 @@ namespace Model.Accounts
     /// </summary>
     public class PhysicalPersonAccount
     {
+        public PhysicalPersonAccount(int clientId, decimal amount, decimal rate = 0)
+        {
+            ClientId = clientId;
+            Amount = amount;
+            Rate = rate;
+        }
+
         public PhysicalPersonAccount(int clientId, decimal amount, PhysicalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;

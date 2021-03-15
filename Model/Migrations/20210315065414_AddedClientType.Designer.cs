@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Model;
 
 namespace Model.Migrations
 {
     [DbContext(typeof(BankContext))]
-    partial class BankContextModelSnapshot : ModelSnapshot
+    [Migration("20210315065414_AddedClientType")]
+    partial class AddedClientType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +57,6 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Rate")
                         .HasColumnType("decimal(9,3)");
 
@@ -78,13 +77,7 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Capitalization")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Period")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Rate")
@@ -133,9 +126,6 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Rate")
                         .HasColumnType("decimal(9,3)");
 
@@ -156,13 +146,7 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Capitalization")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Period")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Rate")

@@ -8,7 +8,7 @@
         Title="Bank" Height="450" Width="800">
     <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
         <TabControl>
-            <TabItem Header="Физические лица">
+            <TabItem x:Name="PhysicalPersonsTabItem" Header="Физические лица">
                 <TabItem.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Open account" Click="OpenAccountButtonBase_OnClick"></MenuItem>
@@ -52,7 +52,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Юридические лица">
+            <TabItem x:Name="LegalPersonsTabItem" Header="Юридические лица">
                 <TabItem.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Open account" Click="OpenAccountButtonBase_OnClick"></MenuItem>

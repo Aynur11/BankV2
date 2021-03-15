@@ -25,6 +25,11 @@ namespace Model.Accounts
         public decimal Rate { get; set; }
 
         /// <summary>
+        /// Период действия кредита.
+        /// </summary>
+        public int Period { get; set; }
+
+        /// <summary>
         /// Внешний ключ.
         /// </summary>
         public int ClientId { get; set; }

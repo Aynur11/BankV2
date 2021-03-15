@@ -25,6 +25,16 @@ namespace Model.Accounts
         public decimal Rate { get; set; }
 
         /// <summary>
+        /// Период действия депозита.
+        /// </summary>
+        public int Period { get; set; }
+
+        /// <summary>
+        /// С капитализацией?
+        /// </summary>
+        public bool Capitalization { get; set; }
+
+        /// <summary>
         /// Внешний ключ.
         /// </summary>
         public int ClientId { get; set; }
