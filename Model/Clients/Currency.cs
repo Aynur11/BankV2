@@ -3,7 +3,7 @@
     /// <summary>
     /// Валюты.
     /// </summary>
-    enum Currency
+    enum Currency : byte
     {
         Rub,
         Usd,

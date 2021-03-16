@@ -1,4 +1,6 @@
-﻿using Model.Clients;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Model.Accounts;
+using Model.Clients;
 
 namespace Model.OperationsArchive
 {
@@ -15,7 +17,7 @@ namespace Model.OperationsArchive
         /// <summary>
         /// Сумма денег, задействованная при выполнеии операции.
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// Выполненная операция.
@@ -23,8 +25,14 @@ namespace Model.OperationsArchive
         public Operations Operation { get; set; }
 
         /// <summary>
-        /// Внешний ключ.
+        /// ID кредита юр. лица.
         /// </summary>
         public int LegalPersonCreditId { get; set; }
+
+        /// <summary>
+        /// Кредит юр. лица.
+        /// </summary>
+        [ForeignKey(nameof(LegalPersonCreditId))]
+        public LegalPersonCredit Credit { get; set; }
     }
 }

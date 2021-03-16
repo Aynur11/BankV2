@@ -3,7 +3,7 @@
     /// <summary>
     /// Возможные привилегии для клиентов.
     /// </summary>
-    public enum ClientType
+    public enum ClientType : byte
     {
         Usual,
         Vip

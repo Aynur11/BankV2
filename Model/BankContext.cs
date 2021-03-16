@@ -12,7 +12,6 @@ namespace Model
     {
         public BankContext()
         {
-
         }
 
         // Таблицы с клиентами..
