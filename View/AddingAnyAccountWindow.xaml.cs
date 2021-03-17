@@ -35,6 +35,10 @@ namespace View
         /// </summary>
         public int Period => PeriodTextBox.IsEnabled && IsDouble(PeriodTextBox.Text) ? Convert.ToInt32(PeriodTextBox.Text) : 0;
 
+        /// <summary>
+        /// С капитализацией?
+        /// </summary>
+        public bool WithCapitalization => CapitalizationCheckBox.IsEnabled;
 
         /// <summary>
         /// Предварительная проверка что значение является типом Double.

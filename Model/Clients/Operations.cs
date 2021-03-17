@@ -5,9 +5,9 @@
     /// </summary>
     public enum Operations : byte
     {
-        AddMoney,
-        OpenDeposit,
-        IssueCredit,
+        AddAccount,
+        AddDeposit,
+        AddCredit,
         TransferMoney
     }
 }

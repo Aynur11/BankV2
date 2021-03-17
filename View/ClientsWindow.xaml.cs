@@ -12,33 +12,35 @@ namespace View
     /// </summary>
     public partial class ClientsWindow : Window
     {
-        public Tables Tables;
         public ClientsWindow()
         {
             InitializeComponent();
             //TestData testData = new TestData();
             //testData.FillAllTables();
 
-            Tables = new Tables();
-            PhysicalPersonsDataGrid.ItemsSource = Tables.GetPhysicalPersonClients();
-            LegalPersonsDataGrid.ItemsSource = Tables.GetLegalPersonClients();
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                PhysicalPersonsDataGrid.ItemsSource = repo.GetClients();
+            }
+
+            using (var repo = new LegalPersonClientRepository())
+            {
+                LegalPersonsDataGrid.ItemsSource = repo.GetClients();
+            }
         }
-        private void OpenAccountButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
             AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow();
             accountWindow.CapitalizationCheckBox.IsEnabled = false;
             accountWindow.PeriodTextBox.IsEnabled = false;
-            if (PhysicalPersonsTabItem.IsSelected && PhysicalPersonsDataGrid.CurrentItem != null)
+            if (PhysicalPersonsDataGrid.CurrentItem != null)
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
                 accountWindow.ShowDialog();
-                Tables.AddPhysicalPersonAccount(Convert.ToDecimal(accountWindow.Amount), client.Id);
-            }
-            else if (LegalPersonsTabItem.IsSelected && LegalPersonsDataGrid.CurrentItem != null)
-            {
-                LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                Tables.AddLegalPersonAccount(Convert.ToDecimal(accountWindow.Amount), client.Id);
+                using (var repo = new PhysicalPersonClientRepository())
+                {
+                    repo.AddAccount(client.Id, accountWindow.Amount);
+                }
             }
             else
             {
@@ -46,37 +48,93 @@ namespace View
             }
         }
 
-        private void OpenDepositButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OpenLegalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow();
+            accountWindow.CapitalizationCheckBox.IsEnabled = false;
+            accountWindow.PeriodTextBox.IsEnabled = false;
+            if (LegalPersonsDataGrid.CurrentItem != null)
+            {
+                LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
+                accountWindow.ShowDialog();
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    repo.AddAccount(client.Id, accountWindow.Amount);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите нужного клиента!");
+            }
+        }
+
+        private void OpenPhysicalPersonDepositButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow();
+            if (PhysicalPersonsDataGrid.CurrentItem != null)
+            {
+                PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
+                accountWindow.ShowDialog();
+                using (var repo = new PhysicalPersonClientRepository())
+                {
+                    repo.AddDeposit(client.Id, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcPhysicalPersonDepositRate(client.Type));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите нужного клиента!");
+            }
+        }
+        
+        private void OpenLegalPersonDepositButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow();
+            if (LegalPersonsDataGrid.CurrentItem != null)
+            {
+                LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
+                accountWindow.ShowDialog();
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    repo.AddDeposit(client.Id, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcLegalPersonDepositRate(client.Type));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите нужного клиента!");
+            }
+        }
+
+        private void IssueLegalPersonCreditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void IssuePhysicalPersonCreditButton_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void IssueCreditButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void TransferPhysicalPersonMoneyButton_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void TransferMoneyButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void AddNewPhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void AddNewClientButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void RemovePhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void RemoveClientButton_OnClick(object sender, RoutedEventArgs e)
+        private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void ShowAllCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void ShowAllDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void ShowAllPhysicalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
         }
@@ -99,6 +157,31 @@ namespace View
         private void LegalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
 
+        }
+
+        private void TransferLegalPersonMoneyButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddNewLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ShowAllLegalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ShowAllLegalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

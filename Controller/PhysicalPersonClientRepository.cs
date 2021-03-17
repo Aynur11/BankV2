@@ -18,19 +18,25 @@ namespace Controller
         }
         public List<PhysicalPersonClient> GetClients()
         {
-            //using (BankContext context = new BankContext())
-            //{
-                return context.PhysicalPersonClients.ToList();
-            //}
+            return context.PhysicalPersonClients.ToList();
         }
 
-        public void AddAccount(decimal amount, int clientId, decimal rate = 0)
+        public void AddAccount(int clientId, decimal amount, decimal rate = 0)
         {
-            //using (BankContext context = new BankContext())
-            //{
-                context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, amount, rate));
-                context.SaveChanges();
-            //}
+            context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, amount, rate));
+            context.SaveChanges();
+        }
+
+        public void AddCredit(int clientId, decimal amount, int period, decimal rate)
+        {
+            context.PhysicalPersonCredits.Add(new PhysicalPersonCredit(clientId, amount, period, rate));
+            context.SaveChanges();
+        }
+
+        public void AddDeposit(int clientId, decimal amount, int period, bool withCapitalization, decimal rate)
+        {
+            context.PhysicalPersonDeposits.Add(new PhysicalPersonDeposit(clientId, amount, period, withCapitalization, rate));
+            context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -46,6 +52,9 @@ namespace Controller
             }
         }
 
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

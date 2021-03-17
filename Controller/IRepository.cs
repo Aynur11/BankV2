@@ -1,16 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model.Accounts;
 
 namespace Controller
 {
+    /// <summary>
+    /// Интерфейс взаимодействия с таблицами.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     interface IRepository<T> : IDisposable
         where T : class
     {
+        /// <summary>
+        /// Формирует список клиентов.
+        /// </summary>
+        /// <returns>Список клиентов.</returns>
         List<T> GetClients();
-        void AddAccount(decimal amount, int clientId, decimal rate = 0);
+
+        /// <summary>
+        /// Добавить счет.
+        /// </summary>
+        /// <param name="clientId">ID клиента.</param>
+        /// <param name="amount">Сумма денег для внесения на счет.</param>
+        /// <param name="rate">Возможная ставка в процентах.</param>
+        void AddAccount(int clientId, decimal amount, decimal rate = 0);
+
+        /// <summary>
+        /// Выдать кредит.
+        /// </summary>
+        /// <param name="clientId">ID клиента.</param>
+        /// <param name="amount">Сумма денег для выдачи.</param>
+        /// <param name="period"></param>
+        /// <param name="rate">Ставка в процентах.</param>
+        void AddCredit(int clientId, decimal amount, int period, decimal rate);
+
+        /// <summary>
+        /// Открыть депозит.
+        /// </summary>
+        /// <param name="clientId">ID клиента.</param>
+        /// <param name="amount">Сумма денег для внесения в депозит.</param>
+        /// <param name="period"></param>
+        /// <param name="withCapitalization">С капитализацией?</param>
+        /// <param name="rate">Ставка в процентах.</param>
+        void AddDeposit(int clientId, decimal amount, int period, bool withCapitalization, decimal rate);
     }
 }

@@ -9,6 +9,13 @@ namespace Model.OperationsArchive
     /// </summary>
     public class LegalPersonAccountArchive
     {
+        public LegalPersonAccountArchive(decimal amount, Operations operation, int legalPersonAccountId)
+        {
+            Amount = amount;
+            Operation = operation;
+            LegalPersonAccountId = legalPersonAccountId;
+        }
+
         /// <summary>
         /// Идентификатор.
         /// </summary>

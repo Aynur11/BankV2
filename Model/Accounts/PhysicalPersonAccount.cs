@@ -13,7 +13,7 @@ namespace Model.Accounts
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
-        /// <param name="rate">Ставка.</param>
+        /// <param name="rate">Ставка в процентах.</param>
         public PhysicalPersonAccount(int clientId, decimal amount, decimal rate = 0)
         {
             ClientId = clientId;
@@ -27,7 +27,7 @@ namespace Model.Accounts
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="client">Добавляемый клиент.</param>
-        /// <param name="rate">Ставка.</param>
+        /// <param name="rate">Ставка в процентах.</param>
         public PhysicalPersonAccount(int clientId, decimal amount, PhysicalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;

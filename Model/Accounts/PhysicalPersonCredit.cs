@@ -13,11 +13,13 @@ namespace Model.Accounts
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
-        /// <param name="rate">Ставка.</param>
-        public PhysicalPersonCredit(int clientId, decimal amount, decimal rate = 0)
+        /// <param name="period">Период действия кредита в месяцах.</param>
+        /// <param name="rate">Ставка в процентах.</param>
+        public PhysicalPersonCredit(int clientId, decimal amount, int period, decimal rate = 0)
         {
             ClientId = clientId;
             Amount = amount;
+            Period = period;
             Rate = rate;
         }
 
@@ -27,11 +29,12 @@ namespace Model.Accounts
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="client">Добавляемый клиент.</param>
-        /// <param name="rate">Ставка.</param>
-        public PhysicalPersonCredit(int clientId, decimal amount, PhysicalPersonClient client, decimal rate = 0)
+        /// <param name="rate">Ставка в процентах.</param>
+        public PhysicalPersonCredit(int clientId, decimal amount, int period, PhysicalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;
             Amount = amount;
+            Period = period;
             Client = client;
             Rate = rate;
         }

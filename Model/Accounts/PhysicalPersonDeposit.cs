@@ -13,11 +13,15 @@ namespace Model.Accounts
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
-        /// <param name="rate">Ставка.</param>
-        public PhysicalPersonDeposit(int clientId, decimal amount, decimal rate = 0)
+        /// <param name="period">Период действия депозита в месяцах.</param>
+        /// <param name="withCapitalization">С капитализацией?</param>
+        /// <param name="rate">Ставка в процентах.</param>
+        public PhysicalPersonDeposit(int clientId, decimal amount, int period, bool withCapitalization, decimal rate = 0)
         {
             ClientId = clientId;
             Amount = amount;
+            Period = period;
+            WithCapitalization = withCapitalization;
             Rate = rate;
         }
 
@@ -26,12 +30,16 @@ namespace Model.Accounts
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
         /// <param name="amount">Сумма денег.</param>
+        /// <param name="period">Период действия депозита в месяцах.</param>
+        /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="client">Добавляемый клиент.</param>
-        /// <param name="rate">Ставка.</param>
-        public PhysicalPersonDeposit(int clientId, decimal amount, PhysicalPersonClient client, decimal rate = 0)
+        /// <param name="rate">Ставка в процентах.</param>
+        public PhysicalPersonDeposit(int clientId, decimal amount, int period, bool withCapitalization, PhysicalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;
             Amount = amount;
+            Period = period;
+            WithCapitalization = withCapitalization;
             Client = client;
             Rate = rate;
         }

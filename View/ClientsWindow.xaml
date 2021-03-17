@@ -11,14 +11,14 @@
             <TabItem x:Name="PhysicalPersonsTabItem" Header="Физические лица">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Open account" Click="OpenAccountButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Open deposit" Click="OpenDepositButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Issue credit" Click="IssueCreditButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Transfer money" Click="TransferMoneyButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Remove client" Click="RemoveClientButton_OnClick"></MenuItem>
-                        <MenuItem Header="Add new client" Click="AddNewClientButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Show all credits" Click="ShowAllCreditsMenuItem_OnClick"></MenuItem>
-                        <MenuItem Header="Show all deposits" Click="ShowAllDepositsMenuItem_OnClick"></MenuItem>
+                        <MenuItem Header="Open account" Click="OpenPhysicalPersonAccountButton_OnClick"></MenuItem>
+                        <MenuItem Header="Open deposit" Click="OpenPhysicalPersonDepositButton_OnClick"></MenuItem>
+                        <MenuItem Header="Issue credit" Click="IssuePhysicalPersonCreditButton_OnClick"></MenuItem>
+                        <MenuItem Header="Transfer money" Click="TransferPhysicalPersonMoneyButton_OnClick"></MenuItem>
+                        <MenuItem Header="Remove client" Click="RemovePhysicalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Add new client" Click="AddNewPhysicalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Show all credits" Click="ShowAllPhysicalPersonCreditsMenuItem_OnClick"></MenuItem>
+                        <MenuItem Header="Show all deposits" Click="ShowAllPhysicalPersonDepositsMenuItem_OnClick"></MenuItem>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
@@ -55,14 +55,14 @@
             <TabItem x:Name="LegalPersonsTabItem" Header="Юридические лица">
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Open account" Click="OpenAccountButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Open deposit" Click="OpenDepositButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Issue credit" Click="IssueCreditButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Transfer money" Click="TransferMoneyButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Remove client" Click="RemoveClientButton_OnClick"></MenuItem>
-                        <MenuItem Header="Add new client" Click="AddNewClientButtonBase_OnClick"></MenuItem>
-                        <MenuItem Header="Show all credits" Click="ShowAllCreditsMenuItem_OnClick"></MenuItem>
-                        <MenuItem Header="Show all deposits" Click="ShowAllDepositsMenuItem_OnClick"></MenuItem>
+                        <MenuItem Header="Open account" Click="OpenLegalPersonAccountButton_OnClick"></MenuItem>
+                        <MenuItem Header="Open deposit" Click="OpenLegalPersonDepositButton_OnClick"></MenuItem>
+                        <MenuItem Header="Issue credit" Click="IssueLegalPersonCreditButton_OnClick"></MenuItem>
+                        <MenuItem Header="Transfer money" Click="TransferLegalPersonMoneyButton_OnClick"></MenuItem>
+                        <MenuItem Header="Remove client" Click="RemoveLegalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Add new client" Click="AddNewLegalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Show all credits" Click="ShowAllLegalPersonCreditsMenuItem_OnClick"></MenuItem>
+                        <MenuItem Header="Show all deposits" Click="ShowAllLegalPersonDepositsMenuItem_OnClick"></MenuItem>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">
