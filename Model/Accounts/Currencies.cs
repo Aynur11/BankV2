@@ -1,9 +1,9 @@
-﻿namespace Model.Clients
+﻿namespace Bank.DAL.Accounts
 {
     /// <summary>
     /// Валюты.
     /// </summary>
-    enum Currency : byte
+    public enum Currencies : byte
     {
         Rub,
         Usd,

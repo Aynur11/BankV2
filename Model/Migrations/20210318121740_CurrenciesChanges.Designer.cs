@@ -6,13 +6,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Model;
 
 namespace Model.Migrations
 {
     [DbContext(typeof(BankContext))]
-    [Migration("20210311062023_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210318121740_CurrenciesChanges")]
+    partial class CurrenciesChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +21,7 @@ namespace Model.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonAccount", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,8 +34,11 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
 
                     b.HasKey("Id");
 
@@ -45,7 +47,7 @@ namespace Model.Migrations
                     b.ToTable("LegalPersonAccounts");
                 });
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonCredit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonCredit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,8 +60,14 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
 
                     b.HasKey("Id");
 
@@ -68,7 +76,7 @@ namespace Model.Migrations
                     b.ToTable("LegalPersonCredits");
                 });
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonDeposit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,8 +89,17 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<bool>("WithCapitalization")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -91,7 +108,7 @@ namespace Model.Migrations
                     b.ToTable("LegalPersonDeposits");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonAccount", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,8 +121,11 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
 
                     b.HasKey("Id");
 
@@ -114,7 +134,7 @@ namespace Model.Migrations
                     b.ToTable("PhysicalPersonAccounts");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonCredit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonCredit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,8 +147,14 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
 
                     b.HasKey("Id");
 
@@ -137,7 +163,7 @@ namespace Model.Migrations
                     b.ToTable("PhysicalPersonCredits");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonDeposit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,8 +176,17 @@ namespace Model.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<byte>("Currency")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<bool>("WithCapitalization")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -160,7 +195,7 @@ namespace Model.Migrations
                     b.ToTable("PhysicalPersonDeposits");
                 });
 
-            modelBuilder.Entity("Model.Clients.LegalPersonClient", b =>
+            modelBuilder.Entity("Bank.DAL.Clients.LegalPersonClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -170,20 +205,23 @@ namespace Model.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.ToTable("LegalPersonClients");
                 });
 
-            modelBuilder.Entity("Model.Clients.PhysicalPersonClient", b =>
+            modelBuilder.Entity("Bank.DAL.Clients.PhysicalPersonClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("date");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -194,140 +232,155 @@ namespace Model.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.ToTable("PhysicalPersonClients");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.LegalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonAccountArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("LegalPersonAccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LegalPersonAccountId");
 
                     b.ToTable("LegalPersonAccountArchives");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.LegalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonCreditArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("LegalPersonCreditId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LegalPersonCreditId");
 
                     b.ToTable("LegalPersonCreditArchives");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.LegalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonDepositArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("LegalPersonDepositId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LegalPersonDepositId");
 
                     b.ToTable("LegalPersonDepositArchives");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.PhysicalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonAccountArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.Property<int>("PhysicalPersonAccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhysicalPersonAccountId");
+
                     b.ToTable("PhysicalPersonAccountArchives");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.PhysicalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonCreditArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.Property<int>("PhysicalPersonCreditId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhysicalPersonCreditId");
+
                     b.ToTable("PhysicalPersonCreditArchive");
                 });
 
-            modelBuilder.Entity("Model.OperationsArchive.PhysicalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonDepositArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
+                    b.Property<byte>("Operation")
+                        .HasColumnType("tinyint");
 
                     b.Property<int>("PhysicalPersonDepositId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhysicalPersonDepositId");
+
                     b.ToTable("PhysicalPersonDepositArchives");
                 });
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonAccount", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonAccount", b =>
                 {
-                    b.HasOne("Model.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
                         .WithMany("Accounts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -336,9 +389,9 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonCredit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonCredit", b =>
                 {
-                    b.HasOne("Model.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
                         .WithMany("Credits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -347,9 +400,9 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Accounts.LegalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonDeposit", b =>
                 {
-                    b.HasOne("Model.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
                         .WithMany("Deposits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,9 +411,9 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonAccount", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonAccount", b =>
                 {
-                    b.HasOne("Model.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Accounts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -369,9 +422,9 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonCredit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonCredit", b =>
                 {
-                    b.HasOne("Model.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Credits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -380,9 +433,9 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Accounts.PhysicalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonDeposit", b =>
                 {
-                    b.HasOne("Model.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Deposits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -391,7 +444,73 @@ namespace Model.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Model.Clients.LegalPersonClient", b =>
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonAccountArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.LegalPersonAccount", "Account")
+                        .WithMany()
+                        .HasForeignKey("LegalPersonAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonCreditArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.LegalPersonCredit", "Credit")
+                        .WithMany()
+                        .HasForeignKey("LegalPersonCreditId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credit");
+                });
+
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonDepositArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.LegalPersonDeposit", "Deposit")
+                        .WithMany()
+                        .HasForeignKey("LegalPersonDepositId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deposit");
+                });
+
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonAccountArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonAccount", "Account")
+                        .WithMany()
+                        .HasForeignKey("PhysicalPersonAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonCreditArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonCredit", "Credit")
+                        .WithMany()
+                        .HasForeignKey("PhysicalPersonCreditId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credit");
+                });
+
+            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonDepositArchive", b =>
+                {
+                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonDeposit", "Deposit")
+                        .WithMany()
+                        .HasForeignKey("PhysicalPersonDepositId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deposit");
+                });
+
+            modelBuilder.Entity("Bank.DAL.Clients.LegalPersonClient", b =>
                 {
                     b.Navigation("Accounts");
 
@@ -400,7 +519,7 @@ namespace Model.Migrations
                     b.Navigation("Deposits");
                 });
 
-            modelBuilder.Entity("Model.Clients.PhysicalPersonClient", b =>
+            modelBuilder.Entity("Bank.DAL.Clients.PhysicalPersonClient", b =>
                 {
                     b.Navigation("Accounts");
 

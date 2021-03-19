@@ -1,8 +1,8 @@
-﻿using Model;
-using Model.Clients;
-using System;
+﻿using System;
+using Bank.DAL;
+using Bank.DAL.Clients;
 
-namespace Controller
+namespace Bank.BLL
 {
     public class TestData
     {

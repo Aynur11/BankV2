@@ -1,14 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Model.Accounts;
-using Model.Clients;
+﻿using Bank.DAL.Accounts;
+using System.ComponentModel.DataAnnotations.Schema;
+using Bank.DAL.Clients;
 
-namespace Model.OperationsArchive
+namespace Bank.DAL.OperationsArchive
 {
     /// <summary>
     /// История операций по депозиту для юр. лиц.
     /// </summary>
     public class LegalPersonDepositArchive
     {
+        public LegalPersonDepositArchive(decimal amount, Operations operation, int legalPersonDepositId)
+        {
+            Amount = amount;
+            Operation = operation;
+            LegalPersonDepositId = legalPersonDepositId;
+        }
         /// <summary>
         /// Идентификатор.
         /// </summary>

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Model.Accounts;
-using Model.Clients;
-using Model.OperationsArchive;
+﻿using Bank.DAL.Accounts;
+using Bank.DAL.Clients;
+using Bank.DAL.OperationsArchive;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model
+namespace Bank.DAL
 {
     /// <summary>
     /// Контекст для работы с таблицами БД банковской системы.

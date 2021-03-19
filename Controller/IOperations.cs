@@ -1,4 +1,4 @@
-﻿namespace Controller
+﻿namespace Bank.BLL
 {
     /// <summary>
     /// Операции доступные клиентам.

@@ -1,14 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Model.Accounts;
-using Model.Clients;
+﻿using Bank.DAL.Accounts;
+using System.ComponentModel.DataAnnotations.Schema;
+using Bank.DAL.Clients;
 
-namespace Model.OperationsArchive
+namespace Bank.DAL.OperationsArchive
 {
     /// <summary>
     /// История операций по кредиту для юр. лиц.
     /// </summary>
     public class LegalPersonCreditArchive
     {
+        public LegalPersonCreditArchive(decimal amount, Operations operation, int legalPersonCreditId)
+        {
+            Amount = amount;
+            Operation = operation;
+            LegalPersonCreditId = legalPersonCreditId;
+        }
+
         /// <summary>
         /// Идентификатор.
         /// </summary>

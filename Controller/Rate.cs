@@ -1,6 +1,6 @@
-﻿using Model.Clients;
+﻿using Bank.DAL.Clients;
 
-namespace Controller
+namespace Bank.BLL
 {
     /// <summary>
     /// Расчет ставки.

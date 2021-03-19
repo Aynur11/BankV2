@@ -1,9 +1,9 @@
-﻿using Model.Accounts;
+﻿using Bank.DAL.Accounts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Clients
+namespace Bank.DAL.Clients
 {
     /// <summary>
     /// Физическое лицо.

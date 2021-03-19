@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Bank.DAL.Accounts;
 
-namespace View
+namespace Bank.DesktopClient
 {
     /// <summary>
     /// Interaction logic for AddingAnyAccountWindow.xaml
@@ -23,6 +13,8 @@ namespace View
         {
             InitializeComponent();
             Title = "Данные для открытия/выдачи вклада/кредита";
+            CurrenciesComboBox.ItemsSource = Enum.GetValues(typeof(Currencies));
+            CurrenciesComboBox.SelectedValue = Currencies.Rub;
         }
 
         /// <summary>
@@ -34,6 +26,11 @@ namespace View
         /// Период ведения счета с проверкой корректности ввода.
         /// </summary>
         public int Period => PeriodTextBox.IsEnabled && IsDouble(PeriodTextBox.Text) ? Convert.ToInt32(PeriodTextBox.Text) : 0;
+
+        /// <summary>
+        /// Выбранная валюта.
+        /// </summary>
+        public Currencies Currency => (Currencies) CurrenciesComboBox.SelectedItem;
 
         /// <summary>
         /// С капитализацией?

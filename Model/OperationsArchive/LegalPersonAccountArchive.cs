@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Model.Accounts;
-using Model.Clients;
+﻿using Bank.DAL.Accounts;
+using System.ComponentModel.DataAnnotations.Schema;
+using Bank.DAL.Clients;
 
-namespace Model.OperationsArchive
+namespace Bank.DAL.OperationsArchive
 {
     /// <summary>
     /// История операций по счету для юр. лиц.

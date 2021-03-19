@@ -1,0 +1,26 @@
+﻿<Window x:Class="Bank.DesktopClient.ClientNameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank.DesktopClient"
+        mc:Ignorable="d"
+        Title="Данные клиента"
+        Height="252.266"
+        Width="426.484"
+        ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Выберите получателя (физ. или юр. лицо):" HorizontalAlignment="Left" Margin="63,34,0,0" VerticalAlignment="Top" Width="246"/>
+        <Label Content="Списать со счета:" HorizontalAlignment="Left" Margin="63,10,0,0" VerticalAlignment="Top" Height="24"/>
+
+        <TextBox x:Name="AmountTextBox" GotFocus="SumTextBox_OnGotFocusTextBox_OnGotFocus" HorizontalAlignment="Left" Height="24" Margin="68,98,0,0" TextWrapping="Wrap" Text="Сумма перевода" VerticalAlignment="Top" Width="133"/>
+        <Button x:Name="OkButton" Content="OK" Click="OkButton_OnClick"  HorizontalAlignment="Left" Margin="56,168,0,0" VerticalAlignment="Top" Width="134" Height="34"/>
+        <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_OnClick" HorizontalAlignment="Left" Margin="242,168,0,0" VerticalAlignment="Top" Width="134" Height="34"/>
+        <ComboBox x:Name="PhysicalClientNamesComboBox" SelectionChanged="PhysicalClientNamesComboBox_OnSelectionChanged" DropDownClosed="PhysicalClientNamesComboBox_OnDropDownClosed" IsMouseCapturedChanged="PhysicalClientNamesComboBox_OnIsMouseCapturedChanged" HorizontalAlignment="Left" SelectedIndex="0" Margin="68,65,0,0" VerticalAlignment="Top" Width="133" Height="24"/>
+        <ComboBox x:Name="LegalClientNamesComboBox" SelectionChanged="LegalClientNamesComboBox_OnSelectionChanged" DropDownClosed="LegalClientNamesComboBox_OnDropDownClosed" IsMouseCapturedChanged="LegalClientNamesComboBox_OnIsMouseCapturedChanged" HorizontalAlignment="Left" SelectedIndex="0" Margin="223,65,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <Button Content="Разблокировать списки" Click="EnableComboboxesButtonBase_OnClick" HorizontalAlignment="Left" Margin="223,98,0,0" VerticalAlignment="Top" Height="24" Width="140"/>
+        <ComboBox  x:Name="SenderAccountIdComboBox" HorizontalAlignment="Left" Margin="223,12,0,0" VerticalAlignment="Top" Width="140"/>
+        <Label Content="Перевести на счет:" HorizontalAlignment="Left" Margin="68,128,0,0" VerticalAlignment="Top" Width="133"/>
+        <ComboBox x:Name="RecipientAccountsIdComboBox" HorizontalAlignment="Left" Margin="223,132,0,0" VerticalAlignment="Top" Width="140"/>
+    </Grid>
+</Window>

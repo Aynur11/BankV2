@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Model.Accounts;
+﻿using Bank.DAL.Accounts;
+using System.Collections.Generic;
 
-namespace Model.Clients
+namespace Bank.DAL.Clients
 {
     /// <summary>
     /// Юридическое лицо.

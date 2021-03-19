@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Model.Clients;
+﻿using Bank.DAL.Clients;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Accounts
+namespace Bank.DAL.Accounts
 {
     /// <summary>
     /// Описывает кредит юр. лиц.
@@ -12,12 +12,14 @@ namespace Model.Accounts
         /// Конструктор для загрузки данных или для создания нового счета для существующего клиента без навигационного свойства.
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
+        /// <param name="currency">Валюта.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="period">Период действия кредита в месяцах.</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public LegalPersonCredit(int clientId, decimal amount, int period, decimal rate = 0)
+        public LegalPersonCredit(int clientId, Currencies currency, decimal amount, int period, decimal rate = 0)
         {
             ClientId = clientId;
+            Currency = currency;
             Amount = amount;
             Period = period;
             Rate = rate;
@@ -27,13 +29,15 @@ namespace Model.Accounts
         /// Конструктор для создания нового счета с новым клиентом с навигационным свойством.
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
+        /// <param name="currency">Валюта.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="period">Период действия кредита в месяцах.</param>
         /// <param name="client">Добавляемый клиент.</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public LegalPersonCredit(int clientId, decimal amount, int period, LegalPersonClient client, decimal rate = 0)
+        public LegalPersonCredit(int clientId, Currencies currency, decimal amount, int period, LegalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;
+            Currency = currency;
             Amount = amount;
             Period = period;
             Client = client;
@@ -44,6 +48,11 @@ namespace Model.Accounts
         /// Идентификатор счета.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Вид валюты для счета.
+        /// </summary>
+        public Currencies Currency { get; set; }
 
         /// <summary>
         /// Сумма денег на счету.

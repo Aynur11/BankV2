@@ -1,4 +1,4 @@
-﻿namespace Model.Clients
+﻿namespace Bank.DAL.Clients
 {
     /// <summary>
     /// Возможные операции со счетами.
