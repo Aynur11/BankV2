@@ -9,7 +9,7 @@ namespace Bank.DAL.OperationsArchive
     /// </summary>
     public class LegalPersonDepositArchive
     {
-        public LegalPersonDepositArchive(decimal amount, Operations operation, int legalPersonDepositId)
+        public LegalPersonDepositArchive(decimal amount, Operation operation, int legalPersonDepositId)
         {
             Amount = amount;
             Operation = operation;
@@ -28,7 +28,7 @@ namespace Bank.DAL.OperationsArchive
         /// <summary>
         /// Выполненная операция.
         /// </summary>
-        public Operations Operation { get; set; }
+        public Operation Operation { get; set; }
 
         /// <summary>
         /// ID депозита юр. лица.

@@ -15,7 +15,7 @@ namespace Bank.DAL.Accounts
         /// <param name="currency">Валюта.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public LegalPersonAccount(int clientId, Currencies currency, decimal amount, decimal rate = 0)
+        public LegalPersonAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
         {
             ClientId = clientId;
             Currency = currency;
@@ -31,7 +31,7 @@ namespace Bank.DAL.Accounts
         /// <param name="amount">Сумма денег.</param>
         /// <param name="client">Добавляемый клиент.</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public LegalPersonAccount(int clientId, Currencies currency, decimal amount, LegalPersonClient client, decimal rate = 0)
+        public LegalPersonAccount(int clientId, Currency currency, decimal amount, LegalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;
             Currency = currency;
@@ -48,7 +48,7 @@ namespace Bank.DAL.Accounts
         /// <summary>
         /// Вид валюты для счета.
         /// </summary>
-        public Currencies Currency { get; set; }
+        public Currency Currency { get; set; }
 
         /// <summary>
         /// Сумма денег на счету.

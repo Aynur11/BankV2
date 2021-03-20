@@ -1,20 +1,9 @@
-﻿using System;
+﻿using Bank.BLL;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Bank.BLL;
-using Bank.DAL.Clients;
 
 namespace Bank.DesktopClient
 {
@@ -40,7 +29,7 @@ namespace Bank.DesktopClient
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Amount == 0)
+            if (Amount == 0  || SenderAccountIdComboBox.SelectedItem == null || RecipientAccountsIdComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Введите корректные данные!");
                 return;
@@ -70,7 +59,6 @@ namespace Bank.DesktopClient
             LegalClientNamesComboBox.SelectedItem = null;
             PhysicalClientNamesComboBox.SelectedItem = null;
             RecipientAccountsIdComboBox.SelectedItem = null;
-            Debug.WriteLine(RecipientAccountsIdComboBox.SelectedItem);
         }
 
         private bool physicalRecipientsHandle = true;

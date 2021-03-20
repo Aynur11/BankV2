@@ -17,7 +17,7 @@ namespace Bank.DAL.Accounts
         /// <param name="period">Период действия депозита в месяцах.</param>
         /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public PhysicalPersonDeposit(int clientId, Currencies currency, decimal amount, int period, bool withCapitalization, decimal rate = 0)
+        public PhysicalPersonDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate = 0)
         {
             ClientId = clientId;
             Currency = currency;
@@ -37,7 +37,7 @@ namespace Bank.DAL.Accounts
         /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="client">Добавляемый клиент.</param>
         /// <param name="rate">Ставка в процентах.</param>
-        public PhysicalPersonDeposit(int clientId, Currencies currency, decimal amount, int period, bool withCapitalization, PhysicalPersonClient client, decimal rate = 0)
+        public PhysicalPersonDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, PhysicalPersonClient client, decimal rate = 0)
         {
             ClientId = clientId;
             Currency = currency;
@@ -56,7 +56,7 @@ namespace Bank.DAL.Accounts
         /// <summary>
         /// Вид валюты для счета.
         /// </summary>
-        public Currencies Currency { get; set; }
+        public Currency Currency { get; set; }
 
         /// <summary>
         /// Сумма денег на счету.

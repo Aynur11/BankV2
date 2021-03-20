@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.BLL.Bank.BLL.Exceptions;
 
 namespace Bank.DesktopClient
 {
@@ -161,8 +162,28 @@ namespace Bank.DesktopClient
                         clientNameWindow.PhysicalClientNamesComboBox.SelectedValue :
                         clientNameWindow.LegalClientNamesComboBox.SelectedValue;
                     int purposeClientId = ((KeyValuePair<int, string>)recipientClient).Key;
-                    physicalPersonClientRepo.TransferMoney(client.Id, (int)clientNameWindow.SenderAccountIdComboBox.SelectedItem,
-                        purposeClientId, (int)clientNameWindow.RecipientAccountsIdComboBox.SelectedItem, clientNameWindow.Amount);
+                    try
+                    {
+                        physicalPersonClientRepo.TransferMoney(client.Id,
+                            (int) clientNameWindow.SenderAccountIdComboBox.SelectedItem,
+                            purposeClientId, (int) clientNameWindow.RecipientAccountsIdComboBox.SelectedItem,
+                            clientNameWindow.Amount);
+                    }
+                    catch (InsufficientAmountsException exception)
+                    {
+                        MessageBox.Show(
+                            $"Произошла ошибка: {exception.Message}\nСуммма денег на счету: {exception.Amount}");
+                    }
+                    catch (CurrencyMismatchException exception)
+                    {
+                        MessageBox.Show($"Произошла ошибка: {exception.Message}\n" +
+                                        $"Валюта счета отправителя: {exception.Sender}, валюта счета получателя: {exception.Recipient}");
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show($"Произошла ошибка: {exception.Message} Выполняем завершение программы.");
+                        throw;
+                    }
                 }
             }
         }
@@ -185,8 +206,26 @@ namespace Bank.DesktopClient
                         clientNameWindow.PhysicalClientNamesComboBox.SelectedValue :
                         clientNameWindow.LegalClientNamesComboBox.SelectedValue;
                     int purposeClientId = ((KeyValuePair<int, string>)recipientClient).Key;
-                    legalPersonClientRepo.TransferMoney(client.Id, (int)clientNameWindow.SenderAccountIdComboBox.SelectedItem,
-                        purposeClientId, (int)clientNameWindow.RecipientAccountsIdComboBox.SelectedItem, clientNameWindow.Amount);
+                    try
+                    {
+                        legalPersonClientRepo.TransferMoney(client.Id, (int)clientNameWindow.SenderAccountIdComboBox.SelectedItem,
+                            purposeClientId, (int)clientNameWindow.RecipientAccountsIdComboBox.SelectedItem, clientNameWindow.Amount);
+                    }
+                    catch (InsufficientAmountsException exception)
+                    {
+                        MessageBox.Show(
+                            $"Произошла ошибка: {exception.Message}\nСуммма денег на счету: {exception.Amount}");
+                    }
+                    catch (CurrencyMismatchException exception)
+                    {
+                        MessageBox.Show($"Произошла ошибка: {exception.Message}\n" +
+                                        $"Валюта счета отправителя: {exception.Sender}, валюта счета получателя: {exception.Recipient}");
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show($"Произошла ошибка: {exception.Message}. Выполняем завершение программы.");
+                        throw;
+                    }
                 }
             }
         }

@@ -13,8 +13,8 @@ namespace Bank.DesktopClient
         {
             InitializeComponent();
             Title = "Данные для открытия/выдачи вклада/кредита";
-            CurrenciesComboBox.ItemsSource = Enum.GetValues(typeof(Currencies));
-            CurrenciesComboBox.SelectedValue = Currencies.Rub;
+            CurrenciesComboBox.ItemsSource = Enum.GetValues(typeof(Currency));
+            CurrenciesComboBox.SelectedValue = DAL.Accounts.Currency.Rub;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Bank.DesktopClient
         /// <summary>
         /// Выбранная валюта.
         /// </summary>
-        public Currencies Currency => (Currencies) CurrenciesComboBox.SelectedItem;
+        public Currency Currency => (Currency) CurrenciesComboBox.SelectedItem;
 
         /// <summary>
         /// С капитализацией?

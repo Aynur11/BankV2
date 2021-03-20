@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Bank.BLL.Bank.BLL.Exceptions;
 
 namespace Bank.BLL
 {
@@ -34,26 +35,26 @@ namespace Bank.BLL
             return context.LegalPersonAccounts.Where(a => a.ClientId == clientId).Select(i => i.Id).ToList();
         }
 
-        public void AddAccount(int clientId, Currencies currency, decimal amount, decimal rate = 0)
+        public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
         {
             context.LegalPersonAccounts.Add(new LegalPersonAccount(clientId, currency, amount, rate));
-            context.LegalPersonAccountArchives.Add(new LegalPersonAccountArchive(amount, Operations.AddAccount,
+            context.LegalPersonAccountArchives.Add(new LegalPersonAccountArchive(amount, Operation.AddAccount,
                 clientId));
             context.SaveChanges();
         }
 
-        public void AddCredit(int clientId, Currencies currency, decimal amount, int period, decimal rate)
+        public void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
             context.LegalPersonCredits.Add(new LegalPersonCredit(clientId, currency, amount, period, rate));
-            context.LegalPersonCreditArchives.Add(new LegalPersonCreditArchive(amount, Operations.AddCredit,
+            context.LegalPersonCreditArchives.Add(new LegalPersonCreditArchive(amount, Operation.AddCredit,
                 clientId));
             context.SaveChanges();
         }
 
-        public void AddDeposit(int clientId, Currencies currency, decimal amount, int period, bool withCapitalization, decimal rate)
+        public void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate)
         {
             context.LegalPersonDeposits.Add(new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
-            context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operations.AddDeposit, clientId));
+            context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operation.AddDeposit, clientId));
             context.SaveChanges();
         }
 
@@ -63,21 +64,22 @@ namespace Bank.BLL
             PhysicalPersonAccount toClient = context.PhysicalPersonAccounts.FirstOrDefault(i => i.ClientId == toClientId && i.Id == toAccountId);
             LegalPersonAccount toLegalClient = null;
 
+            // Один и тот же ID может быть и у физ. и у юр. лица, надо как исправить это.
             if (toClient == null)
             {
                 toLegalClient = context.LegalPersonAccounts.FirstOrDefault(i => i.ClientId == toClientId && i.Id == toAccountId);
                 if (fromClient.Currency != toLegalClient.Currency)
                 {
-                    Debug.WriteLine("Обнаружена попытка перевода валюты на другой валютный счет.");
-                    return;
+                    throw new CurrencyMismatchException(fromClient.Currency, toLegalClient.Currency, 
+                        "Обнаружена попытка перевода валюты на другой валютный счет.");
                 }
             }
             else
             {
                 if (fromClient.Currency != toClient.Currency)
                 {
-                    Debug.WriteLine("Обнаружена попытка перевода валюты на другой валютный счет.");
-                    return;
+                    throw new CurrencyMismatchException(fromClient.Currency, toClient.Currency,
+                        "Обнаружена попытка перевода валюты на другой валютный счет.");
                 }
             }
 
@@ -105,7 +107,7 @@ namespace Bank.BLL
             }
             else
             {
-                Debug.WriteLine("Для выполнения перевода недостаточно средств.");
+                throw new InsufficientAmountsException(fromClient.Amount, "Для выполнения перевода недостаточно средств.");
             }
 
             context.SaveChanges();

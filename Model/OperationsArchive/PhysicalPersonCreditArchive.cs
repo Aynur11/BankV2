@@ -9,7 +9,7 @@ namespace Bank.DAL.OperationsArchive
     /// </summary>
     public class PhysicalPersonCreditArchive
     {
-        public PhysicalPersonCreditArchive(decimal amount, Operations operation, int physicalPersonCreditId)
+        public PhysicalPersonCreditArchive(decimal amount, Operation operation, int physicalPersonCreditId)
         {
             Amount = amount;
             Operation = operation;
@@ -29,7 +29,7 @@ namespace Bank.DAL.OperationsArchive
         /// <summary>
         /// Выполненная операция.
         /// </summary>
-        public Operations Operation { get; set; }
+        public Operation Operation { get; set; }
 
         /// <summary>
         /// ID кредита физ. лица.

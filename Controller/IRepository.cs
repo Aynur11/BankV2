@@ -31,7 +31,7 @@ namespace Bank.BLL
         /// <param name="currency">Валюта.</param>
         /// <param name="amount">Сумма денег для внесения на счет.</param>
         /// <param name="rate">Возможная ставка в процентах.</param>
-        void AddAccount(int clientId, Currencies currency, decimal amount, decimal rate = 0);
+        void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0);
 
         /// <summary>
         /// Выдать кредит.
@@ -41,7 +41,7 @@ namespace Bank.BLL
         /// <param name="amount">Сумма денег для выдачи.</param>
         /// <param name="period"></param>
         /// <param name="rate">Ставка в процентах.</param>
-        void AddCredit(int clientId, Currencies currency, decimal amount, int period, decimal rate);
+        void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate);
 
         /// <summary>
         /// Открыть депозит.
@@ -52,7 +52,7 @@ namespace Bank.BLL
         /// <param name="period"></param>
         /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="rate">Ставка в процентах.</param>
-        void AddDeposit(int clientId, Currencies currency, decimal amount, int period, bool withCapitalization, decimal rate);
+        void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate);
 
         /// <summary>
         /// Перевод денег.
