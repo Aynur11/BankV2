@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.DAL", "Model\Bank.DAL.csproj", "{98B8FCDB-54B7-4CAB-B4CF-FA0536294862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.Dal", "Bank.Dal\Bank.Dal.csproj", "{98B8FCDB-54B7-4CAB-B4CF-FA0536294862}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.BLL", "Controller\Bank.BLL.csproj", "{B5A338A6-3FAC-401E-9F03-86AF277FBCFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.Bll", "Bank.Bll\Bank.Bll.csproj", "{B5A338A6-3FAC-401E-9F03-86AF277FBCFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.DesktopClient", "View\Bank.DesktopClient.csproj", "{4D7D47D1-912B-4DB0-BF67-F2DD38B5FBF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.DesktopClient", "Bank.DesktopClient\Bank.DesktopClient.csproj", "{4D7D47D1-912B-4DB0-BF67-F2DD38B5FBF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
