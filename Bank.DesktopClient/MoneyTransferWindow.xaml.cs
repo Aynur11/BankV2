@@ -1,19 +1,19 @@
-﻿using Bank.Bll;
+﻿using Bank.Dal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Bank.Dal;
+using Bank.Dal.Clients;
 
 namespace Bank.DesktopClient
 {
     /// <summary>
-    /// Interaction logic for ClientNameWindow.xaml
+    /// Interaction logic for MoneyTransferWindow.xaml
     /// </summary>
-    public partial class ClientNameWindow : Window
+    public partial class MoneyTransferWindow : Window
     {
-        public ClientNameWindow()
+        public MoneyTransferWindow()
         {
             InitializeComponent();
         }
@@ -43,67 +43,22 @@ namespace Bank.DesktopClient
             Close();
         }
 
-        private void PhysicalClientNamesComboBox_OnIsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            LegalClientNamesComboBox.IsEnabled = false;
-        }
-
         private void LegalClientNamesComboBox_OnIsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            PhysicalClientNamesComboBox.IsEnabled = false;
         }
 
-        private void EnableComboboxesButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            LegalClientNamesComboBox.IsEnabled = true;
-            PhysicalClientNamesComboBox.IsEnabled = true;
-            LegalClientNamesComboBox.SelectedItem = null;
-            PhysicalClientNamesComboBox.SelectedItem = null;
-            RecipientAccountsIdComboBox.SelectedItem = null;
-        }
-
-        private bool physicalRecipientsHandle = true;
         private bool legalRecipientsHandle = true;
-
-        private void PhysicalClientNamesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmb = sender as ComboBox;
-            physicalRecipientsHandle = !cmb.IsDropDownOpen;
-            if (PhysicalClientNamesComboBox.SelectedItem != null)
-            {
-                Debug.WriteLine("PhysicalClientNamesComboBox_OnSelectionChanged");
-                SetPhysicalRecipientAccountsId();
-            }
-        }
-        
-        private void PhysicalClientNamesComboBox_OnDropDownClosed(object sender, EventArgs e)
-        {
-            if (physicalRecipientsHandle && PhysicalClientNamesComboBox.SelectedValue != null)
-            {
-                Debug.WriteLine("PhysicalClientNamesComboBox_OnDropDownClosed");
-                SetPhysicalRecipientAccountsId();
-            }
-            physicalRecipientsHandle = true;
-        }
-
-        private void SetPhysicalRecipientAccountsId()
-        {
-            using (var repo = new PhysicalPersonClientRepository())
-            {
-                int purposeClientId = ((KeyValuePair<int, string>) PhysicalClientNamesComboBox.SelectedValue).Key;
-                RecipientAccountsIdComboBox.ItemsSource =
-                    repo.GetAllClientAccountsId(purposeClientId);
-            }
-        }
-
 
         private void SetLegalRecipientAccountsId()
         {
             using (var repo = new LegalPersonClientRepository())
             {
-                int purposeClientId = ((KeyValuePair<int, string>)LegalClientNamesComboBox.SelectedValue).Key;
-                RecipientAccountsIdComboBox.ItemsSource =
-                    repo.GetAllClientAccountsId(purposeClientId);
+                Debug.WriteLine($"selected value:{((IClient)RecipientClientNamesComboBox.SelectedValue).DisplayName}");
+
+                var client = RecipientClientNamesComboBox.SelectedValue is PhysicalPersonClient
+                    ? (IClient) RecipientClientNamesComboBox.SelectedValue
+                    : (IClient) RecipientClientNamesComboBox.SelectedValue;
+                //RecipientAccountsIdComboBox.ItemsSource = client.
             }
         }
 
@@ -111,23 +66,22 @@ namespace Bank.DesktopClient
         {
             ComboBox cmb = sender as ComboBox;
             legalRecipientsHandle = !cmb.IsDropDownOpen;
-            if (LegalClientNamesComboBox.SelectedItem != null)
+            if (RecipientClientNamesComboBox.SelectedItem != null)
             {
                 Debug.WriteLine("LegalClientNamesComboBox_OnSelectionChanged");
-                Debug.WriteLine(LegalClientNamesComboBox.SelectedValue.ToString());
+                Debug.WriteLine(RecipientClientNamesComboBox.SelectedValue.ToString());
                 SetLegalRecipientAccountsId();
             }
         }
 
         private void LegalClientNamesComboBox_OnDropDownClosed(object sender, EventArgs e)
         {
-            if (legalRecipientsHandle && LegalClientNamesComboBox.SelectedValue != null)
+            if (legalRecipientsHandle && RecipientClientNamesComboBox.SelectedValue != null)
             {
                 Debug.WriteLine("LegalClientNamesComboBox_OnDropDownClosed");
 
                 SetLegalRecipientAccountsId();
             }
-            physicalRecipientsHandle = true;
         }
 
     }

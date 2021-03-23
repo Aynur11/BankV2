@@ -5,6 +5,7 @@ using Bank.Dal.OperationsArchive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Dal
 {
@@ -21,6 +22,11 @@ namespace Bank.Dal
         public List<LegalPersonClient> GetClients()
         {
             return context.LegalPersonClients.ToList();
+        }
+
+        public LegalPersonClient GetClient(int id)
+        {
+            return context.LegalPersonClients.Include(a => a.Accounts).FirstOrDefault();
         }
 
         public Dictionary<int, string> GetClientNamesWithId()
@@ -52,17 +58,37 @@ namespace Bank.Dal
 
         public void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
-            context.LegalPersonCredits.Add(new LegalPersonCredit(clientId, currency, amount, period, rate));
-            context.LegalPersonCreditArchives.Add(new LegalPersonCreditArchive(amount, Operation.AddCredit,
-                clientId));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.LegalPersonCredits.Add(new LegalPersonCredit(clientId, currency, amount, period, rate));
+                context.LegalPersonCreditArchives.Add(new LegalPersonCreditArchive(amount, Operation.AddCredit,
+                    clientId));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+            }
+
         }
 
         public void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate)
         {
-            context.LegalPersonDeposits.Add(new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
-            context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operation.AddDeposit, clientId));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.LegalPersonDeposits.Add(new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
+                context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operation.AddDeposit, clientId));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+            }
+
         }
 
         public void TransferMoney(int fromClientId, int fromAccountId, int toClientId, int toAccountId, decimal amount)

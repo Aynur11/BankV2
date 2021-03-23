@@ -8,7 +8,7 @@ namespace Bank.Dal.Clients
     /// <summary>
     /// Физическое лицо.
     /// </summary>
-    public class PhysicalPersonClient
+    public class PhysicalPersonClient : IClient<PhysicalPersonAccount>
     {
         public PhysicalPersonClient(string firstName, string lastName, string middleName, DateTime birthday, ClientType type)
         {
@@ -24,11 +24,15 @@ namespace Bank.Dal.Clients
         public int Id { get; set; }
 
         /// <summary>
+        /// Имя для отображения в UI.
+        /// </summary>
+        public string DisplayName => $"{Id}: {FirstName} {LastName}";
+
+        /// <summary>
         /// Имя.
         /// </summary>
         public string FirstName { get; set; }
-
-
+        
         /// <summary>
         /// Фамилия.
         /// </summary>

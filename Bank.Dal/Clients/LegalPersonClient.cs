@@ -6,7 +6,7 @@ namespace Bank.Dal.Clients
     /// <summary>
     /// Юридическое лицо.
     /// </summary>
-    public class LegalPersonClient
+    public class LegalPersonClient : IClient<LegalPersonAccount>
     {
         public LegalPersonClient(string companyName, ClientType type)
         {
@@ -17,6 +17,11 @@ namespace Bank.Dal.Clients
         /// Идентификатор.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Имя для отображения в UI.
+        /// </summary>
+        public string DisplayName => $"{Id}: {CompanyName}";
 
         /// <summary>
         /// Название компании.

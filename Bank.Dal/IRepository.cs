@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Bank.Dal.Accounts;
+using System;
 using System.Collections.Generic;
-using Bank.Dal.Accounts;
 
 namespace Bank.Dal
 {
@@ -23,6 +23,7 @@ namespace Bank.Dal
         /// <param name="clientId">ID клиента.</param>
         /// <returns></returns>
         List<int> GetAllClientAccountsId(int clientId);
+
 
         /// <summary>
         /// Добавить счет.

@@ -4,6 +4,7 @@ using Bank.Dal.OperationsArchive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Dal
 {
@@ -26,6 +27,11 @@ namespace Bank.Dal
             return context.PhysicalPersonClients.ToDictionary(i => i.Id, n => string.Join(' ', n.FirstName, n.MiddleName));
         }
 
+        public PhysicalPersonClient GetClient(int id)
+        {
+            return context.PhysicalPersonClients.Include(a => a.Accounts).FirstOrDefault();
+        }
+
         public List<int> GetAllClientAccountsId(int clientId)
         {
             return context.PhysicalPersonAccounts.Where(a=>a.ClientId == clientId).Select(i => i.Id).ToList();
@@ -33,26 +39,54 @@ namespace Bank.Dal
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
         {
-            context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, currency, amount, rate));
-            context.PhysicalPersonAccountArchives.Add(new PhysicalPersonAccountArchive(amount, Operation.AddAccount,
-                clientId));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, currency, amount, rate));
+                context.PhysicalPersonAccountArchives.Add(new PhysicalPersonAccountArchive(amount, Operation.AddAccount,
+                    clientId));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+            }
         }
 
         public void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
-            context.PhysicalPersonCredits.Add(new PhysicalPersonCredit(clientId, currency, amount, period, rate));
-            context.PhysicalPersonCreditArchive.Add(new PhysicalPersonCreditArchive(amount, Operation.AddCredit,
-                clientId));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.PhysicalPersonCredits.Add(new PhysicalPersonCredit(clientId, currency, amount, period, rate));
+                context.PhysicalPersonCreditArchive.Add(new PhysicalPersonCreditArchive(amount, Operation.AddCredit,
+                    clientId));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+            }
         }
 
         public void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate)
         {
-            context.PhysicalPersonDeposits.Add(new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
-            context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(amount, Operation.AddDeposit,
-                clientId));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.PhysicalPersonDeposits.Add(new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
+                context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(amount, Operation.AddDeposit,
+                    clientId));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+            }
+
         }
 
         //public void TransferMoney(int fromClientId, int fromAccountId, int toClientId, int toAccountId, decimal amount)

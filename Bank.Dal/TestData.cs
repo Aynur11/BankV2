@@ -1,8 +1,7 @@
 ﻿using System;
-using Bank.Dal;
 using Bank.Dal.Clients;
 
-namespace Bank.Bll
+namespace Bank.Dal
 {
     public class TestData
     {
