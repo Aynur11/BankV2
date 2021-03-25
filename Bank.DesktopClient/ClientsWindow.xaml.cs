@@ -176,6 +176,11 @@ namespace Bank.DesktopClient
                         legalPersonClientRepo.Save();
 
                     }
+                    catch (HimselfTransferException exception)
+                    {
+                        MessageBox.Show($"Произошла ошибка: {exception.Message}\n" +
+                                        $"Перевод с клиента {accountFrom.ClientId} со счета {accountFrom.Id} клиенту {accountTo.ClientId} на счет {accountTo.Id}");
+                    }
                     catch (InsufficientAmountsException exception)
                     {
                         MessageBox.Show($"Произошла ошибка: {exception.Message}\nСуммма денег на счету: {exception.Amount}");

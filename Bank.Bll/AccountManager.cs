@@ -21,8 +21,9 @@ namespace Bank.Bll
                 accountFrom is PhysicalPersonAccount && accountTo is PhysicalPersonAccount || 
                 accountFrom is LegalPersonAccount && accountTo is LegalPersonAccount)
             {
-                throw new Exception("Попытка перевести средства на один и тот же счет.");
+                throw new HimselfTransferException(accountFrom, accountTo,"Попытка перевести средства на один и тот же счет.");
             }
+
             if (accountFrom.Currency != accountTo.Currency)
             {
                 throw new CurrencyMismatchException(accountFrom.Currency, accountTo.Currency,
