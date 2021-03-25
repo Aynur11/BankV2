@@ -68,5 +68,14 @@ namespace Bank.Dal.Clients
         /// Список депозитов клиента.
         /// </summary>
         public List<PhysicalPersonDeposit> Deposits { get; set; }
+
+        /// <summary>
+        /// Возвращает все счета клиента.
+        /// </summary>
+        /// <returns>Все счета клиента.</returns>
+        public List<IAccount> GetAccounts()
+        {
+            return new List<IAccount>(Accounts);
+        }
     }
 }

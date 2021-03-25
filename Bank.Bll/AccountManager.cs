@@ -17,6 +17,12 @@ namespace Bank.Bll
 
         public void TransferMoney(IAccount accountFrom, IAccount accountTo, decimal amount)
         {
+            if (accountFrom.Id == accountTo.Id && 
+                accountFrom is PhysicalPersonAccount && accountTo is PhysicalPersonAccount || 
+                accountFrom is LegalPersonAccount && accountTo is LegalPersonAccount)
+            {
+                throw new Exception("Попытка перевести средства на один и тот же счет.");
+            }
             if (accountFrom.Currency != accountTo.Currency)
             {
                 throw new CurrencyMismatchException(accountFrom.Currency, accountTo.Currency,
@@ -30,8 +36,6 @@ namespace Bank.Bll
 
             accountFrom.Amount -= amount;
             accountTo.Amount += amount;
-
-            //context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

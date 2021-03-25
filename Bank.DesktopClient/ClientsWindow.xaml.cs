@@ -5,6 +5,7 @@ using Bank.Dal.Clients;
 using Bank.Dal.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -152,11 +153,9 @@ namespace Bank.DesktopClient
             using (var physicalPersonClientRepo = new PhysicalPersonClientRepository())
             using (var legalPersonClientRepo = new LegalPersonClientRepository())
             {
-                //moneyTransferWindow.PhysicalClientNamesComboBox.ItemsSource = physicalPersonClientRepo.GetClientNamesWithId();
-                //moneyTransferWindow.RecipientClientNamesComboBox.ItemsSource = legalPersonClientRepo.GetClientNamesWithId();
-
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
-                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = physicalPersonClientRepo.GetAllClientAccountsId(client.Id);
+                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = physicalPersonClientRepo.GetAllClientAccounts(client.Id);
+                moneyTransferWindow.SenderAccountIdComboBox.DisplayMemberPath = "Id";
 
                 var allClients = new List<IClient>();
                 allClients.AddRange(physicalPersonClientRepo.GetClients());
@@ -167,29 +166,15 @@ namespace Bank.DesktopClient
 
                 if (moneyTransferWindow.ShowDialog() == true)
                 {
-                    //bool isPhysicalRecipient = moneyTransferWindow.PhysicalClientNamesComboBox.IsEnabled;
-                    //object recipientClient = isPhysicalRecipient ?
-                    //    moneyTransferWindow.PhysicalClientNamesComboBox.SelectedValue :
-                    //    moneyTransferWindow.RecipientClientNamesComboBox.SelectedValue;
-                    //int recipientClientId = ((KeyValuePair<int, string>)recipientClient).Key;
-
-                    //// Объект, выполняющий перевод.
-                    //IClient clientFrom = physicalPersonClientRepo.GetClient(client.Id);
-                    //IClient clientTo = isPhysicalRecipient ?
-                    //     (IClient)physicalPersonClientRepo.GetClient(recipientClientId) :
-                    //    legalPersonClientRepo.GetClient(recipientClientId);
-
+                    IAccount accountFrom = (IAccount)moneyTransferWindow.SenderAccountIdComboBox.SelectedValue;
+                    IAccount accountTo = (IAccount)moneyTransferWindow.RecipientAccountsIdComboBox.SelectedValue;
                     try
                     {
                         AccountManager accountManager = new AccountManager();
-                        //IAccount accountFrom = clientFrom.Accounts
-                        //    .FirstOrDefault(i => i.Id == (int)moneyTransferWindow.SenderAccountIdComboBox.SelectedItem);
-                        //IAccount accountTo = clientTo.Accounts.FirstOrDefault(i => i.Id == recipientClientId);
-                        //accountManager.TransferMoney(accountFrom, accountTo, moneyTransferWindow.Amount);
-                        //physicalPersonClientRepo.TransferMoney(client.Id,
-                        //    (int) moneyTransferWindow.SenderAccountIdComboBox.SelectedItem,
-                        //    purposeClientId, (int) moneyTransferWindow.RecipientAccountsIdComboBox.SelectedItem,
-                        //    moneyTransferWindow.Amount);
+                        accountManager.TransferMoney(accountFrom, accountTo, moneyTransferWindow.Amount);
+                        physicalPersonClientRepo.Save();
+                        legalPersonClientRepo.Save();
+
                     }
                     catch (InsufficientAmountsException exception)
                     {
@@ -215,26 +200,32 @@ namespace Bank.DesktopClient
             using (var physicalPersonClientRepo = new PhysicalPersonClientRepository())
             using (var legalPersonClientRepo = new LegalPersonClientRepository())
             {
-                moneyTransferWindow.RecipientClientNamesComboBox.ItemsSource = legalPersonClientRepo.GetClientNamesWithId();
-
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = legalPersonClientRepo.GetAllClientAccountsId(client.Id);
+                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = legalPersonClientRepo.GetAllClientAccounts(client.Id);
+                moneyTransferWindow.SenderAccountIdComboBox.DisplayMemberPath = "Id";
+
+                var allClients = new List<IClient>();
+                allClients.AddRange(physicalPersonClientRepo.GetClients());
+                allClients.AddRange(legalPersonClientRepo.GetClients());
+
+                moneyTransferWindow.RecipientClientNamesComboBox.ItemsSource = allClients;
+                moneyTransferWindow.RecipientClientNamesComboBox.DisplayMemberPath = "DisplayName";
 
                 if (moneyTransferWindow.ShowDialog() == true)
                 {
-                    //object recipientClient = moneyTransferWindow.PhysicalClientNamesComboBox.IsEnabled ?
-                    //    moneyTransferWindow.PhysicalClientNamesComboBox.SelectedValue :
-                    //    moneyTransferWindow.RecipientClientNamesComboBox.SelectedValue;
-                    //int purposeClientId = ((KeyValuePair<int, string>)recipientClient).Key;
+                    IAccount accountFrom = (IAccount)moneyTransferWindow.SenderAccountIdComboBox.SelectedValue;
+                    IAccount accountTo = (IAccount)moneyTransferWindow.RecipientAccountsIdComboBox.SelectedValue;
                     try
                     {
-                        //legalPersonClientRepo.TransferMoney(client.Id, (int)moneyTransferWindow.SenderAccountIdComboBox.SelectedItem,
-                        //    purposeClientId, (int)moneyTransferWindow.RecipientAccountsIdComboBox.SelectedItem, moneyTransferWindow.Amount);
+                        AccountManager accountManager = new AccountManager();
+                        accountManager.TransferMoney(accountFrom, accountTo, moneyTransferWindow.Amount);
+                        physicalPersonClientRepo.Save();
+                        legalPersonClientRepo.Save();
+
                     }
                     catch (InsufficientAmountsException exception)
                     {
-                        MessageBox.Show(
-                            $"Произошла ошибка: {exception.Message}\nСуммма денег на счету: {exception.Amount}");
+                        MessageBox.Show($"Произошла ошибка: {exception.Message}\nСуммма денег на счету: {exception.Amount}");
                     }
                     catch (CurrencyMismatchException exception)
                     {
@@ -243,7 +234,7 @@ namespace Bank.DesktopClient
                     }
                     catch (Exception exception)
                     {
-                        MessageBox.Show($"Произошла ошибка: {exception.Message}. Выполняем завершение программы.");
+                        MessageBox.Show($"Произошла ошибка: {exception.Message} Выполняем завершение программы.");
                         throw;
                     }
                 }

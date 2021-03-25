@@ -19,7 +19,7 @@ namespace Bank.Dal.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonAccount", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonAccounts");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonCredit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonCredit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonCredits");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonDeposit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonDeposits");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonAccount", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +132,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonAccounts");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonCredit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonCredit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonCredits");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonDeposit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,7 +193,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonDeposits");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Clients.LegalPersonClient", b =>
+            modelBuilder.Entity("Bank.Dal.Clients.LegalPersonClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,7 +211,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonClients");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Clients.PhysicalPersonClient", b =>
+            modelBuilder.Entity("Bank.Dal.Clients.PhysicalPersonClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,7 +238,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonClients");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonAccountArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonAccountArchives");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonCreditArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonCreditArchives");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonDepositArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -307,7 +307,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("LegalPersonDepositArchives");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonAccountArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -330,7 +330,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonAccountArchives");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonCreditArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -353,7 +353,7 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonCreditArchive");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonDepositArchive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -376,9 +376,9 @@ namespace Bank.Dal.Migrations
                     b.ToTable("PhysicalPersonDepositArchives");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonAccount", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonAccount", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.LegalPersonClient", "Client")
                         .WithMany("Accounts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -387,9 +387,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonCredit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonCredit", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.LegalPersonClient", "Client")
                         .WithMany("Credits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -398,9 +398,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.LegalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.LegalPersonDeposit", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.LegalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.LegalPersonClient", "Client")
                         .WithMany("Deposits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,9 +409,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonAccount", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonAccount", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Accounts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,9 +420,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonCredit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonCredit", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Credits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -431,9 +431,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Accounts.PhysicalPersonDeposit", b =>
+            modelBuilder.Entity("Bank.Dal.Accounts.PhysicalPersonDeposit", b =>
                 {
-                    b.HasOne("Bank.DAL.Clients.PhysicalPersonClient", "Client")
+                    b.HasOne("Bank.Dal.Clients.PhysicalPersonClient", "Client")
                         .WithMany("Deposits")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -442,9 +442,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonAccountArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.LegalPersonAccount", "Account")
+                    b.HasOne("Bank.Dal.Accounts.LegalPersonAccount", "Account")
                         .WithMany()
                         .HasForeignKey("LegalPersonAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,9 +453,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonCreditArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.LegalPersonCredit", "Credit")
+                    b.HasOne("Bank.Dal.Accounts.LegalPersonCredit", "Credit")
                         .WithMany()
                         .HasForeignKey("LegalPersonCreditId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -464,9 +464,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Credit");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.LegalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.LegalPersonDepositArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.LegalPersonDeposit", "Deposit")
+                    b.HasOne("Bank.Dal.Accounts.LegalPersonDeposit", "Deposit")
                         .WithMany()
                         .HasForeignKey("LegalPersonDepositId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -475,9 +475,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Deposit");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonAccountArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonAccountArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonAccount", "Account")
+                    b.HasOne("Bank.Dal.Accounts.PhysicalPersonAccount", "Account")
                         .WithMany()
                         .HasForeignKey("PhysicalPersonAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -486,9 +486,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonCreditArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonCreditArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonCredit", "Credit")
+                    b.HasOne("Bank.Dal.Accounts.PhysicalPersonCredit", "Credit")
                         .WithMany()
                         .HasForeignKey("PhysicalPersonCreditId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -497,9 +497,9 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Credit");
                 });
 
-            modelBuilder.Entity("Bank.DAL.OperationsArchive.PhysicalPersonDepositArchive", b =>
+            modelBuilder.Entity("Bank.Dal.OperationsArchive.PhysicalPersonDepositArchive", b =>
                 {
-                    b.HasOne("Bank.DAL.Accounts.PhysicalPersonDeposit", "Deposit")
+                    b.HasOne("Bank.Dal.Accounts.PhysicalPersonDeposit", "Deposit")
                         .WithMany()
                         .HasForeignKey("PhysicalPersonDepositId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -508,7 +508,7 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Deposit");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Clients.LegalPersonClient", b =>
+            modelBuilder.Entity("Bank.Dal.Clients.LegalPersonClient", b =>
                 {
                     b.Navigation("Accounts");
 
@@ -517,7 +517,7 @@ namespace Bank.Dal.Migrations
                     b.Navigation("Deposits");
                 });
 
-            modelBuilder.Entity("Bank.DAL.Clients.PhysicalPersonClient", b =>
+            modelBuilder.Entity("Bank.Dal.Clients.PhysicalPersonClient", b =>
                 {
                     b.Navigation("Accounts");
 

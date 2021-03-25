@@ -15,7 +15,7 @@
         <TextBox x:Name="AmountTextBox" GotFocus="SumTextBox_OnGotFocusTextBox_OnGotFocus" HorizontalAlignment="Left" Height="24" Margin="68,65,0,0" TextWrapping="Wrap" Text="Сумма перевода" VerticalAlignment="Top" Width="133"/>
         <Button x:Name="OkButton" Content="OK" Click="OkButton_OnClick"  HorizontalAlignment="Left" Margin="56,168,0,0" VerticalAlignment="Top" Width="134" Height="34"/>
         <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_OnClick" HorizontalAlignment="Left" Margin="242,168,0,0" VerticalAlignment="Top" Width="134" Height="34"/>
-        <ComboBox x:Name="RecipientClientNamesComboBox" SelectionChanged="LegalClientNamesComboBox_OnSelectionChanged" DropDownClosed="LegalClientNamesComboBox_OnDropDownClosed" IsMouseCapturedChanged="LegalClientNamesComboBox_OnIsMouseCapturedChanged" HorizontalAlignment="Left" SelectedIndex="0" Margin="223,65,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <ComboBox x:Name="RecipientClientNamesComboBox" SelectionChanged="RecipientClientNamesComboBox_OnSelectionChanged" DropDownClosed="RecipientClientNamesComboBox_OnDropDownClosed" HorizontalAlignment="Left" SelectedIndex="0" Margin="223,65,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
         <ComboBox  x:Name="SenderAccountIdComboBox" HorizontalAlignment="Left" Margin="223,12,0,0" VerticalAlignment="Top" Width="140"/>
         <Label Content="Перевести на счет:" HorizontalAlignment="Left" Margin="65,109,0,0" VerticalAlignment="Top" Width="133"/>
         <ComboBox x:Name="RecipientAccountsIdComboBox" HorizontalAlignment="Left" Margin="223,113,0,0" VerticalAlignment="Top" Width="140"/>

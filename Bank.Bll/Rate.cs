@@ -5,7 +5,7 @@ namespace Bank.Bll
     /// <summary>
     /// Расчет ставки.
     /// </summary>
-    public static class Rate
+    public class Rate
     {
         /// <summary>
         /// Ставка депозита для физ. лиц.

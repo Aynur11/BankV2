@@ -7,7 +7,7 @@ using Bank.Dal.Accounts;
 
 namespace Bank.Dal.Clients
 {
-    public interface IClient<TAccount> : IClient
+    public interface IClient<TAccount> : IClient, IHasAccounts
     where TAccount: class, IAccount
     {
         List<TAccount> Accounts { get; set; }

@@ -19,7 +19,7 @@ namespace Bank.Dal
         }
         public List<PhysicalPersonClient> GetClients()
         {
-            return context.PhysicalPersonClients.ToList();
+            return context.PhysicalPersonClients.Include(a => a.Accounts).ToList();
         }
 
         public Dictionary<int, string> GetClientNamesWithId()
@@ -32,9 +32,9 @@ namespace Bank.Dal
             return context.PhysicalPersonClients.Include(a => a.Accounts).FirstOrDefault();
         }
 
-        public List<int> GetAllClientAccountsId(int clientId)
+        public List<PhysicalPersonAccount> GetAllClientAccounts(int clientId)
         {
-            return context.PhysicalPersonAccounts.Where(a=>a.ClientId == clientId).Select(i => i.Id).ToList();
+            return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
         }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
@@ -87,6 +87,11 @@ namespace Bank.Dal
                 throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
             }
 
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
         }
 
         //public void TransferMoney(int fromClientId, int fromAccountId, int toClientId, int toAccountId, decimal amount)

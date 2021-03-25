@@ -22,7 +22,7 @@ namespace Bank.Dal
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
         /// <returns></returns>
-        List<int> GetAllClientAccountsId(int clientId);
+        //List<IAccount> GetAllClientAccounts(int clientId);
 
 
         /// <summary>
