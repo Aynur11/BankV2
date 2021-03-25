@@ -41,10 +41,12 @@ namespace Bank.DesktopClient
             if (PhysicalPersonsDataGrid.CurrentItem != null)
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new PhysicalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddAccount(client.Id, accountWindow.Currency, accountWindow.Amount);
+                    using (var repo = new PhysicalPersonClientRepository())
+                    {
+                        repo.AddAccount(client.Id, accountWindow.Currency, accountWindow.Amount);
+                    }
                 }
             }
             else
@@ -61,10 +63,12 @@ namespace Bank.DesktopClient
             if (LegalPersonsDataGrid.CurrentItem != null)
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new LegalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddAccount(client.Id, accountWindow.Currency, accountWindow.Amount);
+                    using (var repo = new LegalPersonClientRepository())
+                    {
+                        repo.AddAccount(client.Id, accountWindow.Currency, accountWindow.Amount);
+                    }
                 }
             }
             else
@@ -79,10 +83,12 @@ namespace Bank.DesktopClient
             if (PhysicalPersonsDataGrid.CurrentItem != null)
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new PhysicalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcPhysicalPersonDepositRate(client.Type));
+                    using (var repo = new PhysicalPersonClientRepository())
+                    {
+                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcPhysicalPersonDepositRate(client.Type));
+                    }
                 }
             }
             else
@@ -97,10 +103,12 @@ namespace Bank.DesktopClient
             if (LegalPersonsDataGrid.CurrentItem != null)
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new LegalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcLegalPersonDepositRate(client.Type));
+                    using (var repo = new LegalPersonClientRepository())
+                    {
+                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcLegalPersonDepositRate(client.Type));
+                    }
                 }
             }
             else
@@ -116,10 +124,12 @@ namespace Bank.DesktopClient
             if (PhysicalPersonsDataGrid.CurrentItem != null)
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new PhysicalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcPhysicalPersonCreditRate(client.Type));
+                    using (var repo = new PhysicalPersonClientRepository())
+                    {
+                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcPhysicalPersonCreditRate(client.Type));
+                    }
                 }
             }
             else
@@ -135,10 +145,12 @@ namespace Bank.DesktopClient
             if (LegalPersonsDataGrid.CurrentItem != null)
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                accountWindow.ShowDialog();
-                using (var repo = new LegalPersonClientRepository())
+                if (accountWindow.ShowDialog() == true)
                 {
-                    repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcLegalPersonCreditRate(client.Type));
+                    using (var repo = new LegalPersonClientRepository())
+                    {
+                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcLegalPersonCreditRate(client.Type));
+                    }
                 }
             }
             else
@@ -253,7 +265,13 @@ namespace Bank.DesktopClient
 
         private void RemovePhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                repo.RemoveClient(client);
+                repo.Save();
+                repo.Update(client);
+            }
         }
 
         private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)

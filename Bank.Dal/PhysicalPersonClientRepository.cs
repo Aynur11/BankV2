@@ -21,17 +21,7 @@ namespace Bank.Dal
         {
             return context.PhysicalPersonClients.Include(a => a.Accounts).ToList();
         }
-
-        public Dictionary<int, string> GetClientNamesWithId()
-        {
-            return context.PhysicalPersonClients.ToDictionary(i => i.Id, n => string.Join(' ', n.FirstName, n.MiddleName));
-        }
-
-        public PhysicalPersonClient GetClient(int id)
-        {
-            return context.PhysicalPersonClients.Include(a => a.Accounts).FirstOrDefault();
-        }
-
+        
         public List<PhysicalPersonAccount> GetAllClientAccounts(int clientId)
         {
             return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
@@ -89,65 +79,26 @@ namespace Bank.Dal
 
         }
 
+        public void AddClient(PhysicalPersonClient client)
+        {
+            context.PhysicalPersonClients.Add(client);
+        }
+
+        public void RemoveClient(PhysicalPersonClient client)
+        {
+            context.PhysicalPersonClients.Remove(client);
+        }
+
         public void Save()
         {
             context.SaveChanges();
         }
 
-        //public void TransferMoney(int fromClientId, int fromAccountId, int toClientId, int toAccountId, decimal amount)
-        //{
-        //    PhysicalPersonAccount fromClient = context.PhysicalPersonAccounts.FirstOrDefault(i => i.ClientId == fromClientId && i.Id == fromAccountId);
-        //    PhysicalPersonAccount toClient = context.PhysicalPersonAccounts.FirstOrDefault(i => i.ClientId == toClientId && i.Id == toAccountId);
-        //    LegalPersonAccount toLegalClient = null;
-
-        //    if (toClient == null)
-        //    {
-        //        toLegalClient = context.LegalPersonAccounts.FirstOrDefault(i => i.ClientId == toClientId && i.Id == toAccountId);
-        //        if (fromClient.Currency != toLegalClient.Currency)
-        //        {
-        //            throw new CurrencyMismatchException(fromClient.Currency, toLegalClient.Currency,
-        //                "Обнаружена попытка перевода валюты на другой валютный счет.");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (fromClient.Currency != toClient.Currency)
-        //        {
-        //            throw new CurrencyMismatchException(fromClient.Currency, toClient.Currency,
-        //                "Обнаружена попытка перевода валюты на другой валютный счет.");
-        //        }
-        //    }
-
-        //    //if (fromClient == null )
-        //    //{
-        //    //    Debug.WriteLine("Отправитель перевода не обнаружен в БД.");
-        //    //}
-
-        //    //if (toClient == null && toLegalClient == null)
-        //    //{
-        //    //    Debug.WriteLine("Получатель перевода не обнаружен в БД.");
-        //    //}
-
-        //    if (fromClient.Amount >= amount)
-        //    {
-        //        if (toClient != null)
-        //        {
-        //            toClient.Amount += amount;
-        //        }
-        //        else
-        //        {
-        //            toLegalClient.Amount += amount;
-        //        }
-        //        fromClient.Amount -= amount;
-        //    }
-        //    else
-        //    {
-        //        throw new InsufficientAmountsException(fromClient.Amount, "Для выполнения перевода недостаточно средств.");
-        //    }
-
-        //    context.SaveChanges();
-        //}
-
+        public void Update(PhysicalPersonClient client)
+        {
+            context.Update(client);
+        }
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
