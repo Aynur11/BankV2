@@ -5,8 +5,7 @@ using Bank.Dal.Clients;
 using Bank.Dal.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,22 +16,32 @@ namespace Bank.DesktopClient
     /// </summary>
     public partial class ClientsWindow : Window
     {
+        public ObservableCollection<PhysicalPersonClient> PhysicalPersonClients { get; set; }
+        public PhysicalPersonClient SelectedPhysicalPersonClient { get; set; }
+        public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
+        public LegalPersonClient SelectedLegalPersonClient { get; set; }
+        private readonly Rate rate;
+
         public ClientsWindow()
         {
+            Console.WriteLine(!(true ^ false));
             InitializeComponent();
             //TestData testData = new TestData();
             //testData.FillAllTables();
-
             using (var repo = new PhysicalPersonClientRepository())
             {
-                PhysicalPersonsDataGrid.ItemsSource = repo.GetClients();
+                PhysicalPersonClients = new ObservableCollection<PhysicalPersonClient>(repo.GetClients());
+                PhysicalPersonsDataGrid.DataContext = this;
             }
 
             using (var repo = new LegalPersonClientRepository())
             {
-                LegalPersonsDataGrid.ItemsSource = repo.GetClients();
+                LegalPersonClients = new ObservableCollection<LegalPersonClient>(repo.GetClients());
+                LegalPersonsDataGrid.DataContext = this;
             }
+            rate = new Rate();
         }
+
         private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
             AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow();
@@ -87,7 +96,8 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcPhysicalPersonDepositRate(client.Type));
+                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, 
+                            accountWindow.WithCapitalization, rate.CalcPhysicalPersonDepositRate(client.Type));
                     }
                 }
             }
@@ -107,7 +117,8 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, accountWindow.WithCapitalization, Rate.CalcLegalPersonDepositRate(client.Type));
+                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period,
+                            accountWindow.WithCapitalization, rate.CalcLegalPersonDepositRate(client.Type));
                     }
                 }
             }
@@ -128,7 +139,8 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcPhysicalPersonCreditRate(client.Type));
+                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, 
+                            rate.CalcPhysicalPersonCreditRate(client.Type));
                     }
                 }
             }
@@ -149,7 +161,9 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, Rate.CalcLegalPersonCreditRate(client.Type));
+                        
+                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period,
+                            rate.CalcLegalPersonCreditRate(client.Type));
                     }
                 }
             }
@@ -265,13 +279,26 @@ namespace Bank.DesktopClient
 
         private void RemovePhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
-            PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
             using (var repo = new PhysicalPersonClientRepository())
             {
-                repo.RemoveClient(client);
+                repo.RemoveClient(SelectedPhysicalPersonClient);
                 repo.Save();
-                repo.Update(client);
+                repo.Update(SelectedPhysicalPersonClient);
             }
+
+            PhysicalPersonClients.Remove(SelectedPhysicalPersonClient);
+        }
+
+        private void RemoveLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (var repo = new LegalPersonClientRepository())
+            {
+                repo.RemoveClient(SelectedLegalPersonClient);
+                repo.Save();
+                repo.Update(SelectedLegalPersonClient);
+            }
+
+            PhysicalPersonClients.Remove(SelectedPhysicalPersonClient);
         }
 
         private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -302,13 +329,6 @@ namespace Bank.DesktopClient
         private void LegalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
 
-        }
-
-
-
-        private void RemoveLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void AddNewLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)

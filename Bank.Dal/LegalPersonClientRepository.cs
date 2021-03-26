@@ -84,11 +84,21 @@ namespace Bank.Dal
             context.LegalPersonClients.Add(client);
         }
 
+        public void RemoveClient(LegalPersonClient client)
+        {
+            context.LegalPersonClients.Remove(client);
+        }
+
         public void Save()
         {
             context.SaveChanges();
         }
-        
+
+        public void Update(LegalPersonClient client)
+        {
+            context.Update(client);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

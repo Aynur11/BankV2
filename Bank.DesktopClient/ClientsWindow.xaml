@@ -31,6 +31,8 @@
                               IsReadOnly="False"
                               CurrentCellChanged="PhysicalPersonsDataGrid_OnCurrentCellChanged"
                               CellEditEnding="PhysicalPersonsDataGrid_OnCellEditEnding"
+                              ItemsSource="{Binding PhysicalPersonClients}"
+                              SelectedItem="{Binding SelectedPhysicalPersonClient}"
                               >
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="Id"
@@ -75,6 +77,8 @@
                               IsReadOnly="False"
                               CurrentCellChanged="LeaglPersonsDataGrid_OnCurrentCellChanged"
                               CellEditEnding="LegalPersonsDataGrid_OnCellEditEnding"
+                              ItemsSource="{Binding LegalPersonClients}"
+                              SelectedItem="{Binding SelectedLegalPersonClient}"
                               >
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="CompanyId"
