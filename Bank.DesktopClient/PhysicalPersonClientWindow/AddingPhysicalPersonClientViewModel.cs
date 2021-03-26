@@ -1,11 +1,21 @@
-﻿namespace Bank.DesktopClient.PhysicalPersonClientWindow
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Bank.DesktopClient.PhysicalPersonClientWindow
 {
-    public class AddingPhysicalPersonClientViewModel
+    public class AddingPhysicalPersonClientViewModel : INotifyPropertyChanged
     {
-        public AddingPhysicalPersonClientModel FirstName { get; set; }
-        public AddingPhysicalPersonClientModel MiddleName { get; set; }
-        public AddingPhysicalPersonClientModel LastName { get; set; }
-        public AddingPhysicalPersonClientModel Birthday { get; set; }
-        public AddingPhysicalPersonClientModel IsVip { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Click()
+        {
+
+        }
+
     }
 }

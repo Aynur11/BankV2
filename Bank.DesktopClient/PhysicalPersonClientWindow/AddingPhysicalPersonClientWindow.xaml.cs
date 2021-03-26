@@ -11,5 +11,10 @@ namespace Bank.DesktopClient.PhysicalPersonClientWindow
         {
             InitializeComponent();
         }
+
+        private void OkButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

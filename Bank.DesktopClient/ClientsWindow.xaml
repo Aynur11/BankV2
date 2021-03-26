@@ -17,6 +17,7 @@
                         <MenuItem Header="Transfer money" Click="TransferPhysicalPersonMoneyButton_OnClick"></MenuItem>
                         <MenuItem Header="Remove client" Click="RemovePhysicalPersonClientButton_OnClick"></MenuItem>
                         <MenuItem Header="Add new client" Click="AddNewPhysicalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Show all accounts" Click="ShowAllPhysicalPersonAccountsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all credits" Click="ShowAllPhysicalPersonCreditsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all deposits" Click="ShowAllPhysicalPersonDepositsMenuItem_OnClick"></MenuItem>
                     </ContextMenu>
@@ -63,6 +64,7 @@
                         <MenuItem Header="Transfer money" Click="TransferLegalPersonMoneyButton_OnClick"></MenuItem>
                         <MenuItem Header="Remove client" Click="RemoveLegalPersonClientButton_OnClick"></MenuItem>
                         <MenuItem Header="Add new client" Click="AddNewLegalPersonClientButton_OnClick"></MenuItem>
+                        <MenuItem Header="Show all accounts" Click="ShowAllLegalPersonAccountsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all credits" Click="ShowAllLegalPersonCreditsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all deposits" Click="ShowAllLegalPersonDepositsMenuItem_OnClick"></MenuItem>
                     </ContextMenu>

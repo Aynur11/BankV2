@@ -96,7 +96,7 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, 
+                        repo.AddDeposit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period,
                             accountWindow.WithCapitalization, rate.CalcPhysicalPersonDepositRate(client.Type));
                     }
                 }
@@ -139,7 +139,7 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period, 
+                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period,
                             rate.CalcPhysicalPersonCreditRate(client.Type));
                     }
                 }
@@ -161,7 +161,7 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-                        
+
                         repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.Amount, accountWindow.Period,
                             rate.CalcLegalPersonCreditRate(client.Type));
                     }
@@ -342,6 +342,23 @@ namespace Bank.DesktopClient
         }
 
         private void ShowAllLegalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ShowAllPhysicalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var accountsWindow = new AccountsWindow();
+            accountsWindow.Title = $"Все счета клиента: {SelectedPhysicalPersonClient.DisplayName}";
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
+                accountsWindow.ShowDialog();
+            }
+
+        }
+
+        private void ShowAllLegalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }

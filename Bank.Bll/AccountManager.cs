@@ -5,9 +5,8 @@ using System;
 
 namespace Bank.Bll
 {
-    public class AccountManager : IDisposable
+    public class AccountManager
     {
-        private bool disposed;
         private readonly BankContext context;
 
         public AccountManager()
@@ -15,6 +14,12 @@ namespace Bank.Bll
             context = new BankContext();
         }
 
+        /// <summary>
+        /// Перевод денег со счета на счет.
+        /// </summary>
+        /// <param name="accountFrom">С какого счета переводить.</param>
+        /// <param name="accountTo">На какой счет переводить.</param>
+        /// <param name="amount">Сумма перевода.</param>
         public void TransferMoney(IAccount accountFrom, IAccount accountTo, decimal amount)
         {
             if (accountFrom.Id == accountTo.Id && 
@@ -37,25 +42,6 @@ namespace Bank.Bll
 
             accountFrom.Amount -= amount;
             accountTo.Amount += amount;
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
     }
 }
