@@ -29,14 +29,21 @@ namespace Bank.Dal
             return context.LegalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
         }
 
+        public List<LegalPersonDeposit> GetAllClientDeposits(int clientId)
+        {
+            return context.LegalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
+        }
+
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.LegalPersonAccounts.Add(new LegalPersonAccount(clientId, currency, amount, rate));
+                var account = new LegalPersonAccount(clientId, currency, amount, rate);
+                context.LegalPersonAccounts.Add(account);
+                context.SaveChanges();
                 context.LegalPersonAccountArchives.Add(new LegalPersonAccountArchive(amount, Operation.AddAccount,
-                    clientId));
+                    account.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -51,9 +58,11 @@ namespace Bank.Dal
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.LegalPersonCredits.Add(new LegalPersonCredit(clientId, currency, amount, period, rate));
+                var credit = new LegalPersonCredit(clientId, currency, amount, period, rate);
+                context.LegalPersonCredits.Add(credit);
+                context.SaveChanges();
                 context.LegalPersonCreditArchives.Add(new LegalPersonCreditArchive(amount, Operation.AddCredit,
-                    clientId));
+                    credit.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -68,8 +77,10 @@ namespace Bank.Dal
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.LegalPersonDeposits.Add(new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
-                context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operation.AddDeposit, clientId));
+                var deposit = new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate);
+                context.LegalPersonDeposits.Add(deposit);
+                context.SaveChanges();
+                context.LegalPersonDepositArchives.Add(new LegalPersonDepositArchive(amount, Operation.AddDeposit, deposit.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }

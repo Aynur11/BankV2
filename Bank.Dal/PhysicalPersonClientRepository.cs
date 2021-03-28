@@ -3,6 +3,7 @@ using Bank.Dal.Clients;
 using Bank.Dal.OperationsArchive;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,15 +27,21 @@ namespace Bank.Dal
         {
             return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
         }
+        public List<PhysicalPersonDeposit> GetAllClientDeposits(int clientId)
+        {
+            return context.PhysicalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
+        }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.PhysicalPersonAccounts.Add(new PhysicalPersonAccount(clientId, currency, amount, rate));
+                var account = new PhysicalPersonAccount(clientId, currency, amount, rate);
+                context.PhysicalPersonAccounts.Add(account);
+                context.SaveChanges();
                 context.PhysicalPersonAccountArchives.Add(new PhysicalPersonAccountArchive(amount, Operation.AddAccount,
-                    clientId));
+                    account.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -49,9 +56,11 @@ namespace Bank.Dal
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.PhysicalPersonCredits.Add(new PhysicalPersonCredit(clientId, currency, amount, period, rate));
+                var credit = new PhysicalPersonCredit(clientId, currency, amount, period, rate);
+                context.PhysicalPersonCredits.Add(credit);
+                context.SaveChanges();
                 context.PhysicalPersonCreditArchive.Add(new PhysicalPersonCreditArchive(amount, Operation.AddCredit,
-                    clientId));
+                    credit.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -66,9 +75,10 @@ namespace Bank.Dal
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.PhysicalPersonDeposits.Add(new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate));
-                context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(amount, Operation.AddDeposit,
-                    clientId));
+                var deposit = new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate);
+                context.PhysicalPersonDeposits.Add(deposit);
+                context.SaveChanges();
+                context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(amount, Operation.AddDeposit, deposit.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }

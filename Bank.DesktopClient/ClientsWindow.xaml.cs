@@ -271,12 +271,7 @@ namespace Bank.DesktopClient
                 }
             }
         }
-
-        private void AddNewPhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         private void RemovePhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             using (var repo = new PhysicalPersonClientRepository())
@@ -301,16 +296,6 @@ namespace Bank.DesktopClient
             PhysicalPersonClients.Remove(SelectedPhysicalPersonClient);
         }
 
-        private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void ShowAllPhysicalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
         private void PhysicalPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
         {
 
@@ -331,19 +316,57 @@ namespace Bank.DesktopClient
 
         }
 
+        private void AddNewPhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void AddNewLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void ShowAllLegalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var creditsWindow = new CreditsWindow();
+            creditsWindow.Title = $"Все кредиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedPhysicalPersonClient.Id);
+                creditsWindow.ShowDialog();
+            }
         }
 
+        private void ShowAllLegalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var creditsWindow = new CreditsWindow();
+            creditsWindow.Title = $"Все кредиты клиента: {SelectedLegalPersonClient.DisplayName}";
+            using (var repo = new LegalPersonClientRepository())
+            {
+                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedLegalPersonClient.Id);
+                creditsWindow.ShowDialog();
+            }
+        }
+
+        private void ShowAllPhysicalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var depositsWindow = new DepositsWindow();
+            depositsWindow.Title = $"Все деопзиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                depositsWindow.DepositsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedPhysicalPersonClient.Id);
+                depositsWindow.ShowDialog();
+            }
+        }
         private void ShowAllLegalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var depositsWindow = new DepositsWindow();
+            depositsWindow.Title = $"Все деопзиты клиента: {SelectedLegalPersonClient.DisplayName}";
+            using (var repo = new LegalPersonClientRepository())
+            {
+                depositsWindow.DepositsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedLegalPersonClient.Id);
+                depositsWindow.ShowDialog();
+            }
         }
 
         private void ShowAllPhysicalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -355,12 +378,17 @@ namespace Bank.DesktopClient
                 accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
-
         }
 
         private void ShowAllLegalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var accountsWindow = new AccountsWindow();
+            accountsWindow.Title = $"Все счета клиента: {SelectedLegalPersonClient.DisplayName}";
+            using (var repo = new LegalPersonClientRepository())
+            {
+                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
+                accountsWindow.ShowDialog();
+            }
         }
     }
 }

@@ -1,19 +1,20 @@
-﻿<Window x:Class="Bank.DesktopClient.AccountsWindow"
+﻿<Window x:Class="Bank.DesktopClient.CreditsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank.DesktopClient"
         mc:Ignorable="d"
-        Title="AccountsWindow" Height="308" Width="349">
+        Title="CreditsWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="AccountsDataGrid"
-                  IsReadOnly="False"
-                  CanUserAddRows="false"
-                  ColumnWidth="*"
-                  AutoGenerateColumns="False"
-                  ItemsSource="{Binding}"
-                  >
+        <DataGrid
+            x:Name="CreditsDataGrid"
+            IsReadOnly="False"
+            CanUserAddRows="false"
+            ColumnWidth="*"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding}"
+        >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Id"
                                     Binding="{Binding Id}"
@@ -27,8 +28,10 @@
                 <DataGridTextColumn x:Name="Currency"
                                     Binding="{Binding Currency}"
                                     Header="Валюта"/>
+                <DataGridTextColumn x:Name="Period"
+                                    Binding="{Binding Period}"
+                                    Header="Период"/>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Window>
