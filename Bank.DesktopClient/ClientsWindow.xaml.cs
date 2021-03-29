@@ -410,22 +410,22 @@ namespace Bank.DesktopClient
 
         private void ShowAllPhysicalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var accountsWindow = new AccountsWindow();
+            var accountsWindow = new AccountsWindow(SelectedPhysicalPersonClient.Id);
             accountsWindow.Title = $"Все счета клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
+                //accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
         }
 
         private void ShowAllLegalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var accountsWindow = new AccountsWindow();
+            var accountsWindow = new AccountsWindow(SelectedLegalPersonClient.Id);
             accountsWindow.Title = $"Все счета клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
+                //accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
         }

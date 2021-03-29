@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Bank.Dal;
+using Bank.Dal.Accounts;
 
 namespace Bank.DesktopClient
 {
@@ -19,9 +11,34 @@ namespace Bank.DesktopClient
     /// </summary>
     public partial class AccountsWindow : Window
     {
-        public AccountsWindow()
+        public ObservableCollection<PhysicalPersonAccount> Accounts { get; set; }
+        public PhysicalPersonAccount SelectedAccount { get; set; }
+
+        public AccountsWindow(int clientId)
         {
             InitializeComponent();
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                Accounts = new ObservableCollection<PhysicalPersonAccount>(repo.GetAllClientAccounts(clientId));
+                AccountsDataGrid.DataContext = this;
+            }
+        }
+
+        private void ShowAccountHistoryMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var historyWindow = new AccountHistoryWindow();
+
+            using (var repo = new PhysicalPersonClientRepository())
+            {
+                if (SelectedAccount == null)
+                {
+                    Debug.WriteLine("Счет не выбран");
+                    return;
+                }
+                historyWindow.AccountsDataGrid.ItemsSource = repo.GetAccountHistory(SelectedAccount.Id);
+                historyWindow.ShowDialog();
+            }
+            
         }
     }
 }

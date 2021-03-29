@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank.DesktopClient"
         mc:Ignorable="d"
-        Title="CreditsWindow" Height="450" Width="800">
+        Title="CreditsWindow" Height="338" Width="544">
     <Grid>
         <DataGrid
             x:Name="CreditsDataGrid"

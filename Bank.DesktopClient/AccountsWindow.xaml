@@ -5,14 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank.DesktopClient"
         mc:Ignorable="d"
-        Title="AccountsWindow" Height="308" Width="349">
+        Title="AccountsWindow" Height="338" Width="544">
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Show account history" Click="ShowAccountHistoryMenuItem_OnClick"></MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <DataGrid x:Name="AccountsDataGrid"
-                  IsReadOnly="False"
+                  IsSynchronizedWithCurrentItem="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
                   CanUserAddRows="false"
                   ColumnWidth="*"
-                  AutoGenerateColumns="False"
-                  ItemsSource="{Binding}"
+                  IsReadOnly="False"
+                  ItemsSource="{Binding Accounts}"
+                  SelectedItem="{Binding SelectedAccount}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Id"

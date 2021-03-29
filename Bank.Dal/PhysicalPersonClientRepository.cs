@@ -18,6 +18,12 @@ namespace Bank.Dal
         {
             context = new BankContext();
         }
+
+        public List<PhysicalPersonAccountArchive> GetAccountHistory(int accountId)
+        {
+            return context.PhysicalPersonAccountArchives.Where(a => a.PhysicalPersonAccountId == accountId).ToList();
+        }
+
         public List<PhysicalPersonClient> GetClients()
         {
             return context.PhysicalPersonClients.Include(a => a.Accounts).ToList();
