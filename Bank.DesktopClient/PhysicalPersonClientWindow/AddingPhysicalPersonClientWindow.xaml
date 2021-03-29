@@ -12,7 +12,7 @@
         <local:AddingPhysicalPersonClientViewModel></local:AddingPhysicalPersonClientViewModel>
     </Window.DataContext>
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="15,31,0,0" Text="Имя" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
+        <TextBox HorizontalAlignment="Left" Margin="15,31,0,0" Text="{Binding Client.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
         <TextBox HorizontalAlignment="Left" Margin="147,31,0,0" Text="Фамилия" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Height="22"/>
         <TextBox HorizontalAlignment="Left" Margin="296,31,0,0" Text="Отчество" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
         <TextBox HorizontalAlignment="Left" Margin="15,77,0,0" Text="Дата рождения" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="22"/>

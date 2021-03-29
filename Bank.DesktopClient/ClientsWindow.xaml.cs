@@ -6,8 +6,10 @@ using Bank.Dal.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.DesktopClient.PhysicalPersonClientWindow;
 
 namespace Bank.DesktopClient
 {
@@ -21,6 +23,7 @@ namespace Bank.DesktopClient
         public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
         private readonly Rate rate;
+        private DataRowView row;
 
         public ClientsWindow()
         {
@@ -296,19 +299,50 @@ namespace Bank.DesktopClient
             PhysicalPersonClients.Remove(SelectedPhysicalPersonClient);
         }
 
-        private void PhysicalPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void PhysicalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            //if (SelectedPhysicalPersonClient != null)
+            //{
+            //    row = (DataRowView)PhysicalPersonsDataGrid.SelectedItem;
+            //    row.BeginEdit();
+            //}
+            //if (SelectedPhysicalPersonClient != null)
+            //{
+            //    using (var repo = new PhysicalPersonClientRepository())
+            //    {
+            //        repo.Update(SelectedPhysicalPersonClient);
+            //        repo.Save();
+            //    }
+            //}
+        }
 
+        private void PhysicalPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
+        {
+            //if (row == null)
+            //{
+            //    return;
+            //}
+            //row.EndEdit();
+            if (SelectedPhysicalPersonClient != null)
+            {
+                using (var repo = new PhysicalPersonClientRepository())
+                {
+                    repo.Update(SelectedPhysicalPersonClient);
+                    repo.Save();
+                }
+            }
         }
 
         private void LeaglPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
         {
-
+            if (SelectedLegalPersonClient != null)
+            {
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    repo.Update(SelectedLegalPersonClient);
+                    repo.Save();
+                }
+            }
         }
 
         private void LegalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -318,7 +352,12 @@ namespace Bank.DesktopClient
 
         private void AddNewPhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var addingClientWindow = new AddingPhysicalPersonClientWindow();
+            if (addingClientWindow.ShowDialog() == true)
+            {
+                //addingClientWindow.
+            }
+
         }
 
         private void AddNewLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
