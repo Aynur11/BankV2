@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AccountHistoryWindow" Height="338" Width="544">
     <Grid>
-        <DataGrid x:Name="AccountsDataGrid"
+        <DataGrid x:Name="HistoryDataGrid"
                   IsReadOnly="False"
                   CanUserAddRows="false"
                   ColumnWidth="*"

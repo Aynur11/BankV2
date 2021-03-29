@@ -19,6 +19,16 @@ namespace Bank.Dal
             context = new BankContext();
         }
 
+        public List<LegalPersonCreditArchive> GetCreditHistory(int accountId)
+        {
+            return context.LegalPersonCreditArchives.Where(a => a.LegalPersonCreditId == accountId).ToList();
+        }
+
+        public List<LegalPersonAccountArchive> GetAccountHistory(int accountId)
+        {
+            return context.LegalPersonAccountArchives.Where(a => a.LegalPersonAccountId == accountId).ToList();
+        }
+
         public List<LegalPersonClient> GetClients()
         {
             return context.LegalPersonClients.ToList();
@@ -32,6 +42,10 @@ namespace Bank.Dal
         public List<LegalPersonDeposit> GetAllClientDeposits(int clientId)
         {
             return context.LegalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
+        }
+        public List<LegalPersonCredit> GetAllClientCredits(int clientId)
+        {
+            return context.LegalPersonCredits.Where(a => a.ClientId == clientId).ToList();
         }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)

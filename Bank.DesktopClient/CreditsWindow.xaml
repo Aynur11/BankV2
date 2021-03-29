@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="CreditsWindow" Height="338" Width="544">
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Show credit history" Click="ShowCreditHistoryMenuItem_OnClick"></MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <DataGrid
             x:Name="CreditsDataGrid"
             IsReadOnly="False"

@@ -1,11 +1,10 @@
 ﻿using Bank.Dal.Accounts;
 using Bank.Dal.Clients;
 using Bank.Dal.OperationsArchive;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Dal
 {
@@ -17,6 +16,11 @@ namespace Bank.Dal
         public PhysicalPersonClientRepository()
         {
             context = new BankContext();
+        }
+
+        public List<PhysicalPersonCreditArchive> GetCreditHistory(int accountId)
+        {
+            return context.PhysicalPersonCreditArchive.Where(a => a.PhysicalPersonCreditId == accountId).ToList();
         }
 
         public List<PhysicalPersonAccountArchive> GetAccountHistory(int accountId)
@@ -36,6 +40,11 @@ namespace Bank.Dal
         public List<PhysicalPersonDeposit> GetAllClientDeposits(int clientId)
         {
             return context.PhysicalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
+        }
+
+        public List<PhysicalPersonCredit> GetAllClientCredits(int clientId)
+        {
+            return context.PhysicalPersonCredits.Where(a => a.ClientId == clientId).ToList();
         }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)

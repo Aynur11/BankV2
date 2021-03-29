@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Bank.Dal.Accounts;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bank.Dal.Accounts;
 
 namespace Bank.Dal.Clients
 {

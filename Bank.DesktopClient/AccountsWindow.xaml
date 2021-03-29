@@ -19,8 +19,7 @@
                   CanUserAddRows="false"
                   ColumnWidth="*"
                   IsReadOnly="False"
-                  ItemsSource="{Binding Accounts}"
-                  SelectedItem="{Binding SelectedAccount}"
+                  ItemsSource="{Binding}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Id"

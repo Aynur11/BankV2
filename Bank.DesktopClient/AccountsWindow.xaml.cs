@@ -11,34 +11,31 @@ namespace Bank.DesktopClient
     /// </summary>
     public partial class AccountsWindow : Window
     {
-        public ObservableCollection<PhysicalPersonAccount> Accounts { get; set; }
-        public PhysicalPersonAccount SelectedAccount { get; set; }
-
-        public AccountsWindow(int clientId)
+        public AccountsWindow()
         {
             InitializeComponent();
-            using (var repo = new PhysicalPersonClientRepository())
-            {
-                Accounts = new ObservableCollection<PhysicalPersonAccount>(repo.GetAllClientAccounts(clientId));
-                AccountsDataGrid.DataContext = this;
-            }
         }
 
         private void ShowAccountHistoryMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             var historyWindow = new AccountHistoryWindow();
+            var account = (IAccount) AccountsDataGrid.SelectedValue;
 
-            using (var repo = new PhysicalPersonClientRepository())
+            if (account is PhysicalPersonAccount)
             {
-                if (SelectedAccount == null)
+                using (var repo = new PhysicalPersonClientRepository())
                 {
-                    Debug.WriteLine("Счет не выбран");
-                    return;
+                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetAccountHistory(account.Id);
                 }
-                historyWindow.AccountsDataGrid.ItemsSource = repo.GetAccountHistory(SelectedAccount.Id);
-                historyWindow.ShowDialog();
             }
-            
+            else
+            {
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetAccountHistory(account.Id);
+                }
+            }
+            historyWindow.ShowDialog();
         }
     }
 }

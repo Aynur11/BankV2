@@ -367,28 +367,43 @@ namespace Bank.DesktopClient
 
         private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            if (SelectedPhysicalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
             var creditsWindow = new CreditsWindow();
             creditsWindow.Title = $"Все кредиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedPhysicalPersonClient.Id);
+                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientCredits(SelectedPhysicalPersonClient.Id);
                 creditsWindow.ShowDialog();
             }
         }
 
         private void ShowAllLegalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            if (SelectedLegalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
             var creditsWindow = new CreditsWindow();
             creditsWindow.Title = $"Все кредиты клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedLegalPersonClient.Id);
+                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientCredits(SelectedLegalPersonClient.Id);
                 creditsWindow.ShowDialog();
             }
         }
 
         private void ShowAllPhysicalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            if (SelectedPhysicalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
             var depositsWindow = new DepositsWindow();
             depositsWindow.Title = $"Все деопзиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
@@ -399,6 +414,11 @@ namespace Bank.DesktopClient
         }
         private void ShowAllLegalPersonDepositsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            if (SelectedLegalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
             var depositsWindow = new DepositsWindow();
             depositsWindow.Title = $"Все деопзиты клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
@@ -410,22 +430,32 @@ namespace Bank.DesktopClient
 
         private void ShowAllPhysicalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var accountsWindow = new AccountsWindow(SelectedPhysicalPersonClient.Id);
+            if (SelectedPhysicalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
+            var accountsWindow = new AccountsWindow();
             accountsWindow.Title = $"Все счета клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                //accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
+                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
         }
 
         private void ShowAllLegalPersonAccountsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var accountsWindow = new AccountsWindow(SelectedLegalPersonClient.Id);
+            if (SelectedLegalPersonClient == null)
+            {
+                MessageBox.Show("Выберите клиента корректным образом!");
+                return;
+            }
+            var accountsWindow = new AccountsWindow();
             accountsWindow.Title = $"Все счета клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                //accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
+                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
         }

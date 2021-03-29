@@ -6,7 +6,7 @@ namespace Bank.Dal.Accounts
     /// <summary>
     /// Описывает кредит юр. лиц.
     /// </summary>
-    public class LegalPersonCredit
+    public class LegalPersonCredit : IAccount
     {
         /// <summary>
         /// Конструктор для загрузки данных или для создания нового счета для существующего клиента без навигационного свойства.

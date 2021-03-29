@@ -7,13 +7,6 @@ namespace Bank.Bll
 {
     public class AccountManager
     {
-        private readonly BankContext context;
-
-        public AccountManager()
-        {
-            context = new BankContext();
-        }
-
         /// <summary>
         /// Перевод денег со счета на счет.
         /// </summary>
