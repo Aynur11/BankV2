@@ -12,10 +12,5 @@ namespace Bank.DesktopClient.PhysicalPersonClientWindow
             InitializeComponent();
             DataContext = new AddingPhysicalPersonClientViewModel();
         }
-
-        private void OkButton_OnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

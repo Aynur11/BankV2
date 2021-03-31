@@ -1,13 +1,17 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.DesktopClient.PhysicalPersonClientWindow;
 
-namespace Bank.DesktopClient.PhysicalPersonClientWindow
+namespace Bank.DesktopClient.LegalPersonClientWindow
 {
-    public class AddingPhysicalPersonClientViewModel : INotifyPropertyChanged
+    public class AddingLegalPersonClientViewModel
     {
-        //private AddingPhysicalPersonClientModel client;
         private RelayCommand okClickRelayCommand;
         private RelayCommand cancelClickRelayCommand;
         private RelayCommand gotFocusCommand;
@@ -18,7 +22,7 @@ namespace Bank.DesktopClient.PhysicalPersonClientWindow
             {
                 return okClickRelayCommand ?? (okClickRelayCommand = new RelayCommand(o =>
                 {
-                    Window window = (Window) o;
+                    Window window = (Window)o;
                     window.DialogResult = true;
                     window.Close();
                 }));
@@ -41,13 +45,6 @@ namespace Bank.DesktopClient.PhysicalPersonClientWindow
         public RelayCommand GotFocusCommand
         {
             get { return gotFocusCommand ?? (gotFocusCommand = new RelayCommand(o => { ((TextBox)o).Clear(); })); }
-        }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

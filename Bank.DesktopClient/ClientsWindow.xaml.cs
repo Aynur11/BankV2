@@ -3,31 +3,30 @@ using Bank.Dal;
 using Bank.Dal.Accounts;
 using Bank.Dal.Clients;
 using Bank.Dal.Exceptions;
+using Bank.DesktopClient.PhysicalPersonClientWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using Bank.DesktopClient.PhysicalPersonClientWindow;
+using Bank.DesktopClient.LegalPersonClientWindow;
 
 namespace Bank.DesktopClient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ClientsWindow : Window
+    public partial class ClientsWindow : Window, INotifyPropertyChanged
     {
         public ObservableCollection<PhysicalPersonClient> PhysicalPersonClients { get; set; }
         public PhysicalPersonClient SelectedPhysicalPersonClient { get; set; }
         public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
         private readonly Rate rate;
-        private DataRowView row;
 
         public ClientsWindow()
         {
-            Console.WriteLine(!(true ^ false));
             InitializeComponent();
             //TestData testData = new TestData();
             //testData.FillAllTables();
@@ -274,7 +273,7 @@ namespace Bank.DesktopClient
                 }
             }
         }
-        
+
         private void RemovePhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             using (var repo = new PhysicalPersonClientRepository())
@@ -296,33 +295,11 @@ namespace Bank.DesktopClient
                 repo.Update(SelectedLegalPersonClient);
             }
 
-            PhysicalPersonClients.Remove(SelectedPhysicalPersonClient);
+            LegalPersonClients.Remove(SelectedLegalPersonClient);
         }
 
         private void PhysicalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            //if (SelectedPhysicalPersonClient != null)
-            //{
-            //    row = (DataRowView)PhysicalPersonsDataGrid.SelectedItem;
-            //    row.BeginEdit();
-            //}
-            //if (SelectedPhysicalPersonClient != null)
-            //{
-            //    using (var repo = new PhysicalPersonClientRepository())
-            //    {
-            //        repo.Update(SelectedPhysicalPersonClient);
-            //        repo.Save();
-            //    }
-            //}
-        }
-
-        private void PhysicalPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
-        {
-            //if (row == null)
-            //{
-            //    return;
-            //}
-            //row.EndEdit();
             if (SelectedPhysicalPersonClient != null)
             {
                 using (var repo = new PhysicalPersonClientRepository())
@@ -333,7 +310,7 @@ namespace Bank.DesktopClient
             }
         }
 
-        private void LeaglPersonsDataGrid_OnCurrentCellChanged(object sender, EventArgs e)
+        private void LegalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (SelectedLegalPersonClient != null)
             {
@@ -345,24 +322,52 @@ namespace Bank.DesktopClient
             }
         }
 
-        private void LegalPersonsDataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-
-        }
-
         private void AddNewPhysicalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             var addingClientWindow = new AddingPhysicalPersonClientWindow();
             if (addingClientWindow.ShowDialog() == true)
             {
-                //addingClientWindow.
-            }
+                using (var repo = new PhysicalPersonClientRepository())
+                {
+                    if (!DateTime.TryParse(addingClientWindow.BirthdayTextBox.Text, out var birthday))
+                    {
+                        MessageBox.Show("Ошибка ввода дня рождения");
+                        return;
+                    }
 
+                    ClientType clientType = Convert.ToBoolean(addingClientWindow.IsVipCheckBox.IsChecked)
+                        ? ClientType.Vip
+                        : ClientType.Usual;
+
+                    var client = new PhysicalPersonClient(addingClientWindow.FirstNameTextBox.Text, 
+                        addingClientWindow.LastNameTextBox.Text, 
+                        addingClientWindow.LastNameTextBox.Text,
+                        birthday,
+                        clientType);
+                    PhysicalPersonClients.Add(client);
+                    repo.AddClient(client);
+                    repo.Save();
+                }
+            }
         }
 
         private void AddNewLegalPersonClientButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var addingClientWindow = new AddingLegalPersonClientWindow();
+            if (addingClientWindow.ShowDialog() == true)
+            {
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    ClientType clientType = Convert.ToBoolean(addingClientWindow.IsVipCheckBox.IsChecked)
+                        ? ClientType.Vip
+                        : ClientType.Usual;
+
+                    var client = new LegalPersonClient(addingClientWindow.CompanyNameTextBox.Text, clientType);
+                    LegalPersonClients.Add(client);
+                    repo.AddClient(client);
+                    repo.Save();
+                }
+            }
         }
 
         private void ShowAllPhysicalPersonCreditsMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -458,6 +463,13 @@ namespace Bank.DesktopClient
                 accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
                 accountsWindow.ShowDialog();
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

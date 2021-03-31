@@ -30,7 +30,6 @@
                               CanUserAddRows="false"
                               ColumnWidth="*"
                               IsReadOnly="False"
-                              CurrentCellChanged="PhysicalPersonsDataGrid_OnCurrentCellChanged"
                               CellEditEnding="PhysicalPersonsDataGrid_OnCellEditEnding"
                               ItemsSource="{Binding PhysicalPersonClients}"
                               SelectedItem="{Binding SelectedPhysicalPersonClient}"
@@ -40,16 +39,16 @@
                                                 Binding="{Binding Id}"
                                                 Header="ID клиента"/>
                             <DataGridTextColumn x:Name="FirstName"
-                                                Binding="{Binding FirstName}"
+                                                Binding="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
                                                 Header="Имя"/>
                             <DataGridTextColumn x:Name="LastName"
-                                                Binding="{Binding LastName}"
+                                                Binding="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
                                                 Header="Фамилия"/>
                             <DataGridTextColumn x:Name="MiddleName"
-                                                Binding="{Binding MiddleName}"
+                                                Binding="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"
                                                 Header="Отчество"/>
                             <DataGridTextColumn x:Name="Birthday"
-                                                Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"
+                                                Binding="{Binding Birthday, StringFormat=dd.MM.yyyy, UpdateSourceTrigger=PropertyChanged}"
                                                 Header="День рождения"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -77,7 +76,6 @@
                               CanUserAddRows="false"
                               ColumnWidth="*"
                               IsReadOnly="False"
-                              CurrentCellChanged="LeaglPersonsDataGrid_OnCurrentCellChanged"
                               CellEditEnding="LegalPersonsDataGrid_OnCellEditEnding"
                               ItemsSource="{Binding LegalPersonClients}"
                               SelectedItem="{Binding SelectedLegalPersonClient}"
@@ -87,7 +85,7 @@
                                                 Binding="{Binding Id}"
                                                 Header="ID компании"/>
                             <DataGridTextColumn x:Name="CompanyName"
-                                                Binding="{Binding CompanyName}"
+                                                Binding="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}"
                                                 Header="Имя компании"/>
                         </DataGrid.Columns>
                     </DataGrid>
