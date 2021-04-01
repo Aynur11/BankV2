@@ -18,14 +18,6 @@ namespace Bank.Dal
         List<T> GetClients();
 
         /// <summary>
-        /// Получить список ID всех счетов клиента.
-        /// </summary>
-        /// <param name="clientId">ID клиента.</param>
-        /// <returns></returns>
-        //List<IAccount> GetAllClientAccounts(int clientId);
-
-
-        /// <summary>
         /// Добавить счет.
         /// </summary>
         /// <param name="clientId">ID клиента.</param>
@@ -54,15 +46,5 @@ namespace Bank.Dal
         /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="rate">Ставка в процентах.</param>
         void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate);
-
-        /// <summary>
-        /// Перевод денег.
-        /// </summary>
-        /// <param name="fromClientId">Идентификатор выполняющего перевод.</param>
-        /// <param name="fromAccountId">ID счета для списания денег.</param>
-        /// <param name="toClientId">Идентификатор принимающего перевод.</param>
-        /// <param name="toAccountId">ID счета для внесения денег.</param>
-        /// <param name="amount">Сумма денег.</param>
-        //void TransferMoney(int fromClientId, int fromAccountId, int toClientId, int toAccountId, decimal amount);
     }
 }

@@ -20,6 +20,7 @@
                         <MenuItem Header="Show all accounts" Click="ShowAllPhysicalPersonAccountsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all credits" Click="ShowAllPhysicalPersonCreditsMenuItem_OnClick"></MenuItem>
                         <MenuItem Header="Show all deposits" Click="ShowAllPhysicalPersonDepositsMenuItem_OnClick"></MenuItem>
+                        <MenuItem Header="Show accounts with clients" Click="ShowAllAccountsWithClientsMenuItem_OnClick"></MenuItem>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid Background="#FFE5E5E5">

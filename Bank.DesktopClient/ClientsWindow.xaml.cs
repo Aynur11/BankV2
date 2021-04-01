@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Bank.DesktopClient.LegalPersonClientWindow;
@@ -462,6 +463,16 @@ namespace Bank.DesktopClient
             {
                 accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
                 accountsWindow.ShowDialog();
+            }
+        }
+
+        private void ShowAllAccountsWithClientsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var accounts = new AccountsWithClientsWindow();
+            using (var repo = new CommonRepository())
+            {
+                accounts.AccountsWithClientsDataGrid.ItemsSource = repo.GetAccountsWithClients();
+                accounts.ShowDialog();
             }
         }
 
