@@ -1,7 +1,5 @@
-﻿using Bank.Dal;
-using Bank.Dal.Accounts;
+﻿using Bank.Dal.Accounts;
 using Bank.Dal.Exceptions;
-using System;
 
 namespace Bank.Bll
 {

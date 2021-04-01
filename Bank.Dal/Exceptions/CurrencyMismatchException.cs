@@ -3,6 +3,9 @@ using Bank.Dal.Accounts;
 
 namespace Bank.Dal.Exceptions
 {
+    /// <summary>
+    /// Исключение генерируемое при не соответствии валют со стороны отправителя или принимателя.
+    /// </summary>
     public class CurrencyMismatchException : Exception
     {
         public Currency Sender;

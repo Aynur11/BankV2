@@ -9,8 +9,19 @@ namespace Bank.Dal.Clients
 {
     public interface IClient
     {
+        /// <summary>
+        /// Id клиента.
+        /// </summary>
         int Id { get; set; }
+
+        /// <summary>
+        /// Отображаемое имя клиента.
+        /// </summary>
         string DisplayName { get; }
+
+        /// <summary>
+        /// Тип клиента.
+        /// </summary>
         ClientType Type { get; set; }
     }
 }

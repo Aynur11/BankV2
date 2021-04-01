@@ -24,11 +24,20 @@ namespace Bank.DesktopClient
             this.canExecute = canExecute;
         }
 
+        /// <summary>
+        /// Проверяет возможность выполнения.
+        /// </summary>
+        /// <param name="parameter">Делегат.</param>
+        /// <returns>Результат проверки.</returns>
         public bool CanExecute(object parameter)
         {
             return canExecute == null || canExecute(parameter);
         }
 
+        /// <summary>
+        /// Запустить выполнение.
+        /// </summary>
+        /// <param name="parameter">Делегат.</param>
         public void Execute(object parameter)
         {
             execute(parameter);

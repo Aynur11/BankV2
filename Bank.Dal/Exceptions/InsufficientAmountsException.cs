@@ -2,6 +2,9 @@
 
 namespace Bank.Dal.Exceptions
 {
+    /// <summary>
+    /// Исключение генерируемое при недостаточном балансе на счету.
+    /// </summary>
     public class InsufficientAmountsException : Exception
     {
         public decimal Amount;

@@ -17,6 +17,10 @@ namespace Bank.Dal
             context = new BankContext();
         }
 
+        /// <summary>
+        /// Сформировать список всех счетов с указанием их клиентов.
+        /// </summary>
+        /// <returns>Список счетов с клиентами.</returns>
         public List<string> GetAccountsWithClients()
         {
             var req = context.PhysicalPersonAccounts.Join(context.PhysicalPersonClients,
@@ -41,6 +45,10 @@ namespace Bank.Dal
             return list;
         }
 
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
+        /// <param name="disposing">Запущено уничтожение?</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

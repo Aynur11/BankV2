@@ -3,8 +3,14 @@ using Bank.Dal.Clients;
 
 namespace Bank.Dal
 {
+    /// <summary>
+    /// Содержит тестовые данные для заполнения БД.
+    /// </summary>
     public class TestData
     {
+        /// <summary>
+        /// Тестовые данные для заполнения таблиц.
+        /// </summary>
         public void FillAllTables()
         {
             using (BankContext context = new BankContext())

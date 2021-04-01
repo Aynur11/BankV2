@@ -10,10 +10,6 @@ namespace Bank.Dal
     /// </summary>
     public class BankContext : DbContext
     {
-        public BankContext()
-        {
-        }
-
         // Таблицы с клиентами..
         public DbSet<LegalPersonClient> LegalPersonClients { get; set; }
         public DbSet<PhysicalPersonClient> PhysicalPersonClients { get; set; }

@@ -1,15 +1,14 @@
 ﻿using Bank.Dal.Accounts;
 using Bank.Dal.Clients;
-using Bank.Dal.Exceptions;
 using Bank.Dal.OperationsArchive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Dal
 {
-    public class LegalPersonClientRepository : IRepository<LegalPersonClient>
+    public class LegalPersonClientRepository : IRepository<LegalPersonClient, LegalPersonCredit, LegalPersonDeposit,
+        LegalPersonAccount, LegalPersonAccountArchive, LegalPersonCreditArchive>
     {
         private bool disposed;
         private readonly BankContext context;
@@ -63,7 +62,7 @@ namespace Bank.Dal
             }
             catch (Exception e)
             {
-                throw  new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
+                throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
             }
         }
 
@@ -124,6 +123,10 @@ namespace Bank.Dal
             context.Update(client);
         }
 
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
+        /// <param name="disposing">Запущено уничтожение?</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

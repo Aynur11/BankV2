@@ -8,7 +8,8 @@ using System.Linq;
 
 namespace Bank.Dal
 {
-    public class PhysicalPersonClientRepository : IRepository<PhysicalPersonClient>
+    public class PhysicalPersonClientRepository : IRepository<PhysicalPersonClient, PhysicalPersonCredit, PhysicalPersonDeposit,
+        PhysicalPersonAccount, PhysicalPersonAccountArchive, PhysicalPersonCreditArchive>
     {
         private bool disposed;
         private readonly BankContext context;
@@ -37,6 +38,7 @@ namespace Bank.Dal
         {
             return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
         }
+
         public List<PhysicalPersonDeposit> GetAllClientDeposits(int clientId)
         {
             return context.PhysicalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
@@ -123,7 +125,11 @@ namespace Bank.Dal
         {
             context.Update(client);
         }
-        
+
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
+        /// <param name="disposing">Запущено уничтожение?</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
