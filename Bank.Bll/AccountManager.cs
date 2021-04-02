@@ -1,4 +1,5 @@
-﻿using Bank.Dal.Accounts;
+﻿using System.Diagnostics;
+using Bank.Dal.Accounts;
 using Bank.Dal.Exceptions;
 
 namespace Bank.Bll
@@ -14,10 +15,11 @@ namespace Bank.Bll
         public void TransferMoney(IAccount accountFrom, IAccount accountTo, decimal amount)
         {
             if (accountFrom.Id == accountTo.Id && 
-                accountFrom is PhysicalPersonAccount && accountTo is PhysicalPersonAccount || 
-                accountFrom is LegalPersonAccount && accountTo is LegalPersonAccount)
+                (accountFrom is PhysicalPersonAccount && accountTo is PhysicalPersonAccount || 
+                accountFrom is LegalPersonAccount && accountTo is LegalPersonAccount))
             {
-                throw new HimselfTransferException(accountFrom, accountTo,"Попытка перевести средства на один и тот же счет.");
+                throw new HimselfTransferException(accountFrom, accountTo,
+                    $"Попытка перевести средства на один и тот же счет: {accountFrom.Id} -> {accountTo.Id}");
             }
 
             if (accountFrom.Currency != accountTo.Currency)
