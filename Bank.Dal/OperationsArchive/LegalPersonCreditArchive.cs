@@ -7,13 +7,13 @@ namespace Bank.Dal.OperationsArchive
     /// <summary>
     /// История операций по кредиту для юр. лиц.
     /// </summary>
-    public class LegalPersonCreditArchive
+    public class LegalPersonCreditArchive: IAccountArchive
     {
-        public LegalPersonCreditArchive(decimal amount, Operation operation, int legalPersonCreditId)
+        public LegalPersonCreditArchive(decimal amount, Operation operation, int accountId)
         {
             Amount = amount;
             Operation = operation;
-            LegalPersonCreditId = legalPersonCreditId;
+            AccountId = accountId;
         }
 
         /// <summary>
@@ -34,12 +34,12 @@ namespace Bank.Dal.OperationsArchive
         /// <summary>
         /// ID кредита юр. лица.
         /// </summary>
-        public int LegalPersonCreditId { get; set; }
+        public int AccountId { get; set; }
 
         /// <summary>
         /// Кредит юр. лица.
         /// </summary>
-        [ForeignKey(nameof(LegalPersonCreditId))]
+        [ForeignKey(nameof(AccountId))]
         public LegalPersonCredit Credit { get; set; }
     }
 }

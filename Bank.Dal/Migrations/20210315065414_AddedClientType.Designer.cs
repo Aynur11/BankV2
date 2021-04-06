@@ -215,7 +215,7 @@ namespace Model.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("LegalPersonAccountId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -236,7 +236,7 @@ namespace Model.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("LegalPersonCreditId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -257,7 +257,7 @@ namespace Model.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("LegalPersonDepositId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -281,7 +281,7 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonAccountId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -302,7 +302,7 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonCreditId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -323,7 +323,7 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonDepositId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

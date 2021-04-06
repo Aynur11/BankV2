@@ -233,7 +233,7 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("LegalPersonAccountId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -241,7 +241,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonAccountId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonAccountArchives");
                 });
@@ -256,7 +256,7 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("LegalPersonCreditId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -264,7 +264,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonCreditId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonCreditArchives");
                 });
@@ -279,7 +279,7 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("LegalPersonDepositId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Operation")
@@ -287,7 +287,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonDepositId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonDepositArchives");
                 });
@@ -305,12 +305,12 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonAccountId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonAccountId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonAccountArchives");
                 });
@@ -328,12 +328,12 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonCreditId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonCreditId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonCreditArchive");
                 });
@@ -351,12 +351,12 @@ namespace Model.Migrations
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonDepositId")
+                    b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonDepositId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonDepositArchives");
                 });
@@ -431,7 +431,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.LegalPersonAccount", "Account")
                         .WithMany()
-                        .HasForeignKey("LegalPersonAccountId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -442,7 +442,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.LegalPersonCredit", "Credit")
                         .WithMany()
-                        .HasForeignKey("LegalPersonCreditId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -453,7 +453,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.LegalPersonDeposit", "Deposit")
                         .WithMany()
-                        .HasForeignKey("LegalPersonDepositId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -464,7 +464,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.PhysicalPersonAccount", "Account")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonAccountId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -475,7 +475,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.PhysicalPersonCredit", "Credit")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonCreditId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -486,7 +486,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Accounts.PhysicalPersonDeposit", "Deposit")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonDepositId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -9,7 +9,7 @@ using System.Linq;
 namespace Bank.Dal
 {
     public class PhysicalPersonClientRepository : IRepository<PhysicalPersonClient, PhysicalPersonCredit, PhysicalPersonDeposit,
-        PhysicalPersonAccount, PhysicalPersonAccountArchive, PhysicalPersonCreditArchive>
+        PhysicalPersonAccount, PhysicalPersonAccountArchive, PhysicalPersonCreditArchive, PhysicalPersonDepositArchive>, IRepositoryHistory
     {
         private bool disposed;
         private readonly BankContext context;
@@ -19,14 +19,19 @@ namespace Bank.Dal
             context = new BankContext();
         }
 
-        public List<PhysicalPersonCreditArchive> GetCreditHistory(int accountId)
+        public List<IAccountArchive> GetDepositHistory(int accountId)
         {
-            return context.PhysicalPersonCreditArchive.Where(a => a.PhysicalPersonCreditId == accountId).ToList();
+            return new List<IAccountArchive>(context.PhysicalPersonDepositArchives.Where(a => a.AccountId == accountId).ToList());
         }
 
-        public List<PhysicalPersonAccountArchive> GetAccountHistory(int accountId)
+        public List<IAccountArchive> GetCreditHistory(int accountId)
         {
-            return context.PhysicalPersonAccountArchives.Where(a => a.PhysicalPersonAccountId == accountId).ToList();
+            return new List<IAccountArchive>(context.PhysicalPersonCreditArchive.Where(a => a.AccountId == accountId).ToList());
+        }
+
+        public List<IAccountArchive> GetAccountHistory(int accountId)
+        {
+            return new List<IAccountArchive>(context.PhysicalPersonAccountArchives.Where(a => a.AccountId == accountId).ToList());
         }
 
         public List<PhysicalPersonClient> GetClients()

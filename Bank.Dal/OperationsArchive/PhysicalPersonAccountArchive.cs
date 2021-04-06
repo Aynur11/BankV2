@@ -7,13 +7,13 @@ namespace Bank.Dal.OperationsArchive
     /// <summary>
     /// История операций по счету для физ. лиц.
     /// </summary>
-    public class PhysicalPersonAccountArchive
+    public class PhysicalPersonAccountArchive : IAccountArchive
     {
-        public PhysicalPersonAccountArchive(decimal amount, Operation operation, int physicalPersonAccountId)
+        public PhysicalPersonAccountArchive(decimal amount, Operation operation, int accountId)
         {
             Amount = amount;
             Operation = operation;
-            PhysicalPersonAccountId = physicalPersonAccountId;
+            AccountId = accountId;
         }
 
         /// <summary>
@@ -34,12 +34,12 @@ namespace Bank.Dal.OperationsArchive
         /// <summary>
         /// ID счета физ. лица.
         /// </summary>
-        public int PhysicalPersonAccountId { get; set; }
+        public int AccountId { get; set; }
 
         /// <summary>
         /// Счет физ. лица.
         /// </summary>
-        [ForeignKey(nameof(PhysicalPersonAccountId))]
+        [ForeignKey(nameof(AccountId))]
         public PhysicalPersonAccount Account { get; set; }
     }
 }

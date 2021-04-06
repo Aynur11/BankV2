@@ -245,18 +245,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("LegalPersonAccountId")
-                        .HasColumnType("int");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonAccountId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonAccountArchives");
                 });
@@ -268,18 +268,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("LegalPersonCreditId")
-                        .HasColumnType("int");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonCreditId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonCreditArchives");
                 });
@@ -291,18 +291,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("LegalPersonDepositId")
-                        .HasColumnType("int");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LegalPersonDepositId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LegalPersonDepositArchives");
                 });
@@ -314,18 +314,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonAccountId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonAccountId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonAccountArchives");
                 });
@@ -337,18 +337,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonCreditId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonCreditId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonCreditArchive");
                 });
@@ -360,18 +360,18 @@ namespace Bank.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<byte>("Operation")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("PhysicalPersonDepositId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PhysicalPersonDepositId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("PhysicalPersonDepositArchives");
                 });
@@ -446,7 +446,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.LegalPersonAccount", "Account")
                         .WithMany()
-                        .HasForeignKey("LegalPersonAccountId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -457,7 +457,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.LegalPersonCredit", "Credit")
                         .WithMany()
-                        .HasForeignKey("LegalPersonCreditId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -468,7 +468,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.LegalPersonDeposit", "Deposit")
                         .WithMany()
-                        .HasForeignKey("LegalPersonDepositId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -479,7 +479,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.PhysicalPersonAccount", "Account")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonAccountId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -490,7 +490,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.PhysicalPersonCredit", "Credit")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonCreditId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -501,7 +501,7 @@ namespace Bank.Dal.Migrations
                 {
                     b.HasOne("Bank.Dal.Accounts.PhysicalPersonDeposit", "Deposit")
                         .WithMany()
-                        .HasForeignKey("PhysicalPersonDepositId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

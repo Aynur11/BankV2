@@ -24,7 +24,7 @@ namespace Bank.DesktopClient
         public PhysicalPersonClient SelectedPhysicalPersonClient { get; set; }
         public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
-        private readonly Rate rate;
+        private IRate rate;
 
         public ClientsWindow()
         {
@@ -42,7 +42,13 @@ namespace Bank.DesktopClient
                 LegalPersonClients = new ObservableCollection<LegalPersonClient>(repo.GetClients());
                 LegalPersonsDataGrid.DataContext = this;
             }
-            rate = new Rate();
+
+            InitRate(new Rate());
+        }
+
+        private void InitRate(IRate rate)
+        {
+            this.rate = rate;
         }
 
         private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)

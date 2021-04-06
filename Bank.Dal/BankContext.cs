@@ -34,6 +34,11 @@ namespace Bank.Dal
         public DbSet<PhysicalPersonAccountArchive> PhysicalPersonAccountArchives { get; set; }
         public DbSet<PhysicalPersonCreditArchive> PhysicalPersonCreditArchive { get; set; }
         public DbSet<PhysicalPersonDepositArchive> PhysicalPersonDepositArchives { get; set; }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.Entity()
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

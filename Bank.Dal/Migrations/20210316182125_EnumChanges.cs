@@ -83,37 +83,37 @@ namespace Model.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PhysicalPersonDepositArchives_PhysicalPersonDepositId",
                 table: "PhysicalPersonDepositArchives",
-                column: "PhysicalPersonDepositId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhysicalPersonCreditArchive_PhysicalPersonCreditId",
                 table: "PhysicalPersonCreditArchive",
-                column: "PhysicalPersonCreditId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhysicalPersonAccountArchives_PhysicalPersonAccountId",
                 table: "PhysicalPersonAccountArchives",
-                column: "PhysicalPersonAccountId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LegalPersonDepositArchives_LegalPersonDepositId",
                 table: "LegalPersonDepositArchives",
-                column: "LegalPersonDepositId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LegalPersonCreditArchives_LegalPersonCreditId",
                 table: "LegalPersonCreditArchives",
-                column: "LegalPersonCreditId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LegalPersonAccountArchives_LegalPersonAccountId",
                 table: "LegalPersonAccountArchives",
-                column: "LegalPersonAccountId");
+                column: "AccountId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_LegalPersonAccountArchives_LegalPersonAccounts_LegalPersonAccountId",
                 table: "LegalPersonAccountArchives",
-                column: "LegalPersonAccountId",
+                column: "AccountId",
                 principalTable: "LegalPersonAccounts",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -121,7 +121,7 @@ namespace Model.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_LegalPersonCreditArchives_LegalPersonCredits_LegalPersonCreditId",
                 table: "LegalPersonCreditArchives",
-                column: "LegalPersonCreditId",
+                column: "AccountId",
                 principalTable: "LegalPersonCredits",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -129,7 +129,7 @@ namespace Model.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_LegalPersonDepositArchives_LegalPersonDeposits_LegalPersonDepositId",
                 table: "LegalPersonDepositArchives",
-                column: "LegalPersonDepositId",
+                column: "AccountId",
                 principalTable: "LegalPersonDeposits",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -137,7 +137,7 @@ namespace Model.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_PhysicalPersonAccountArchives_PhysicalPersonAccounts_PhysicalPersonAccountId",
                 table: "PhysicalPersonAccountArchives",
-                column: "PhysicalPersonAccountId",
+                column: "AccountId",
                 principalTable: "PhysicalPersonAccounts",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -145,7 +145,7 @@ namespace Model.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_PhysicalPersonCreditArchive_PhysicalPersonCredits_PhysicalPersonCreditId",
                 table: "PhysicalPersonCreditArchive",
-                column: "PhysicalPersonCreditId",
+                column: "AccountId",
                 principalTable: "PhysicalPersonCredits",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -153,7 +153,7 @@ namespace Model.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_PhysicalPersonDepositArchives_PhysicalPersonDeposits_PhysicalPersonDepositId",
                 table: "PhysicalPersonDepositArchives",
-                column: "PhysicalPersonDepositId",
+                column: "AccountId",
                 principalTable: "PhysicalPersonDeposits",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);

@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="DepositsWindow" Height="338" Width="544">
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Show deposit history" Click="ShowDepositMenuItem_OnClick"></MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <DataGrid
             x:Name="DepositsDataGrid"
             IsReadOnly="False"

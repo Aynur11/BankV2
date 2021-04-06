@@ -13,7 +13,7 @@ namespace Bank.Dal
     /// <typeparam name="T4"></typeparam>
     /// <typeparam name="T5"></typeparam>
     /// <typeparam name="T6"></typeparam>
-    interface IRepository<T1, T2, T3, T4, T5, T6> : IDisposable
+    public interface IRepository<T1, T2, T3, T4, T5, T6, T7> : IDisposable
         where T1 : class
     {
         /// <summary>
@@ -52,19 +52,26 @@ namespace Bank.Dal
         /// <param name="rate">Ставка в процентах.</param>
         void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate);
 
-        /// <summary>
-        /// Возвращает историю операция по кредиту.
-        /// </summary>
-        /// <param name="accountId">Номер счета.</param>
-        /// <returns>История операций.</returns>
-        List<T6> GetCreditHistory(int accountId);
+        ///// <summary>
+        ///// Возвращает историю операция по депозиту.
+        ///// </summary>
+        ///// <param name="accountId">Номер счета.</param>
+        ///// <returns>История операций.</returns>
+        //List<T7> GetDepositHistory(int accountId);
 
-        /// <summary>
-        /// Возвращает историю операция по счету.
-        /// </summary>
-        /// <param name="accountId">Номер счета.</param>
-        /// <returns>История операций.</returns>
-        List<T5> GetAccountHistory(int accountId);
+        ///// <summary>
+        ///// Возвращает историю операция по кредиту.
+        ///// </summary>
+        ///// <param name="accountId">Номер счета.</param>
+        ///// <returns>История операций.</returns>
+        //List<T6> GetCreditHistory(int accountId);
+
+        ///// <summary>
+        ///// Возвращает историю операция по счету.
+        ///// </summary>
+        ///// <param name="accountId">Номер счета.</param>
+        ///// <returns>История операций.</returns>
+        //List<T5> GetAccountHistory(int accountId);
 
         /// <summary>
         /// Возвращает все счета клиента.

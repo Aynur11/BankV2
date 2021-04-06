@@ -8,7 +8,7 @@ using System.Linq;
 namespace Bank.Dal
 {
     public class LegalPersonClientRepository : IRepository<LegalPersonClient, LegalPersonCredit, LegalPersonDeposit,
-        LegalPersonAccount, LegalPersonAccountArchive, LegalPersonCreditArchive>
+        LegalPersonAccount, LegalPersonAccountArchive, LegalPersonCreditArchive, LegalPersonDepositArchive>, IRepositoryHistory
     {
         private bool disposed;
         private readonly BankContext context;
@@ -18,14 +18,19 @@ namespace Bank.Dal
             context = new BankContext();
         }
 
-        public List<LegalPersonCreditArchive> GetCreditHistory(int accountId)
+        public List<IAccountArchive> GetDepositHistory(int accountId)
         {
-            return context.LegalPersonCreditArchives.Where(a => a.LegalPersonCreditId == accountId).ToList();
+            return new List<IAccountArchive>(context.LegalPersonDepositArchives.Where(a => a.AccountId == accountId).ToList());
         }
 
-        public List<LegalPersonAccountArchive> GetAccountHistory(int accountId)
+        public List<IAccountArchive> GetCreditHistory(int accountId)
         {
-            return context.LegalPersonAccountArchives.Where(a => a.LegalPersonAccountId == accountId).ToList();
+            return new List<IAccountArchive>(context.LegalPersonCreditArchives.Where(a => a.AccountId == accountId).ToList());
+        }
+
+        public List<IAccountArchive> GetAccountHistory(int accountId)
+        {
+            return new List<IAccountArchive>(context.LegalPersonAccountArchives.Where(a => a.AccountId == accountId).ToList());
         }
 
         public List<LegalPersonClient> GetClients()

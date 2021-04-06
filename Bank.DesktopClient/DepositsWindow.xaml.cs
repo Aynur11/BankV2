@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bank.Dal;
+using Bank.Dal.Accounts;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bank.DesktopClient
 {
@@ -22,6 +12,29 @@ namespace Bank.DesktopClient
         public DepositsWindow()
         {
             InitializeComponent();
+        }
+
+        private void ShowDepositMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var historyWindow = new AccountHistoryWindow();
+            var account = (IAccount)DepositsDataGrid.SelectedValue;
+
+            if (account is PhysicalPersonDeposit)
+            {
+                using (var repo = new PhysicalPersonClientRepository())
+                {
+                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetDepositHistory(account.Id);
+                }
+            }
+            else
+            {
+                using (var repo = new LegalPersonClientRepository())
+                {
+                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetDepositHistory(account.Id);
+                }
+            }
+
+            historyWindow.ShowDialog();
         }
     }
 }
