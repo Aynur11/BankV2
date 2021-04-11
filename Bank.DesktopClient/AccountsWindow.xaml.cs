@@ -17,22 +17,13 @@ namespace Bank.DesktopClient
         private void ShowAccountHistoryMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             var historyWindow = new AccountHistoryWindow();
-            var account = (IAccount) AccountsDataGrid.SelectedValue;
+            var account = (IAccount)AccountsDataGrid.SelectedValue;
 
-            if (account is PhysicalPersonAccount)
+            using (var repo = RepositoryFactory.GetRepository(account))
             {
-                using (var repo = new PhysicalPersonClientRepository())
-                {
-                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetAccountHistory(account.Id);
-                }
+                historyWindow.HistoryDataGrid.ItemsSource = repo.GetAccountHistory(account.Id);
             }
-            else
-            {
-                using (var repo = new LegalPersonClientRepository())
-                {
-                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetAccountHistory(account.Id);
-                }
-            }
+
             historyWindow.ShowDialog();
         }
     }

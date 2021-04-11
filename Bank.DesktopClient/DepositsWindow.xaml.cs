@@ -14,24 +14,14 @@ namespace Bank.DesktopClient
             InitializeComponent();
         }
 
-        private void ShowDepositMenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void ShowDepositHistoryMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             var historyWindow = new AccountHistoryWindow();
             var account = (IAccount)DepositsDataGrid.SelectedValue;
 
-            if (account is PhysicalPersonDeposit)
+            using (var repo = RepositoryFactory.GetRepository(account))
             {
-                using (var repo = new PhysicalPersonClientRepository())
-                {
-                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetDepositHistory(account.Id);
-                }
-            }
-            else
-            {
-                using (var repo = new LegalPersonClientRepository())
-                {
-                    historyWindow.HistoryDataGrid.ItemsSource = repo.GetDepositHistory(account.Id);
-                }
+                historyWindow.HistoryDataGrid.ItemsSource = repo.GetDepositHistory(account.Id);
             }
 
             historyWindow.ShowDialog();

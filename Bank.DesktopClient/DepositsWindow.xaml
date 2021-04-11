@@ -9,7 +9,7 @@
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Show deposit history" Click="ShowDepositMenuItem_OnClick"></MenuItem>
+                <MenuItem Header="Show deposit history" Click="ShowDepositHistoryMenuItem_OnClick"></MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
         <DataGrid

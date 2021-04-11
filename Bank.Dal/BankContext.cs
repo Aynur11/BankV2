@@ -34,6 +34,7 @@ namespace Bank.Dal
         public DbSet<PhysicalPersonAccountArchive> PhysicalPersonAccountArchives { get; set; }
         public DbSet<PhysicalPersonCreditArchive> PhysicalPersonCreditArchive { get; set; }
         public DbSet<PhysicalPersonDepositArchive> PhysicalPersonDepositArchives { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);
@@ -42,7 +43,7 @@ namespace Bank.Dal
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocaldb;Initial Catalog=BankEntities;Integrated Security=True;Pooling=False");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocaldb;Initial Catalog=BankV2;Integrated Security=True;Pooling=False");
         }
     }
 }

@@ -25,21 +25,6 @@ namespace Bank.DesktopClient
                 historyWindow.HistoryDataGrid.ItemsSource = repo.GetCreditHistory(account.Id);
             }
 
-            //if (account is PhysicalPersonCredit)
-            //{
-            //    using (var repo = RepositoryFactory.GetRepository(account))
-            //    {
-            //        historyWindow.HistoryDataGrid.ItemsSource = repo.GetCreditHistory(account.Id);
-            //    }
-            //}
-            //else
-            //{
-            //    using (var repo = RepositoryFactory.GetRepository(typeof(LegalPersonClientRepository)))
-            //    {
-            //        historyWindow.HistoryDataGrid.ItemsSource = repo.GetCreditHistory(account.Id);
-            //    }
-            //}
-
             historyWindow.ShowDialog();
         }
     }
