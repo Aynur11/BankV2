@@ -11,7 +11,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Autofac;
 using Bank.DesktopClient.LegalPersonClientWindow;
+using Bank.DesktopClient.Util;
 
 namespace Bank.DesktopClient
 {
@@ -43,13 +45,15 @@ namespace Bank.DesktopClient
                 LegalPersonsDataGrid.DataContext = this;
             }
 
-            InitRate(new Rate());
+            var rateContainer = AutofacConfig.ConfigureContainer();
+            rate = rateContainer.Resolve<IRate>();
+            //InitRate(new Rate());
         }
 
-        private void InitRate(IRate rate)
-        {
-            this.rate = rate;
-        }
+        //private void InitRate(IRate rate)
+        //{
+        //    this.rate = rate;
+        //}
 
         private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -190,6 +194,7 @@ namespace Bank.DesktopClient
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
                 moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = physicalPersonClientRepo.GetAllClientAccounts(client.Id);
+                //moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = client.Accounts;
                 moneyTransferWindow.SenderAccountIdComboBox.DisplayMemberPath = "Id";
 
                 var allClients = new List<IClient>();

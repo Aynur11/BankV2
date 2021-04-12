@@ -8,8 +8,7 @@ using System.Linq;
 
 namespace Bank.Dal
 {
-    public class PhysicalPersonClientRepository : IRepository<PhysicalPersonClient, PhysicalPersonCredit, PhysicalPersonDeposit,
-        PhysicalPersonAccount, PhysicalPersonAccountArchive, PhysicalPersonCreditArchive, PhysicalPersonDepositArchive>, IRepositoryHistory
+    public class PhysicalPersonClientRepository : IRepository<PhysicalPersonClient>, IRepositoryHistory
     {
         private bool disposed;
         private readonly BankContext context;
@@ -39,16 +38,19 @@ namespace Bank.Dal
             return context.PhysicalPersonClients.Include(a => a.Accounts).ToList();
         }
         
+        [Obsolete]
         public List<PhysicalPersonAccount> GetAllClientAccounts(int clientId)
         {
             return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
         }
 
+        [Obsolete]
         public List<PhysicalPersonDeposit> GetAllClientDeposits(int clientId)
         {
             return context.PhysicalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
         }
 
+        [Obsolete]
         public List<PhysicalPersonCredit> GetAllClientCredits(int clientId)
         {
             return context.PhysicalPersonCredits.Where(a => a.ClientId == clientId).ToList();

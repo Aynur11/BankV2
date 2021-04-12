@@ -7,8 +7,7 @@ using System.Linq;
 
 namespace Bank.Dal
 {
-    public class LegalPersonClientRepository : IRepository<LegalPersonClient, LegalPersonCredit, LegalPersonDeposit,
-        LegalPersonAccount, LegalPersonAccountArchive, LegalPersonCreditArchive, LegalPersonDepositArchive>, IRepositoryHistory
+    public class LegalPersonClientRepository : IRepository<LegalPersonClient>, IRepositoryHistory
     {
         private bool disposed;
         private readonly BankContext context;

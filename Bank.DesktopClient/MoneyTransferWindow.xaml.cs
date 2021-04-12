@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.Dal.Clients;
 
 namespace Bank.DesktopClient
 {
@@ -50,6 +51,7 @@ namespace Bank.DesktopClient
         private void SetRecipientAccountsId()
         {
             var client = (IHasAccounts)RecipientClientNamesComboBox.SelectedValue;
+            Debug.WriteLine(client.GetAccounts().Count);
             RecipientAccountsIdComboBox.ItemsSource = client.GetAccounts();
             RecipientAccountsIdComboBox.DisplayMemberPath = "Id";
         }
