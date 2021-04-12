@@ -8,6 +8,10 @@ namespace Bank.Dal.Accounts
     /// </summary>
     public class PhysicalPersonDeposit : IAccount
     {
+        public PhysicalPersonDeposit()
+        {
+        }
+
         /// <summary>
         /// Конструктор для загрузки данных или для создания нового счета для существующего клиента без навигационного свойства.
         /// </summary>

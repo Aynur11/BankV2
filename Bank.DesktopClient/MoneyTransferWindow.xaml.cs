@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Bank.Dal.Clients;
+using Bank.DesktopClient.AddingAccountWindow;
 
 namespace Bank.DesktopClient
 {

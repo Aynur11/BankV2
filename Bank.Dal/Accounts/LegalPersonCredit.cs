@@ -8,6 +8,9 @@ namespace Bank.Dal.Accounts
     /// </summary>
     public class LegalPersonCredit : IAccount
     {
+        public LegalPersonCredit()
+        {
+        }
         /// <summary>
         /// Конструктор для загрузки данных или для создания нового счета для существующего клиента без навигационного свойства.
         /// </summary>

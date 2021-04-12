@@ -2,19 +2,24 @@
 using System.Windows;
 using Bank.Dal.Accounts;
 
-namespace Bank.DesktopClient
+namespace Bank.DesktopClient.AddingAccountWindow
 {
     /// <summary>
     /// Interaction logic for AddingAnyAccountWindow.xaml
     /// </summary>
-    public partial class AddingAnyAccountWindow : Window
+    public partial class AddingAnyAccountWindow : Window, IViewAddingAnyAccountWindow
     {
-        public AddingAnyAccountWindow()
+        private PresentorAddingAccountWindow presentor;
+        private IAccount account;
+        private int clientId;
+        public AddingAnyAccountWindow(IAccount account, int clientId)
         {
             InitializeComponent();
             Title = "Данные для открытия/выдачи вклада/кредита";
             CurrenciesComboBox.ItemsSource = Enum.GetValues(typeof(Currency));
-            CurrenciesComboBox.SelectedValue = Dal.Accounts.Currency.Rub;
+            CurrenciesComboBox.SelectedValue = Currency.Rub;
+            this.account = account;
+            this.clientId = clientId;
         }
 
         /// <summary>
@@ -36,6 +41,8 @@ namespace Bank.DesktopClient
         /// С капитализацией?
         /// </summary>
         public bool WithCapitalization => CapitalizationCheckBox.IsEnabled;
+
+        public IAccount GetAccount => presentor.GetAccount;
 
         /// <summary>
         /// Предварительная проверка что значение является типом Double.
@@ -98,6 +105,7 @@ namespace Bank.DesktopClient
                 return;
             }
             this.DialogResult = true;
+            presentor = new PresentorAddingAccountWindow(this, account, clientId);
         }
 
         /// <summary>
