@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Bank.Dal.Accounts;
+﻿using Bank.Dal.Accounts;
 using Bank.Dal.Exceptions;
 
 namespace Bank.Bll

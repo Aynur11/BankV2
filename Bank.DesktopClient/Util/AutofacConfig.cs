@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Bank.Bll;
-using Bank.Dal;
 
 namespace Bank.DesktopClient.Util
 {
@@ -16,6 +15,7 @@ namespace Bank.DesktopClient.Util
 
             // регистрируем споставление типов
             builder.RegisterType<Rate>().As<IRate>();
+            builder.RegisterType<ClientsWindow>().AsSelf();
 
             // создаем новый контейнер с теми зависимостями, которые определены выше
             var container = builder.Build();

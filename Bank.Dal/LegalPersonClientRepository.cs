@@ -4,6 +4,7 @@ using Bank.Dal.OperationsArchive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Dal
 {
@@ -34,7 +35,7 @@ namespace Bank.Dal
 
         public List<LegalPersonClient> GetClients()
         {
-            return context.LegalPersonClients.ToList();
+            return context.LegalPersonClients.Include(a => a.Accounts).ToList();
         }
 
         public List<LegalPersonAccount> GetAllClientAccounts(int clientId)

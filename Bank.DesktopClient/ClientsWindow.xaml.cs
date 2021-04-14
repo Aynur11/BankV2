@@ -3,18 +3,15 @@ using Bank.Dal;
 using Bank.Dal.Accounts;
 using Bank.Dal.Clients;
 using Bank.Dal.Exceptions;
+using Bank.DesktopClient.AddingAccountWindow;
+using Bank.DesktopClient.LegalPersonClientWindow;
 using Bank.DesktopClient.PhysicalPersonClientWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Autofac;
-using Bank.DesktopClient.AddingAccountWindow;
-using Bank.DesktopClient.LegalPersonClientWindow;
-using Bank.DesktopClient.Util;
 
 namespace Bank.DesktopClient
 {
@@ -27,7 +24,7 @@ namespace Bank.DesktopClient
         public PhysicalPersonClient SelectedPhysicalPersonClient { get; set; }
         public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
-        private IRate rate;
+        private readonly IRate rate;
 
         public ClientsWindow()
         {
@@ -45,16 +42,12 @@ namespace Bank.DesktopClient
                 LegalPersonClients = new ObservableCollection<LegalPersonClient>(repo.GetClients());
                 LegalPersonsDataGrid.DataContext = this;
             }
-
-            var rateContainer = AutofacConfig.ConfigureContainer();
-            rate = rateContainer.Resolve<IRate>();
-            //InitRate(new Rate());
         }
 
-        //private void InitRate(IRate rate)
-        //{
-        //    this.rate = rate;
-        //}
+        public ClientsWindow(IRate rate) : this()
+        {
+            this.rate = rate;
+        }
 
         private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -222,7 +215,6 @@ namespace Bank.DesktopClient
                         accountManager.TransferMoney(accountFrom, accountTo, moneyTransferWindow.Amount);
                         physicalPersonClientRepo.Save();
                         legalPersonClientRepo.Save();
-
                     }
                     catch (HimselfTransferException exception)
                     {
