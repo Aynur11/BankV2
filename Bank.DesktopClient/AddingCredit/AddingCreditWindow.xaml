@@ -1,0 +1,55 @@
+﻿<Window x:Class="Bank.DesktopClient.AddingCredit.AddingCreditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank.DesktopClient.AddingCredit"
+        mc:Ignorable="d"
+        Title="AddingCreditWindow"
+        Height="196.875"
+        Width="368.491"
+        ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="SumTextBox"
+                 GotFocus="SumTextBox_OnGotFocus"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="183,25,0,0"
+                 TextWrapping="Wrap"
+                 Text="Сумма"
+                 VerticalAlignment="Top"
+                 Width="120" />
+        <TextBox x:Name="PeriodTextBox"
+                 GotFocus="PeriodTextBox_OnGotFocus"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="50,67,0,0"
+                 TextWrapping="Wrap"
+                 Text="Период в месяцах"
+                 VerticalAlignment="Top"
+                 Width="108" />
+        <Button x:Name="OkButton"
+                Content="OK"
+                Click="OkButton_OnClick"
+                HorizontalAlignment="Left"
+                Margin="58,110,0,0"
+                VerticalAlignment="Top"
+                Width="92"
+                Height="34" />
+        <Button x:Name="CancelButton"
+                Content="Cancel"
+                Click="CancelButton_OnClick"
+                HorizontalAlignment="Left"
+                Margin="197,110,0,0"
+                VerticalAlignment="Top"
+                Width="92"
+                Height="34" />
+        <ComboBox x:Name="CurrenciesComboBox"
+                  HorizontalAlignment="Left"
+                  Height="23"
+                  Margin="50,25,0,0"
+                  VerticalAlignment="Top"
+                  Width="108" />
+
+    </Grid>
+</Window>

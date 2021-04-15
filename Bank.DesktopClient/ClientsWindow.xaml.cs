@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.DesktopClient.AddingCredit;
 
 namespace Bank.DesktopClient
 {
@@ -26,8 +27,9 @@ namespace Bank.DesktopClient
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
         private readonly IRate rate;
 
-        public ClientsWindow()
+        public ClientsWindow(IRate rate)
         {
+            this.rate = rate;
             InitializeComponent();
             //TestData testData = new TestData();
             //testData.FillAllTables();
@@ -42,11 +44,6 @@ namespace Bank.DesktopClient
                 LegalPersonClients = new ObservableCollection<LegalPersonClient>(repo.GetClients());
                 LegalPersonsDataGrid.DataContext = this;
             }
-        }
-
-        public ClientsWindow(IRate rate) : this()
-        {
-            this.rate = rate;
         }
 
         private void OpenPhysicalPersonAccountButton_OnClick(object sender, RoutedEventArgs e)
@@ -146,13 +143,13 @@ namespace Bank.DesktopClient
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
                 IAccount account = new PhysicalPersonCredit();
-                AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow(account, client.Id);
-                accountWindow.CapitalizationCheckBox.IsEnabled = false;
-                if (accountWindow.ShowDialog() == true)
+                AddingCreditWindow addingCreditWindow = new AddingCreditWindow(account, client.Id);
+
+                if (addingCreditWindow.ShowDialog() == true)
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddCredit(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
+                        repo.AddCredit(client.Id, addingCreditWindow.GetAccount.Currency, addingCreditWindow.GetAccount.Amount, addingCreditWindow.Period,
                             rate.CalcPhysicalPersonCreditRate(client.Type));
                     }
                 }
@@ -169,14 +166,13 @@ namespace Bank.DesktopClient
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
                 IAccount account = new LegalPersonCredit();
-                AddingAnyAccountWindow accountWindow = new AddingAnyAccountWindow(account, client.Id);
-                accountWindow.CapitalizationCheckBox.IsEnabled = false;
-                if (accountWindow.ShowDialog() == true)
+                AddingCreditWindow addingCreditWindow = new AddingCreditWindow(account, client.Id);
+                if (addingCreditWindow.ShowDialog() == true)
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
 
-                        repo.AddCredit(client.Id, accountWindow.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
+                        repo.AddCredit(client.Id, addingCreditWindow.Currency, addingCreditWindow.GetAccount.Amount, addingCreditWindow.Period,
                             rate.CalcLegalPersonCreditRate(client.Type));
                     }
                 }

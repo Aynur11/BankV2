@@ -12,18 +12,13 @@ namespace Bank.DesktopClient.PhysicalPersonClientWindow
         private RelayCommand cancelClickRelayCommand;
         private RelayCommand gotFocusCommand;
 
-        public RelayCommand OkClickCommand
-        {
-            get
+        public RelayCommand OkClickCommand =>
+            okClickRelayCommand ?? (okClickRelayCommand = new RelayCommand(o =>
             {
-                return okClickRelayCommand ?? (okClickRelayCommand = new RelayCommand(o =>
-                {
-                    Window window = (Window) o;
-                    window.DialogResult = true;
-                    window.Close();
-                }));
-            }
-        }
+                Window window = (Window) o;
+                window.DialogResult = true;
+                window.Close();
+            }));
 
         public RelayCommand CancelClickCommand
         {

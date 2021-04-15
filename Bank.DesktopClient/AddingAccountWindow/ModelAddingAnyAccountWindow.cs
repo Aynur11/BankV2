@@ -1,62 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bank.Dal.Accounts;
+﻿using Bank.Dal.Accounts;
 
 namespace Bank.DesktopClient.AddingAccountWindow
 {
     public class ModelAddingAnyAccountWindow : IModelAddingAnyAccountWindow
     {
-        private IAccount newAccount;
-        private int clientId;
+        private readonly IAccount newAccount;
 
-        public ModelAddingAnyAccountWindow(IAccount account, int clientId)
+        public ModelAddingAnyAccountWindow(IAccount account, int clientId, IViewAddingAnyAccountWindow view)
         {
             newAccount = account;
-            this.clientId = clientId;
-        }
 
-        //public decimal Amount { get; private set; }
-        //public int Period { get; private set; }
-        //public Currency Currency { get; private set; }
-        //public bool WithCapitalization { get; private set; }
-
-        public IAccount GetAccount => newAccount;
-
-        public void InitData(decimal amount, int period, Currency currency, bool withCapitalization)
-        {
             if (newAccount is PhysicalPersonAccount)
             {
-                newAccount = new PhysicalPersonAccount(clientId, currency, amount);
+                newAccount = new PhysicalPersonAccount(clientId, view.Currency, view.Amount);
             }
 
             if (newAccount is LegalPersonAccount)
             {
-                newAccount = new LegalPersonAccount(clientId, currency, amount);
+                newAccount = new LegalPersonAccount(clientId, view.Currency, view.Amount);
             }
 
             if (newAccount is PhysicalPersonCredit)
             {
-                newAccount = new PhysicalPersonCredit(clientId, currency, amount, period);
+                newAccount = new PhysicalPersonCredit(clientId, view.Currency, view.Amount, view.Period);
             }
 
             if (newAccount is PhysicalPersonCredit)
             {
-                newAccount = new PhysicalPersonCredit(clientId, currency, amount, period);
+                newAccount = new PhysicalPersonCredit(clientId, view.Currency, view.Amount, view.Period);
             }
 
             if (newAccount is PhysicalPersonDeposit)
             {
-                newAccount = new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization);
+                newAccount = new PhysicalPersonDeposit(clientId, view.Currency, view.Amount, view.Period, view.WithCapitalization);
             }
 
             if (newAccount is LegalPersonDeposit)
             {
-                newAccount = new LegalPersonDeposit(clientId, currency, amount, period, withCapitalization);
+                newAccount = new LegalPersonDeposit(clientId, view.Currency, view.Amount, view.Period, view.WithCapitalization);
             }
         }
+
+        public IAccount GetAccount => newAccount;
     }
 }
