@@ -16,7 +16,7 @@ namespace Bank.Dal
             {
                 return new LegalPersonClientRepository();
             }
-            return null;
+            return new NullRepository();
         }
     }
 }

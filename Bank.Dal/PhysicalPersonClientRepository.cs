@@ -43,15 +43,15 @@ namespace Bank.Dal
                 .ToList();
         }
 
-        public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
+        public void AddAccount(IAccount account)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                var account = new PhysicalPersonAccount(clientId, currency, amount, rate);
-                context.PhysicalPersonAccounts.Add(account);
+                PhysicalPersonAccount physicalPersonAccount = (PhysicalPersonAccount) account;
+                context.PhysicalPersonAccounts.Add(physicalPersonAccount);
                 context.SaveChanges();
-                context.PhysicalPersonAccountArchives.Add(new PhysicalPersonAccountArchive(amount, Operation.AddAccount,
+                context.PhysicalPersonAccountArchives.Add(new PhysicalPersonAccountArchive(account.Amount, Operation.AddAccount,
                     account.Id));
                 context.SaveChanges();
                 transaction.Commit();

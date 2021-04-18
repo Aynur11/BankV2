@@ -8,11 +8,6 @@ namespace Bank.Dal
     /// Интерфейс взаимодействия с таблицами.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <typeparam name="T2"></typeparam>
-    /// <typeparam name="T3"></typeparam>
-    /// <typeparam name="T4"></typeparam>
-    /// <typeparam name="T5"></typeparam>
-    /// <typeparam name="T6"></typeparam>
     public interface IRepository<T> : IDisposable
         where T : class
     {
@@ -25,11 +20,8 @@ namespace Bank.Dal
         /// <summary>
         /// Добавить счет.
         /// </summary>
-        /// <param name="clientId">ID клиента.</param>
-        /// <param name="currency">Валюта.</param>
-        /// <param name="amount">Сумма денег для внесения на счет.</param>
-        /// <param name="rate">Возможная ставка в процентах.</param>
-        void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0);
+        /// <param name="account">Добавляемый счет.</param>
+        void AddAccount(IAccount account);
 
         /// <summary>
         /// Выдать кредит.

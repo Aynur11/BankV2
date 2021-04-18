@@ -3,10 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank.Dal.OperationsArchive;
 
 namespace Bank.Dal
 {
-    class NullRepository
+    public class NullRepository : IRepositoryHistory
     {
+        private bool disposed;
+        private readonly BankContext context;
+
+        public NullRepository()
+        {
+            context = new BankContext();
+        }
+
+
+        public List<IAccountArchive> GetDepositHistory(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IAccountArchive> GetCreditHistory(int accountId)
+        {
+            return new List<IAccountArchive>();
+        }
+
+        public List<IAccountArchive> GetAccountHistory(int accountId)
+        {
+            return  new List<IAccountArchive>();
+        }
+
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
+        /// <param name="disposing">Запущено уничтожение?</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+
+                disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Уничтожение объекта.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

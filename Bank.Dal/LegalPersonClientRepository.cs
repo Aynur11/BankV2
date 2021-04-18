@@ -42,15 +42,15 @@ namespace Bank.Dal
                 .Include(d => d.Deposits).ToList();
         }
 
-        public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
+        public void AddAccount(IAccount account)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                var account = new LegalPersonAccount(clientId, currency, amount, rate);
-                context.LegalPersonAccounts.Add(account);
+                LegalPersonAccount legalPersonAccount = (LegalPersonAccount) account;
+                context.LegalPersonAccounts.Add(legalPersonAccount);
                 context.SaveChanges();
-                context.LegalPersonAccountArchives.Add(new LegalPersonAccountArchive(amount, Operation.AddAccount,
+                context.LegalPersonAccountArchives.Add(new LegalPersonAccountArchive(account.Amount, Operation.AddAccount,
                     account.Id));
                 context.SaveChanges();
                 transaction.Commit();

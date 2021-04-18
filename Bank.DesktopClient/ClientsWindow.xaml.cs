@@ -59,7 +59,8 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddAccount(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount);
+                        account = new PhysicalPersonAccount(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount);
+                        repo.AddAccount(account);
                     }
                 }
             }
@@ -82,7 +83,8 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-                        repo.AddAccount(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount);
+                        account = new LegalPersonAccount(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount);
+                        repo.AddAccount(account);
                     }
                 }
             }
