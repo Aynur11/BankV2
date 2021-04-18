@@ -35,25 +35,12 @@ namespace Bank.Dal
 
         public List<PhysicalPersonClient> GetClients()
         {
-            return context.PhysicalPersonClients.Include(a => a.Accounts).ToList();
-        }
-        
-        [Obsolete]
-        public List<PhysicalPersonAccount> GetAllClientAccounts(int clientId)
-        {
-            return context.PhysicalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
-        }
-
-        [Obsolete]
-        public List<PhysicalPersonDeposit> GetAllClientDeposits(int clientId)
-        {
-            return context.PhysicalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
-        }
-
-        [Obsolete]
-        public List<PhysicalPersonCredit> GetAllClientCredits(int clientId)
-        {
-            return context.PhysicalPersonCredits.Where(a => a.ClientId == clientId).ToList();
+            return context
+                .PhysicalPersonClients
+                .Include(a => a.Accounts)
+                .Include(c => c.Credits)
+                .Include(d => d.Deposits)
+                .ToList();
         }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)

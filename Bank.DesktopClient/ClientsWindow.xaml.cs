@@ -190,8 +190,7 @@ namespace Bank.DesktopClient
             using (var legalPersonClientRepo = new LegalPersonClientRepository())
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
-                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = physicalPersonClientRepo.GetAllClientAccounts(client.Id);
-                //moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = client.Accounts;
+                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = client.Accounts;
                 moneyTransferWindow.SenderAccountIdComboBox.DisplayMemberPath = "Id";
 
                 var allClients = new List<IClient>();
@@ -242,7 +241,7 @@ namespace Bank.DesktopClient
             using (var legalPersonClientRepo = new LegalPersonClientRepository())
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
-                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = legalPersonClientRepo.GetAllClientAccounts(client.Id);
+                moneyTransferWindow.SenderAccountIdComboBox.ItemsSource = client.Accounts;
                 moneyTransferWindow.SenderAccountIdComboBox.DisplayMemberPath = "Id";
 
                 var allClients = new List<IClient>();
@@ -389,7 +388,7 @@ namespace Bank.DesktopClient
             creditsWindow.Title = $"Все кредиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientCredits(SelectedPhysicalPersonClient.Id);
+                creditsWindow.CreditsDataGrid.DataContext = SelectedPhysicalPersonClient.Credits;
                 creditsWindow.ShowDialog();
             }
         }
@@ -405,7 +404,7 @@ namespace Bank.DesktopClient
             creditsWindow.Title = $"Все кредиты клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                creditsWindow.CreditsDataGrid.DataContext = repo.GetAllClientCredits(SelectedLegalPersonClient.Id);
+                creditsWindow.CreditsDataGrid.DataContext = SelectedLegalPersonClient.Credits;
                 creditsWindow.ShowDialog();
             }
         }
@@ -421,7 +420,7 @@ namespace Bank.DesktopClient
             depositsWindow.Title = $"Все деопзиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                depositsWindow.DepositsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedPhysicalPersonClient.Id);
+                depositsWindow.DepositsDataGrid.DataContext = SelectedPhysicalPersonClient.Deposits;
                 depositsWindow.ShowDialog();
             }
         }
@@ -436,7 +435,7 @@ namespace Bank.DesktopClient
             depositsWindow.Title = $"Все деопзиты клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                depositsWindow.DepositsDataGrid.DataContext = repo.GetAllClientDeposits(SelectedLegalPersonClient.Id);
+                depositsWindow.DepositsDataGrid.DataContext = SelectedLegalPersonClient.Deposits;
                 depositsWindow.ShowDialog();
             }
         }
@@ -452,7 +451,7 @@ namespace Bank.DesktopClient
             accountsWindow.Title = $"Все счета клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
-                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedPhysicalPersonClient.Id);
+                accountsWindow.AccountsDataGrid.DataContext = SelectedPhysicalPersonClient.Accounts;
                 accountsWindow.ShowDialog();
             }
         }
@@ -468,7 +467,7 @@ namespace Bank.DesktopClient
             accountsWindow.Title = $"Все счета клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {
-                accountsWindow.AccountsDataGrid.DataContext = repo.GetAllClientAccounts(SelectedLegalPersonClient.Id);
+                accountsWindow.AccountsDataGrid.DataContext = SelectedLegalPersonClient.Accounts;
                 accountsWindow.ShowDialog();
             }
         }

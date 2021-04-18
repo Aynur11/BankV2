@@ -35,21 +35,11 @@ namespace Bank.Dal
 
         public List<LegalPersonClient> GetClients()
         {
-            return context.LegalPersonClients.Include(a => a.Accounts).ToList();
-        }
-
-        public List<LegalPersonAccount> GetAllClientAccounts(int clientId)
-        {
-            return context.LegalPersonAccounts.Where(a => a.ClientId == clientId).ToList();
-        }
-
-        public List<LegalPersonDeposit> GetAllClientDeposits(int clientId)
-        {
-            return context.LegalPersonDeposits.Where(a => a.ClientId == clientId).ToList();
-        }
-        public List<LegalPersonCredit> GetAllClientCredits(int clientId)
-        {
-            return context.LegalPersonCredits.Where(a => a.ClientId == clientId).ToList();
+            return context
+                .LegalPersonClients
+                .Include(a => a.Accounts)
+                .Include(c => c.Credits)
+                .Include(d => d.Deposits).ToList();
         }
 
         public void AddAccount(int clientId, Currency currency, decimal amount, decimal rate = 0)
