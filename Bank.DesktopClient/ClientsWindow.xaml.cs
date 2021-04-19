@@ -4,6 +4,7 @@ using Bank.Dal.Accounts;
 using Bank.Dal.Clients;
 using Bank.Dal.Exceptions;
 using Bank.DesktopClient.AddingAccountWindow;
+using Bank.DesktopClient.AddingLegalPersonCredit;
 using Bank.DesktopClient.LegalPersonClientWindow;
 using Bank.DesktopClient.PhysicalPersonClientWindow;
 using System;
@@ -12,7 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using Bank.DesktopClient.AddingCredit;
+using Bank.DesktopClient.AddingPhysicalPersonCredit;
 
 namespace Bank.DesktopClient
 {
@@ -145,13 +146,13 @@ namespace Bank.DesktopClient
             {
                 PhysicalPersonClient client = (PhysicalPersonClient)PhysicalPersonsDataGrid.SelectedItem;
                 IAccount account = new PhysicalPersonCredit();
-                AddingCreditWindow addingCreditWindow = new AddingCreditWindow(account, client.Id);
+                AddingPhysicalPersonCreditWindow addingPhysicalPersonCreditWindow = new AddingPhysicalPersonCreditWindow(account, client.Id);
 
-                if (addingCreditWindow.ShowDialog() == true)
+                if (addingPhysicalPersonCreditWindow.ShowDialog() == true)
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddCredit(client.Id, addingCreditWindow.GetAccount.Currency, addingCreditWindow.GetAccount.Amount, addingCreditWindow.Period,
+                        repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
                             rate.CalcPhysicalPersonCreditRate(client.Type));
                     }
                 }
@@ -168,13 +169,13 @@ namespace Bank.DesktopClient
             {
                 LegalPersonClient client = (LegalPersonClient)LegalPersonsDataGrid.SelectedItem;
                 IAccount account = new LegalPersonCredit();
-                AddingCreditWindow addingCreditWindow = new AddingCreditWindow(account, client.Id);
-                if (addingCreditWindow.ShowDialog() == true)
+                AddingLegalPersonCreditWindow addingPhysicalPersonCreditWindow = new AddingLegalPersonCreditWindow(account, client.Id);
+                if (addingPhysicalPersonCreditWindow.ShowDialog() == true)
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
 
-                        repo.AddCredit(client.Id, addingCreditWindow.Currency, addingCreditWindow.GetAccount.Amount, addingCreditWindow.Period,
+                        repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
                             rate.CalcLegalPersonCreditRate(client.Type));
                     }
                 }

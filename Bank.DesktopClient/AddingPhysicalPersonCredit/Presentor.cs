@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bank.Dal.Accounts;
-using Bank.DesktopClient.AddingCredit;
+﻿using Bank.Dal.Accounts;
 
-namespace Bank.DesktopClient.AddingCredit
+namespace Bank.DesktopClient.AddingPhysicalPersonCredit
 {
     public class Presentor
     {

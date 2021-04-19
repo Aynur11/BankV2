@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Bank.Dal.Accounts;
+using System;
 using System.Windows;
-using Bank.Dal.Accounts;
 
-namespace Bank.DesktopClient.AddingCredit
+namespace Bank.DesktopClient.AddingPhysicalPersonCredit
 {
     /// <summary>
-    /// Interaction logic for AddingCreditWindow.xaml
+    /// Interaction logic for AddingPhysicalPersonCreditWindow.xaml
     /// </summary>
-    public partial class AddingCreditWindow : Window, IView
+    public partial class AddingPhysicalPersonCreditWindow : Window, IView
     {
         private Presentor presentor;
         private IAccount account;
         private int clientId;
 
-        public AddingCreditWindow(IAccount account, int clientId)
+        public AddingPhysicalPersonCreditWindow(IAccount account, int clientId)
         {
             InitializeComponent();
             Title = "Данные для открытия/выдачи вклада/кредита";

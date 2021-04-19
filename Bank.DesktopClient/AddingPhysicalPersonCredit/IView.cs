@@ -1,6 +1,6 @@
 ﻿using Bank.Dal.Accounts;
 
-namespace Bank.DesktopClient.AddingCredit
+namespace Bank.DesktopClient.AddingPhysicalPersonCredit
 {
     public interface IView
     {
@@ -19,7 +19,9 @@ namespace Bank.DesktopClient.AddingCredit
         /// </summary>
         Currency Currency { get; }
 
-
+        /// <summary>
+        /// Получить счет.
+        /// </summary>
         IAccount GetAccount { get; }
     }
 }

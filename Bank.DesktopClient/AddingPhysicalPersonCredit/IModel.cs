@@ -1,6 +1,6 @@
 ﻿using Bank.Dal.Accounts;
 
-namespace Bank.DesktopClient.AddingCredit
+namespace Bank.DesktopClient.AddingPhysicalPersonCredit
 {
     public interface IModel
     {
