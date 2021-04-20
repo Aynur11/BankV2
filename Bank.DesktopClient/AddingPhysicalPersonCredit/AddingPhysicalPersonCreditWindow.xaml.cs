@@ -38,9 +38,11 @@ namespace Bank.DesktopClient.AddingPhysicalPersonCredit
         /// </summary>
         public Currency Currency => (Currency)CurrenciesComboBox.SelectedItem;
 
+        /// <summary>
+        /// Получить счет.
+        /// </summary>
         public IAccount GetAccount => presentor.GetAccount;
-
-
+        
         /// <summary>
         /// Предварительная проверка что значение является типом Double.
         /// </summary>

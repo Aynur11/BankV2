@@ -10,6 +10,7 @@
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Show credit history" Click="ShowCreditHistoryMenuItem_OnClick"></MenuItem>
+                <MenuItem Header="Close credit" Click="CloseCreditMenuItem_OnClick"></MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
         <DataGrid

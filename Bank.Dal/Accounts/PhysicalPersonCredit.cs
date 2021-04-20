@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bank.Dal.Clients;
 
 namespace Bank.Dal.Accounts
@@ -27,6 +28,8 @@ namespace Bank.Dal.Accounts
             Amount = amount;
             Period = period;
             Rate = rate;
+            OpenDate = DateTime.Now;
+
         }
 
         /// <summary>
@@ -45,6 +48,7 @@ namespace Bank.Dal.Accounts
             Period = period;
             Client = client;
             Rate = rate;
+            OpenDate = DateTime.Now;
         }
 
         /// <summary>
@@ -83,5 +87,11 @@ namespace Bank.Dal.Accounts
         /// </summary>
         [ForeignKey(nameof(ClientId))]
         public PhysicalPersonClient Client { get; set; }
+
+        public DateTime OpenDate { get; }
+
+        public bool HasOverdue => (DateTime.Now - OpenDate).TotalDays / 30.4 > Period && !HasClosed;
+
+        public bool HasClosed { get; set; } = false;
     }
 }

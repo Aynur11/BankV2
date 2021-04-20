@@ -9,7 +9,6 @@ namespace Bank.Dal
 {
     public class NullRepository : IRepositoryHistory
     {
-        private bool disposed;
         private readonly BankContext context;
 
         public NullRepository()
@@ -20,7 +19,7 @@ namespace Bank.Dal
 
         public List<IAccountArchive> GetDepositHistory(int accountId)
         {
-            throw new NotImplementedException();
+            return new List<IAccountArchive>();
         }
 
         public List<IAccountArchive> GetCreditHistory(int accountId)
@@ -39,15 +38,6 @@ namespace Bank.Dal
         /// <param name="disposing">Запущено уничтожение?</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-
-                disposed = true;
-            }
         }
 
         /// <summary>
@@ -55,8 +45,6 @@ namespace Bank.Dal
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

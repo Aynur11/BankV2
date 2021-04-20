@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using Bank.Dal.Accounts.PhysicalPersonCreditStates;
 using Bank.DesktopClient.AddingPhysicalPersonCredit;
 
 namespace Bank.DesktopClient
@@ -22,16 +23,18 @@ namespace Bank.DesktopClient
     /// </summary>
     public partial class ClientsWindow : Window, INotifyPropertyChanged
     {
+        private Context context;
         public ObservableCollection<PhysicalPersonClient> PhysicalPersonClients { get; set; }
         public PhysicalPersonClient SelectedPhysicalPersonClient { get; set; }
         public ObservableCollection<LegalPersonClient> LegalPersonClients { get; set; }
         public LegalPersonClient SelectedLegalPersonClient { get; set; }
-        private readonly IRate rate;
 
+        private readonly IRate rate;
         public ClientsWindow(IRate rate)
         {
-            this.rate = rate;
             InitializeComponent();
+            this.rate = rate;
+            context = new Context(new RepaidState());
             //TestData testData = new TestData();
             //testData.FillAllTables();
             using (var repo = new PhysicalPersonClientRepository())
@@ -62,6 +65,7 @@ namespace Bank.DesktopClient
                     {
                         account = new PhysicalPersonAccount(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount);
                         repo.AddAccount(account);
+                        SelectedPhysicalPersonClient.Accounts.Add((PhysicalPersonAccount)account);
                     }
                 }
             }
@@ -150,11 +154,14 @@ namespace Bank.DesktopClient
 
                 if (addingPhysicalPersonCreditWindow.ShowDialog() == true)
                 {
-                    using (var repo = new PhysicalPersonClientRepository())
-                    {
-                        repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
-                            rate.CalcPhysicalPersonCreditRate(client.Type));
-                    }
+                    context = new Context(new IssuedState());
+                    context.IssueCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
+                        addingPhysicalPersonCreditWindow.Period, rate.CalcPhysicalPersonCreditRate(client.Type));
+                    //using (var repo = new PhysicalPersonClientRepository())
+                    //{
+                    //    repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
+                    //        rate.CalcPhysicalPersonCreditRate(client.Type));
+                    //}
                 }
             }
             else
@@ -387,7 +394,7 @@ namespace Bank.DesktopClient
                 MessageBox.Show("Выберите клиента корректным образом!");
                 return;
             }
-            var creditsWindow = new CreditsWindow();
+            var creditsWindow = new CreditsWindow(context);
             creditsWindow.Title = $"Все кредиты клиента: {SelectedPhysicalPersonClient.DisplayName}";
             using (var repo = new PhysicalPersonClientRepository())
             {
@@ -403,7 +410,7 @@ namespace Bank.DesktopClient
                 MessageBox.Show("Выберите клиента корректным образом!");
                 return;
             }
-            var creditsWindow = new CreditsWindow();
+            var creditsWindow = new CreditsWindow(context);
             creditsWindow.Title = $"Все кредиты клиента: {SelectedLegalPersonClient.DisplayName}";
             using (var repo = new LegalPersonClientRepository())
             {

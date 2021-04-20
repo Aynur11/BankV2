@@ -97,7 +97,6 @@ namespace Bank.Dal
             {
                 throw new Exception($"Произошла ошибка при добавлении счета: {e.Message}");
             }
-
         }
 
         public void AddClient(PhysicalPersonClient client)
@@ -114,7 +113,7 @@ namespace Bank.Dal
         {
             context.SaveChanges();
         }
-
+        
         public void Update(PhysicalPersonClient client)
         {
             context.Update(client);
