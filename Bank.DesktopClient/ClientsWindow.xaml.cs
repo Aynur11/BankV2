@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Bank.Dal.Accounts.PhysicalPersonCreditStates;
 using Bank.DesktopClient.AddingPhysicalPersonCredit;
 
@@ -156,12 +157,9 @@ namespace Bank.DesktopClient
                 {
                     context = new Context(new IssuedState());
                     context.IssueCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
-                        addingPhysicalPersonCreditWindow.Period, rate.CalcPhysicalPersonCreditRate(client.Type));
-                    //using (var repo = new PhysicalPersonClientRepository())
-                    //{
-                    //    repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
-                    //        rate.CalcPhysicalPersonCreditRate(client.Type));
-                    //}
+                        addingPhysicalPersonCreditWindow.Period, rate: rate.CalcPhysicalPersonCreditRate(client.Type));
+                    SelectedPhysicalPersonClient.Credits.Add(new PhysicalPersonCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
+                        addingPhysicalPersonCreditWindow.Period, rate: rate.CalcPhysicalPersonCreditRate(client.Type)));
                 }
             }
             else

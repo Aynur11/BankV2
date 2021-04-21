@@ -39,11 +39,39 @@ namespace Bank.DesktopClient
             var account = (IAccount)CreditsDataGrid.SelectedValue;
             context.CloseCredit(account);
             DataGridRow row =
-                (DataGridRow) CreditsDataGrid.ItemContainerGenerator.ContainerFromItem(CreditsDataGrid.SelectedItem);
+                (DataGridRow)CreditsDataGrid.ItemContainerGenerator.ContainerFromItem(CreditsDataGrid.SelectedItem);
 
             var color = context.SetColor();
             System.Windows.Media.Color newColor = System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
             row.Background = new SolidColorBrush(newColor);
+        }
+
+        private void CreditsDataGrid_OnLoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            if (e.Row.DataContext is LegalPersonCredit)
+            {
+                return;
+            }
+
+            var row = e.Row;
+            var credit = row.DataContext as PhysicalPersonCredit;
+            if (Equals(sender, CreditsDataGrid))
+            {
+                if (credit.HasClosed)
+                {
+                    row.Background = new SolidColorBrush(Colors.Gray);
+                }
+                if (!credit.HasClosed)
+                {
+                    row.Background = new SolidColorBrush(Colors.Green);
+                }
+
+                if (credit.HasOverdue)
+                {
+                    row.Background = new SolidColorBrush(Colors.Red);
+                }
+
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using Bank.Dal.Clients;
 
 namespace Bank.Dal.Accounts
@@ -20,6 +21,7 @@ namespace Bank.Dal.Accounts
         /// <param name="currency">Валюта.</param>
         /// <param name="amount">Сумма денег.</param>
         /// <param name="period">Период действия кредита в месяцах.</param>
+        /// <param name="openDate">Дата открытия.</param>
         /// <param name="rate">Ставка в процентах.</param>
         public PhysicalPersonCredit(int clientId, Currency currency, decimal amount, int period, decimal rate = 0)
         {
@@ -28,8 +30,7 @@ namespace Bank.Dal.Accounts
             Amount = amount;
             Period = period;
             Rate = rate;
-            OpenDate = DateTime.Now;
-
+            OpenDateTime = DateTime.Now;
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Bank.Dal.Accounts
             Period = period;
             Client = client;
             Rate = rate;
-            OpenDate = DateTime.Now;
+            OpenDateTime = DateTime.Now;
         }
 
         /// <summary>
@@ -88,10 +89,10 @@ namespace Bank.Dal.Accounts
         [ForeignKey(nameof(ClientId))]
         public PhysicalPersonClient Client { get; set; }
 
-        public DateTime OpenDate { get; }
-
-        public bool HasOverdue => (DateTime.Now - OpenDate).TotalDays / 30.4 > Period && !HasClosed;
+        public bool HasOverdue => (DateTime.Now - OpenDateTime).TotalDays / 30.4 > Period && !HasClosed;
 
         public bool HasClosed { get; set; } = false;
+
+        public DateTime OpenDateTime { get; set; }
     }
 }
