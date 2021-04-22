@@ -31,7 +31,7 @@ namespace Bank.Dal
         /// <param name="amount">Сумма денег для выдачи.</param>
         /// <param name="period"></param>
         /// <param name="rate">Ставка в процентах.</param>
-        void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate);
+        void AddCredit(IAccount account);
 
         /// <summary>
         /// Открыть депозит.
@@ -42,7 +42,7 @@ namespace Bank.Dal
         /// <param name="period"></param>
         /// <param name="withCapitalization">С капитализацией?</param>
         /// <param name="rate">Ставка в процентах.</param>
-        void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate);
+        void AddDeposit(IAccount account);
         
         ///// <summary>
         ///// Возвращает все счета клиента.

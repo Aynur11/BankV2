@@ -17,6 +17,9 @@ namespace Bank.Dal.Clients
             MiddleName = middleName;
             Birthday = birthday;
             Type = type;
+            Accounts= new List<PhysicalPersonAccount>();
+            Credits = new List<PhysicalPersonCredit>();
+            Deposits= new List<PhysicalPersonDeposit>();
         }
         /// <summary>
         /// Идентификатор.

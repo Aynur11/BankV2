@@ -12,6 +12,9 @@ namespace Bank.Dal.Clients
         {
             CompanyName = companyName;
             Type = type;
+            Accounts = new List<LegalPersonAccount>();
+            Credits = new List<LegalPersonCredit>();
+            Deposits = new List<LegalPersonDeposit>();
         }
         /// <summary>
         /// Идентификатор.

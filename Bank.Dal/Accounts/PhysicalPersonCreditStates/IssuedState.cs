@@ -4,11 +4,11 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
 {
     public class IssuedState : State
     {
-        public override Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public override Color IssueCredit(PhysicalPersonCredit credit)
         {
             using (var repo = new PhysicalPersonClientRepository())
             {
-                repo.AddCredit(clientId, currency, amount, period, rate);
+                repo.AddCredit(credit);
             }
 
             return Color.Green;

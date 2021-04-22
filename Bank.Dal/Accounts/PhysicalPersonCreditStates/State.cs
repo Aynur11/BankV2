@@ -12,7 +12,7 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
         }
 
         public Color Color { get; set; }
-        public abstract Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate);
+        public abstract Color IssueCredit(PhysicalPersonCredit credit);
         public abstract Color CloseCredit(IAccount account);
     }
 }

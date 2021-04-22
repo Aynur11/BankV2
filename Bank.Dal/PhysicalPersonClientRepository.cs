@@ -62,15 +62,14 @@ namespace Bank.Dal
             }
         }
 
-        public void AddCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public void AddCredit(IAccount credit)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                var credit = new PhysicalPersonCredit(clientId, currency, amount, period, rate);
-                context.PhysicalPersonCredits.Add(credit);
+                context.PhysicalPersonCredits.Add((PhysicalPersonCredit)credit);
                 context.SaveChanges();
-                context.PhysicalPersonCreditArchive.Add(new PhysicalPersonCreditArchive(amount, Operation.AddCredit,
+                context.PhysicalPersonCreditArchive.Add(new PhysicalPersonCreditArchive(credit.Amount, Operation.AddCredit,
                     credit.Id));
                 context.SaveChanges();
                 transaction.Commit();
@@ -81,15 +80,14 @@ namespace Bank.Dal
             }
         }
 
-        public void AddDeposit(int clientId, Currency currency, decimal amount, int period, bool withCapitalization, decimal rate)
+        public void AddDeposit(IAccount deposit)
         {
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                var deposit = new PhysicalPersonDeposit(clientId, currency, amount, period, withCapitalization, rate);
-                context.PhysicalPersonDeposits.Add(deposit);
+                context.PhysicalPersonDeposits.Add((PhysicalPersonDeposit)deposit);
                 context.SaveChanges();
-                context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(amount, Operation.AddDeposit, deposit.Id));
+                context.PhysicalPersonDepositArchives.Add(new PhysicalPersonDepositArchive(deposit.Amount, Operation.AddDeposit, deposit.Id));
                 context.SaveChanges();
                 transaction.Commit();
             }

@@ -17,9 +17,9 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
             state.ChangeContext(this);
         }
 
-        public Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public Color IssueCredit(PhysicalPersonCredit credit)
         {
-            return state.IssueCredit(clientId, currency, amount, period, rate);
+            return state.IssueCredit(credit);
         }
 
         public Color CloseCredit(IAccount account)

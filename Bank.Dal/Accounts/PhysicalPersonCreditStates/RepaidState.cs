@@ -4,7 +4,7 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
 {
     public class RepaidState : State
     {
-        public override Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public override Color IssueCredit(PhysicalPersonCredit credit)
         {
             context.ChangeTo(new IssuedState());
             return Color.Green;

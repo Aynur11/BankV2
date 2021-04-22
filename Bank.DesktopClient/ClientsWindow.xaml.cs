@@ -111,8 +111,9 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new PhysicalPersonClientRepository())
                     {
-                        repo.AddDeposit(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
+                        var deposit = new PhysicalPersonDeposit(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
                             accountWindow.WithCapitalization, rate.CalcPhysicalPersonDepositRate(client.Type));
+                        repo.AddDeposit(deposit);
                     }
                 }
             }
@@ -133,8 +134,9 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-                        repo.AddDeposit(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
+                        var deposit = new LegalPersonDeposit(client.Id, accountWindow.GetAccount.Currency, accountWindow.GetAccount.Amount, accountWindow.Period,
                             accountWindow.WithCapitalization, rate.CalcLegalPersonDepositRate(client.Type));
+                        repo.AddDeposit(deposit);
                     }
                 }
             }
@@ -155,10 +157,10 @@ namespace Bank.DesktopClient
 
                 if (addingPhysicalPersonCreditWindow.ShowDialog() == true)
                 {
-                    context.IssueCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
-                        addingPhysicalPersonCreditWindow.Period, rate: rate.CalcPhysicalPersonCreditRate(client.Type));
-                    SelectedPhysicalPersonClient.Credits.Add(new PhysicalPersonCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
-                        addingPhysicalPersonCreditWindow.Period, rate: rate.CalcPhysicalPersonCreditRate(client.Type)));
+                    var credit = new PhysicalPersonCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
+                        addingPhysicalPersonCreditWindow.Period, rate.CalcPhysicalPersonCreditRate(client.Type));
+                    context.IssueCredit(credit);
+                    SelectedPhysicalPersonClient.Credits.Add(credit);
                 }
             }
             else
@@ -178,9 +180,9 @@ namespace Bank.DesktopClient
                 {
                     using (var repo = new LegalPersonClientRepository())
                     {
-
-                        repo.AddCredit(client.Id, addingPhysicalPersonCreditWindow.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
+                        var credit = new LegalPersonCredit(client.Id, addingPhysicalPersonCreditWindow.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount, addingPhysicalPersonCreditWindow.Period,
                             rate.CalcLegalPersonCreditRate(client.Type));
+                        repo.AddCredit(credit);
                     }
                 }
             }

@@ -21,5 +21,10 @@
         /// Привязка счета к валюте.
         /// </summary>
         Currency Currency { get; set; }
+
+        /// <summary>
+        /// Ставка.
+        /// </summary>
+        decimal Rate { get; set; }
     }
 }
