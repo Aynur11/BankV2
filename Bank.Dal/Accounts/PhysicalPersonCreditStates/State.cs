@@ -11,8 +11,8 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
             this.context = context;
         }
 
-        public abstract Color SetColor();
-        public abstract void IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate);
-        public abstract void CloseCredit(IAccount account);
+        public Color Color { get; set; }
+        public abstract Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate);
+        public abstract Color CloseCredit(IAccount account);
     }
 }

@@ -35,7 +35,7 @@ namespace Bank.DesktopClient
         {
             InitializeComponent();
             this.rate = rate;
-            context = new Context(new RepaidState());
+            context = new Context(new IssuedState());
             //TestData testData = new TestData();
             //testData.FillAllTables();
             using (var repo = new PhysicalPersonClientRepository())
@@ -155,7 +155,6 @@ namespace Bank.DesktopClient
 
                 if (addingPhysicalPersonCreditWindow.ShowDialog() == true)
                 {
-                    context = new Context(new IssuedState());
                     context.IssueCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,
                         addingPhysicalPersonCreditWindow.Period, rate: rate.CalcPhysicalPersonCreditRate(client.Type));
                     SelectedPhysicalPersonClient.Credits.Add(new PhysicalPersonCredit(client.Id, addingPhysicalPersonCreditWindow.GetAccount.Currency, addingPhysicalPersonCreditWindow.GetAccount.Amount,

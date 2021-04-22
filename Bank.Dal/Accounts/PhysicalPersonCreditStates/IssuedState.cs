@@ -4,22 +4,20 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
 {
     public class IssuedState : State
     {
-        public override Color SetColor()
-        {
-            return Color.Green;
-        }
-
-        public override void IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public override Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
             using (var repo = new PhysicalPersonClientRepository())
             {
                 repo.AddCredit(clientId, currency, amount, period, rate);
             }
+
+            return Color.Green;
         }
 
-        public override void CloseCredit(IAccount account)
+        public override Color CloseCredit(IAccount account)
         {
-
+            context.ChangeTo(new RepaidState());
+            return Color.Gray;
         }
     }
 }

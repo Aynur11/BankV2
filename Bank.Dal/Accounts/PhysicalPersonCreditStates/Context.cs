@@ -14,21 +14,17 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
         public void ChangeTo(State state)
         {
             this.state = state;
+            state.ChangeContext(this);
         }
 
-        public Color SetColor()
+        public Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
-            return state.SetColor();
+            return state.IssueCredit(clientId, currency, amount, period, rate);
         }
 
-        public void IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public Color CloseCredit(IAccount account)
         {
-            state.IssueCredit(clientId, currency, amount, period, rate);
-        }
-
-        public void CloseCredit(IAccount account)
-        {
-            state.CloseCredit(account);
+            return state.CloseCredit(account);
         }
     }
 }

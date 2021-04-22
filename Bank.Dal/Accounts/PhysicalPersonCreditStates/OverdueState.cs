@@ -4,20 +4,14 @@ namespace Bank.Dal.Accounts.PhysicalPersonCreditStates
 {
     public class OverdueState : State
     {
-        public override Color SetColor()
+        public override Color IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
         {
-            return Color.Red;
+            return Color.Green;
         }
 
-        public override void IssueCredit(int clientId, Currency currency, decimal amount, int period, decimal rate)
+        public override Color CloseCredit(IAccount account)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void CloseCredit(IAccount account)
-        {
-            throw new System.NotImplementedException();
-
+            return Color.Gray;
         }
     }
 }

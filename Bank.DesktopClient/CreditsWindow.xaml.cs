@@ -41,7 +41,7 @@ namespace Bank.DesktopClient
             DataGridRow row =
                 (DataGridRow)CreditsDataGrid.ItemContainerGenerator.ContainerFromItem(CreditsDataGrid.SelectedItem);
 
-            var color = context.SetColor();
+            var color = context.CloseCredit(account);
             System.Windows.Media.Color newColor = System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
             row.Background = new SolidColorBrush(newColor);
         }
