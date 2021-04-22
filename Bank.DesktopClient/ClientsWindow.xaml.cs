@@ -345,7 +345,7 @@ namespace Bank.DesktopClient
             {
                 using (var repo = new PhysicalPersonClientRepository())
                 {
-                    if (!DateTime.TryParse(addingClientWindow.BirthdayTextBox.Text, out var birthday))
+                    if (!DateTime.TryParse(addingClientWindow.BirthdayDatePicker.Text, out var birthday))
                     {
                         MessageBox.Show("Ошибка ввода дня рождения");
                         return;
@@ -356,7 +356,7 @@ namespace Bank.DesktopClient
                         : ClientType.Usual;
 
                     var client = new PhysicalPersonClient(addingClientWindow.FirstNameTextBox.Text, 
-                        addingClientWindow.LastNameTextBox.Text, 
+                        addingClientWindow.MiddleNameTextBox.Text, 
                         addingClientWindow.LastNameTextBox.Text,
                         birthday,
                         clientType);
